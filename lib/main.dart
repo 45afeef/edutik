@@ -3,15 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'utils/locale/locale.dart';
+import 'utils/shared_prefs.dart';
 import 'utils/theme/theme.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await SharedPrefsUtil().init();
+
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
 
   @override
   Widget build(BuildContext context) {

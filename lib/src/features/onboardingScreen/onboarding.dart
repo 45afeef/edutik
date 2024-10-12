@@ -1,3 +1,4 @@
+import 'package:edukit/utils/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
@@ -17,6 +18,20 @@ class OnboardingPage extends StatefulWidget {
 }
 
 class OnboardingPageState extends State<OnboardingPage> {
+  @override
+  void initState() {
+    // TODO - Validate whether we should check this here or before navigation to this page
+    SharedPrefsUtil.isOnboardingShown().then(
+      (value) {
+        if (value) {
+          Get.offAllNamed(widget.fallbackPage);
+        }
+      },
+    );
+
+    super.initState();
+  }
+
   final PageController _pageController = PageController();
   int _currentPage = 0;
   bool _fade = true;
@@ -121,12 +136,13 @@ class OnboardingPageState extends State<OnboardingPage> {
             right: 20,
             child: ElevatedButton(
               onPressed: () {
-                if (_currentPage < onboardingData.length - 1) {
+                if (_currentPage >= onboardingData.length) {
                   _pageController.nextPage(
                     duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeIn,
+                    curve: Curves.decelerate,
                   );
                 } else {
+                  SharedPrefsUtil.setOnboardingShown(true);
                   Get.offAllNamed(widget.completionPage);
                 }
               },
