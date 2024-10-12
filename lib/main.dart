@@ -1,5 +1,4 @@
 import 'package:edukit/utils/routes.dart';
-import 'package:edukit/utils/theme/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,20 +6,19 @@ import 'utils/locale/locale.dart';
 import 'utils/theme/theme.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
-  final ThemeController _themeController = Get.put(ThemeController());
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'EduTik',
-      initialRoute: AppRoute.home,
+      initialRoute: AppRoute.onboarding,
       getPages: AppRoute.routes,
       theme: lightTheme,
       darkTheme: darkTheme,
