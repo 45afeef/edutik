@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "854440408795",
+    "project_id": "edutik",
+    "storage_bucket": "edutik.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854440408795:android:4559075459057779893efe",
+        "android_client_info": {
+          "package_name": "com.edukit.social.edukit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "854440408795-qvm9tk6o4d7f4tjpeamdghfnq2eh05ii.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAs1x2R6SKkap3HWoMZrVhafkFW404jg2A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "854440408795-qvm9tk6o4d7f4tjpeamdghfnq2eh05ii.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
