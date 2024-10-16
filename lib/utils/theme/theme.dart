@@ -21,10 +21,15 @@ final ThemeData lightTheme = ThemeData(
       titleLarge: TextStyle(color: Colors.white, fontSize: 20),
     ).titleLarge,
   ),
-  buttonTheme: const ButtonThemeData(
-    buttonColor: Colors.blue,
-    textTheme: ButtonTextTheme.primary,
-  ),
+  indicatorColor: Colors.white,
+  elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+    backgroundColor: Colors.black,
+    foregroundColor: Colors.white,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12),
+    ),
+  )),
 );
 
 final ThemeData darkTheme = ThemeData(
@@ -49,6 +54,15 @@ final ThemeData darkTheme = ThemeData(
   ),
   buttonTheme: const ButtonThemeData(
     buttonColor: Colors.teal,
-    textTheme: ButtonTextTheme.primary,
+    textTheme: ButtonTextTheme.accent,
   ),
+  indicatorColor: Colors.black,
+  elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+    backgroundColor: Colors.white,
+    foregroundColor: Colors.black,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12),
+    ),
+  )),
 );

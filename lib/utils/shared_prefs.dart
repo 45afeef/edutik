@@ -2,7 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefsUtil {
   static final SharedPrefsUtil _instance = SharedPrefsUtil._internal();
-  SharedPreferences? _prefs;
+  late SharedPreferences _prefs;
 
   factory SharedPrefsUtil() {
     return _instance;
@@ -20,8 +20,7 @@ class SharedPrefsUtil {
     prefs.setBool('onboarding_shown', shown);
   }
 
-  static Future<bool> isOnboardingShown() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool('onboarding_shown') ?? false;
+  bool isOnboardingShown() {
+    return _prefs.getBool('onboarding_shown') ?? false;
   }
 }
