@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../utils/shared_prefs.dart';
@@ -28,21 +29,24 @@ class OnboardingPageState extends State<OnboardingPage> {
 
   List<Map<String, String>> onboardingData = [
     {
-      'image':
-          'https://img.freepik.com/free-vector/hand-drawn-flat-design-people-waving-illustration_23-2149226266.jpg?t=st=1728727745~exp=1728731345~hmac=baf96d8fb07c830210898a5175b251036a54c9edf422fc1eb537407a25a667fb&w=996',
+      'image': 'audio_conversation.svg',
       'title': 'Faster Learning',
       'content': "Learn anything in a matter of second's",
     },
     {
-      'image':
-          'https://img.freepik.com/free-vector/college-university-graduates-illustration-afro-american-boy-glasses-girls-students_33099-473.jpg?t=st=1728728630~exp=1728732230~hmac=5a4624447d19a9ed4cc5aac65bb2875226d59d858679ed13e0b70569b336bcd4&w=740',
+      'image': 'educator.svg',
       'title': 'Expert Creators',
       'content':
           'Your teachers are not jsut Content Creators but experts and passionate mentors'
     },
     {
-      'image':
-          'https://img.freepik.com/free-vector/schoolboy-standing-books-raising-hand-speaking-pupil-reading-home-task-report-flat-vector-illustration-school-education-knowledge_74855-8576.jpg?t=st=1728728615~exp=1728732215~hmac=709de477cd747e35faa0ea6091ad46c474348aaed26cf22420ecf225cf98d5a2&w=740',
+      'image': 'favourite_item.svg',
+      'title': 'Earn while you learn',
+      'content':
+          'Share your expertize, Offer Mentorship and Teach the World. We will pay for you'
+    },
+    {
+      'image': 'team_effort.svg',
       'title': 'Earn while you learn',
       'content':
           'Share your expertize, Offer Mentorship and Teach the World. We will pay for you'
@@ -56,7 +60,7 @@ class OnboardingPageState extends State<OnboardingPage> {
         children: [
           // Dot Indicator
           Positioned(
-            top: 50,
+            top: 100,
             width: MediaQuery.of(context).size.width,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -65,7 +69,8 @@ class OnboardingPageState extends State<OnboardingPage> {
                 (index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Container(
+                    child: AnimatedContainer(
+                      duration: 300.ms,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         color: index == _currentPage
@@ -73,7 +78,7 @@ class OnboardingPageState extends State<OnboardingPage> {
                             : Colors.lightBlueAccent,
                       ),
                       width: index == _currentPage ? 50 : 10,
-                      height: 5,
+                      height: 10,
                     ),
                   );
                 },
@@ -94,7 +99,8 @@ class OnboardingPageState extends State<OnboardingPage> {
               });
             },
             children: onboardingData
-                .map((item) => Image.network(item['image']!))
+                .map((item) =>
+                    SvgPicture.asset("assets/images/${item['image']}"))
                 .toList(),
           ),
           Positioned(
