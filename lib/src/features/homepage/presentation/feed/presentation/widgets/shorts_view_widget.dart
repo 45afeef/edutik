@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
 import '../domain/shorts_data.dart';
 
@@ -12,31 +13,48 @@ class ShortView extends StatefulWidget {
 }
 
 class _ShortViewState extends State<ShortView> {
+  late VideoPlayerController _controller;
   bool _isExpanded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = VideoPlayerController.networkUrl(Uri.parse(
+        widget.data.videoUrl
+        // 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'
+        ))
+      // _controller = VideoPlayerController.network(widget.data.videoUrl)
+      ..initialize().then((_) {
+        setState(
+            () {}); // Ensure the first frame is shown after the video is initialized
+        _controller.play(); // Auto-play the video
+      });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          color: Colors.black,
-          child: Center(
-            child: AspectRatio(
-              aspectRatio: 16 / 9,
-              child: Container(
-                color: Colors.grey[900],
-                // Add your video player here
-                child: const Center(
-                  child: Text(
-                    'Video Player Placeholder',
-                    style: TextStyle(color: Colors.white),
+        Center(
+          child: _controller.value.isInitialized
+              ? AspectRatio(
+                  aspectRatio: _controller.value.aspectRatio,
+                  child: VideoPlayer(_controller),
+                )
+              : Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  color: Colors.black,
+                  child: const Center(
+                    child: CircularProgressIndicator(),
                   ),
                 ),
-              ),
-            ),
-          ),
         ),
         Positioned(
           bottom: 10,
