@@ -10,7 +10,6 @@ class SigninPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AuthService authService = AuthService();
-
     return Scaffold(
       body: Center(
         child: Padding(
