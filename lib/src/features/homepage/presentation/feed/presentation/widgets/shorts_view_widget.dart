@@ -47,10 +47,9 @@ class _ShortViewState extends State<ShortView> {
                   aspectRatio: _controller.value.aspectRatio,
                   child: VideoPlayer(_controller),
                 )
-              : Container(
+              : SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
-                  color: Colors.black,
                   child: const Center(
                     child: CircularProgressIndicator(),
                   ),
@@ -69,17 +68,13 @@ class _ShortViewState extends State<ShortView> {
                     radius: 20,
                   ),
                   const SizedBox(width: 8),
-                  Text(
-                    widget.data.creatorName,
-                    style: const TextStyle(color: Colors.white),
-                  ),
+                  Text(widget.data.creatorName),
                 ],
               ),
               const SizedBox(height: 8),
               Text(
                 widget.data.title,
                 style: const TextStyle(
-                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
