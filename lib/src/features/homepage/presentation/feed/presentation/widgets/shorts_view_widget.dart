@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 
 import '../domain/shorts_data.dart';
 
-class ShortView extends StatelessWidget {
+class ShortView extends StatefulWidget {
   final ShortsData data;
 
   const ShortView({super.key, required this.data});
+
+  @override
+  State<ShortView> createState() => _ShortViewState();
+}
+
+class _ShortViewState extends State<ShortView> {
+  bool _isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -40,31 +47,43 @@ class ShortView extends StatelessWidget {
               Row(
                 children: [
                   CircleAvatar(
-                    backgroundImage: NetworkImage(data.creatorProfile),
+                    backgroundImage: NetworkImage(widget.data.creatorProfile),
                     radius: 20,
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    data.creatorName,
+                    widget.data.creatorName,
                     style: const TextStyle(color: Colors.white),
                   ),
                 ],
               ),
               const SizedBox(height: 8),
               Text(
-                data.title,
+                widget.data.title,
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 8),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.8,
-                child: Text(
-                  data.description,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _isExpanded = !_isExpanded;
+                  });
+                },
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  width: _isExpanded
+                      ? MediaQuery.of(context).size.width * 0.8
+                      : MediaQuery.of(context).size.width * 0.7,
+                  child: Text(
+                    widget.data.description,
+                    maxLines: _isExpanded ? null : 2,
+                    overflow: _isExpanded
+                        ? TextOverflow.visible
+                        : TextOverflow.ellipsis,
+                  ),
                 ),
               ),
             ],
@@ -78,14 +97,14 @@ class ShortView extends StatelessWidget {
               const Icon(Icons.favorite, color: Colors.white),
               const SizedBox(width: 4),
               Text(
-                data.likes.toString(),
+                widget.data.likes.toString(),
                 style: const TextStyle(color: Colors.white),
               ),
               const SizedBox(height: 30),
               const Icon(Icons.visibility, color: Colors.white),
               const SizedBox(width: 4),
               Text(
-                data.views.toString(),
+                widget.data.views.toString(),
                 style: const TextStyle(color: Colors.white),
               ),
             ],
