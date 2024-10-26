@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'controller.dart';
+import 'home_controller.dart';
 import 'creation/presentation/creationpage.dart';
 import 'feed/presentation/feedpage.dart';
 import 'profile/presentation/profilepage.dart';
