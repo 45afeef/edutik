@@ -15,6 +15,7 @@ class AppTranslations extends Translations {
           'lbl_toggle_theme': 'Toggle Theme',
           'lbl_logout': 'Logout',
           'lbl_cancel': 'Cancel',
+          'lbl_submit': 'Submit',
           'msg_are_you_sure_to_logout': "Are you sure to logout?"
         },
         'hi_IN': {

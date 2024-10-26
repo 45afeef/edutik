@@ -2,12 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'controller.dart';
+import 'widget/shorts_creation_widget.dart';
 
 class CreationPage extends GetWidget<CreationController> {
   const CreationPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return Obx(
+      () {
+        if (!controller.isCreating) return _buildIntentionScreen();
+        return _buildCreationScreen();
+      },
+    );
+  }
+
+  Widget _buildIntentionScreen() {
+    controller.isCreating;
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -22,7 +33,7 @@ class CreationPage extends GetWidget<CreationController> {
             constraints: const BoxConstraints(),
             alignment: Alignment.center,
             onPressed: () {
-              controller;
+              controller.isCreating = true;
             },
           ),
           const SizedBox(height: 10),
@@ -31,5 +42,9 @@ class CreationPage extends GetWidget<CreationController> {
         ],
       ),
     );
+  }
+
+  Widget _buildCreationScreen() {
+    return const ShortsCreationWidget();
   }
 }

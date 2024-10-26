@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../src/features/authentication/auth_middleware.dart';
 import '../src/features/authentication/signinpage.dart';
 import '../src/features/homepage/bindings/home_binding.dart';
+import '../src/features/homepage/presentation/creation/application/creation_binding.dart';
 import '../src/features/homepage/presentation/creation/presentation/creationpage.dart';
 import '../src/features/homepage/presentation/feed/presentation/feedpage.dart';
 import '../src/features/homepage/presentation/homepage.dart';
@@ -22,18 +23,25 @@ class AppRoute {
 
   static final List<GetPage> routes = [
     GetPage(
-        name: home,
-        page: () => const HomePage(),
-        middlewares: [
-          OnboardingMiddleware(),
-          AuthMiddleware(),
-        ],
-        binding: HomeBinding(),
-        children: [
-          GetPage(name: feedPage, page: () => const FeedPage()),
-          GetPage(name: creationPage, page: () => const CreationPage()),
-          GetPage(name: profilePage, page: () => const ProfilePage()),
-        ]),
+      name: home,
+      page: () => const HomePage(),
+      middlewares: [
+        OnboardingMiddleware(),
+        AuthMiddleware(),
+      ],
+      bindings: [
+        HomeBinding(),
+        CreationBinding(),
+      ],
+      children: [
+        GetPage(name: feedPage, page: () => const FeedPage()),
+        GetPage(
+          name: creationPage,
+          page: () => const CreationPage(),
+        ),
+        GetPage(name: profilePage, page: () => const ProfilePage()),
+      ],
+    ),
     GetPage(name: onboarding, page: () => const OnboardingPage()),
     GetPage(name: signUp, page: () => const SigninPage()),
     GetPage(name: signIn, page: () => const SigninPage()),

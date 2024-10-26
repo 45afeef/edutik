@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+int _initialPage = 0;
+
 class HomeController extends GetxController {
-  RxInt currentPageIndex = 0.obs;
+  final RxInt currentPageIndex = _initialPage.obs;
 
-  final PageController tabsController = PageController();
-
-  
+  PageController tabsController = PageController(initialPage: _initialPage);
 }
