@@ -15,16 +15,18 @@ class CreationPage extends GetWidget<CreationController> {
           IconButton.outlined(
             icon: const Icon(Icons.add),
             enableFeedback: true,
-            tooltip: "Create EduTik",
+            tooltip: "lbl_create".tr,
             padding: const EdgeInsets.all(24),
             iconSize: 24.0,
             splashRadius: 28.0,
             constraints: const BoxConstraints(),
             alignment: Alignment.center,
-            onPressed: () {},
+            onPressed: () {
+              controller;
+            },
           ),
           const SizedBox(height: 10),
-          const Text("Create"),
+          Text("lbl_create".tr),
           Text("EduTik", style: Get.textTheme.bodyLarge)
         ],
       ),
