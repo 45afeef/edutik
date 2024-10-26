@@ -24,7 +24,7 @@ class HomePage extends GetWidget<HomeController> {
               controller.currentPageIndex.value = value;
               controller.tabsController.jumpToPage(value);
             },
-            selectedItemColor: Colors.amber,
+            selectedItemColor: Colors.pink,
           )),
       body: PageView(
         onPageChanged: (value) => controller.currentPageIndex.value = value,

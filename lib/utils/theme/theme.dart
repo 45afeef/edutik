@@ -36,12 +36,12 @@ final ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   primaryColor: Colors.teal,
   scaffoldBackgroundColor: Colors.black,
-  textTheme: TextTheme(
-    bodyLarge: const TextStyle(color: Colors.white),
-    bodyMedium: TextStyle(color: Colors.grey[300]),
-    displayLarge: const TextStyle(
+  textTheme: const TextTheme(
+    bodyLarge: TextStyle(color: Colors.white),
+    bodyMedium: TextStyle(color: Colors.grey),
+    displayLarge: TextStyle(
         color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
-    titleLarge: const TextStyle(color: Colors.white, fontSize: 20),
+    titleLarge: TextStyle(color: Colors.white, fontSize: 20),
   ),
   appBarTheme: AppBarTheme(
     color: Colors.teal,

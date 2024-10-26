@@ -8,9 +8,13 @@ class AppTranslations extends Translations {
           'sign_in_content':
               "Hey, Do you know you can easily learn anything now. Faster and Better. That's absolutely for free ",
           'sign_in_button': "SignIn",
-          'about':'About',
-          'profile_no_email': 'No email is connected with this profile',
-          'profile_no_name': 'Update your Name'
+          'lbl_about': 'About',
+          'msg_no_email': 'No email is connected with this profile',
+          'msg_no_name': 'Update your Name',
+          'lbl_toggle_theme': 'Toggle Theme',
+          'lbl_logout': 'Logout',
+          'lbl_cancel': 'Cancel',
+          'msg_are_you_sure_to_logout': "Are you sure to logout?"
         },
         'hi_IN': {
           'hello': 'नमस्ते',
