@@ -19,6 +19,7 @@ class _ShortViewState extends State<ShortView> {
   YoutubePlayerController? _youtubePlayerController;
 
   bool _isExpanded = false;
+  bool _isPlaying = true;
 
   @override
   void initState() {
@@ -44,6 +45,7 @@ class _ShortViewState extends State<ShortView> {
   void initNetworkVideoPlayer() {
     _videoPlayerController =
         VideoPlayerController.networkUrl(Uri.parse(widget.data.videoUrl))
+          ..setLooping(true)
           ..initialize().then((_) {
             setState(
                 () {}); // Ensure the first frame is shown after the video is initialized
@@ -62,10 +64,39 @@ class _ShortViewState extends State<ShortView> {
     );
   }
 
+  void handleUserTap() {
+    if (_videoPlayerController != null) {
+      if (_isPlaying) {
+        _videoPlayerController!.pause();
+        setState(() {
+          _isPlaying = false;
+        });
+      } else {
+        _videoPlayerController!.play();
+        setState(() {
+          _isPlaying = true;
+        });
+      }
+    } else if (_youtubePlayerController != null) {
+      if (_isPlaying) {
+        _youtubePlayerController!.pause();
+        setState(() {
+          _isPlaying = false;
+        });
+      } else {
+        _youtubePlayerController!.play();
+        setState(() {
+          _isPlaying = true;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        // Vedio Section
         Center(
           child: _youtubePlayerController != null
               ? YoutubePlayer(
@@ -79,6 +110,16 @@ class _ShortViewState extends State<ShortView> {
                       child: VideoPlayer(_videoPlayerController!))
                   : const Center(child: CircularProgressIndicator()),
         ),
+        // Overlay to bypass vedio controlls
+        Positioned(
+          top: 0,
+          left: 0,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: InkWell(onTap: handleUserTap),
+        ),
+
+        // Creator section
         Positioned(
           bottom: 10,
           left: 10,
@@ -126,6 +167,8 @@ class _ShortViewState extends State<ShortView> {
             ],
           ),
         ),
+
+        // Metrics Section
         Positioned(
           bottom: 50,
           right: 10,
