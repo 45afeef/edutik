@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../do/shorts_data.dart';
+import '../../../../do/shorts_entity.dart';
 import '../controller.dart';
 
 class ShortsCreationWidget extends StatefulWidget {
@@ -30,6 +30,7 @@ class _ShortsCreationWidgetState extends State<ShortsCreationWidget> {
           key: _formKey,
           child: Column(
             children: [
+              const Spacer(),
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Title'),
                 validator: (value) {
@@ -92,8 +93,7 @@ class _ShortsCreationWidgetState extends State<ShortsCreationWidget> {
                   Expanded(
                     child: TextButton(
                       onPressed: () {
-                        var controller = Get.find<CreationController>();
-                        controller.isCreating = false;
+                        Get.find<CreationController>().isCreating = false;
                       },
                       child: Text("lbl_cancel".tr),
                     ),
@@ -115,7 +115,8 @@ class _ShortsCreationWidgetState extends State<ShortsCreationWidget> {
                     ),
                   ),
                 ],
-              )
+              ),
+              const SizedBox.square(dimension: 20),
             ],
           ),
         ),

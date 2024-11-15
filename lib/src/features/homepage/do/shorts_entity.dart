@@ -1,6 +1,6 @@
 enum VideoSource { youTube, instagram, facebook, network }
 
-class ShortsData {
+class ShortsEntity {
   final String creatorProfile;
   final String creatorName;
   final String description;
@@ -10,7 +10,7 @@ class ShortsData {
   final int likes;
   final int views;
 
-  ShortsData({
+  ShortsEntity({
     required this.creatorProfile,
     required this.creatorName,
     required this.description,

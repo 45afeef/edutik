@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'p/home_controller.dart';
 import 'p/creation/creationpage.dart';
 import 'p/feed/feedpage.dart';
+import 'p/home_controller.dart';
 import 'p/profile/profilepage.dart';
 
 class HomePage extends GetWidget<HomeController> {
@@ -15,7 +15,8 @@ class HomePage extends GetWidget<HomeController> {
       bottomNavigationBar: Obx(() => BottomNavigationBar(
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Feed'),
-              BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Create'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.create_outlined), label: 'Create'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.person_2), label: 'Profile'),
             ],

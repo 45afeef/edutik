@@ -9,6 +9,6 @@ class FeedPage extends GetWidget<FeedController> {
 
   @override
   Widget build(BuildContext context) {
-    return ShortsPage();
+    return ShortsPage(shorts: controller.shorts_list);
   }
 }

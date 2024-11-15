@@ -78,6 +78,7 @@ class ProfilePage extends GetWidget<ProfileController> {
                             },
                             child: Text("lbl_logout".tr),
                           ),
+                          const SizedBox(width: 30),
                           ElevatedButton(
                               onPressed: Get.back,
                               child: Text("lbl_cancel".tr)),

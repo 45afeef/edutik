@@ -18,7 +18,6 @@ class CreationPage extends GetWidget<CreationController> {
   }
 
   Widget _buildIntentionScreen() {
-    controller.isCreating;
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
