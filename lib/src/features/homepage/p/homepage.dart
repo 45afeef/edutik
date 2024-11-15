@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'home_controller.dart';
-import 'creation/presentation/creationpage.dart';
-import 'feed/presentation/feedpage.dart';
-import 'profile/presentation/profilepage.dart';
+import 'creation/p/creationpage.dart';
+import 'feed/p/feedpage.dart';
+import 'profile/p/profilepage.dart';
 
 class HomePage extends GetWidget<HomeController> {
   const HomePage({super.key});

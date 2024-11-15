@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'controller.dart';
-import 'widget/shorts_creation_widget.dart';
+import 'w/shorts_creation_widget.dart';
 
 class CreationPage extends GetWidget<CreationController> {
   const CreationPage({super.key});

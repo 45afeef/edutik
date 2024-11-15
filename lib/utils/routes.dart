@@ -2,12 +2,12 @@ import 'package:get/get.dart';
 
 import '../src/features/authentication/auth_middleware.dart';
 import '../src/features/authentication/signinpage.dart';
-import '../src/features/homepage/bindings/home_binding.dart';
-import '../src/features/homepage/presentation/creation/application/creation_binding.dart';
-import '../src/features/homepage/presentation/creation/presentation/creationpage.dart';
-import '../src/features/homepage/presentation/feed/presentation/feedpage.dart';
-import '../src/features/homepage/presentation/homepage.dart';
-import '../src/features/homepage/presentation/profile/presentation/profilepage.dart';
+import '../src/features/homepage/a/home_binding.dart';
+import '../src/features/homepage/p/creation/a/creation_binding.dart';
+import '../src/features/homepage/p/creation/p/creationpage.dart';
+import '../src/features/homepage/p/feed/p/feedpage.dart';
+import '../src/features/homepage/p/homepage.dart';
+import '../src/features/homepage/p/profile/p/profilepage.dart';
 import '../src/features/onboardingScreen/onboarding.dart';
 import '../src/features/onboardingScreen/onboarding_middleware.dart';
 

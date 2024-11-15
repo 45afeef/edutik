@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'domain/shorts_data.dart';
-import 'widgets/shorts_view_widget.dart';
+import 'do/shorts_data.dart';
+import 'w/shorts_view_widget.dart';
 
 class ShortsPage extends StatelessWidget {
   final List<ShortsData> shortsData = [

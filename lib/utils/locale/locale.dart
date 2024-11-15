@@ -16,7 +16,8 @@ class AppTranslations extends Translations {
           'lbl_logout': 'Logout',
           'lbl_cancel': 'Cancel',
           'lbl_submit': 'Submit',
-          'msg_are_you_sure_to_logout': "Are you sure to logout?"
+          'msg_are_you_sure_to_logout': 'Are you sure to logout?',
+          'msg_please_enter_a_': 'Please enter a ',
         },
         'hi_IN': {
           'hello': 'नमस्ते',

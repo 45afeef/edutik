@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../feed/presentation/domain/shorts_data.dart';
+import '../../../feed/p/do/shorts_data.dart';
 import '../controller.dart';
 
 class ShortsCreationWidget extends StatefulWidget {
@@ -34,7 +34,7 @@ class _ShortsCreationWidgetState extends State<ShortsCreationWidget> {
                 decoration: const InputDecoration(labelText: 'Title'),
                 validator: (value) {
                   if (value != null && value.isEmpty) {
-                    return 'Please enter a title';
+                    return '${'msg_please_enter_a_'.tr}title';
                   }
                   return null;
                 },
@@ -46,7 +46,7 @@ class _ShortsCreationWidgetState extends State<ShortsCreationWidget> {
                 decoration: const InputDecoration(labelText: 'Description'),
                 validator: (value) {
                   if (value != null && value.isEmpty) {
-                    return 'Please enter a description';
+                    return '${'msg_please_enter_a_'.tr}description';
                   }
                   return null;
                 },
@@ -58,7 +58,7 @@ class _ShortsCreationWidgetState extends State<ShortsCreationWidget> {
                 decoration: const InputDecoration(labelText: 'Video URL'),
                 validator: (value) {
                   if (value != null && value.isEmpty) {
-                    return 'Please enter a video URL';
+                    return '${'msg_please_enter_a_'.tr}video URL';
                   }
                   return null;
                 },
@@ -82,8 +82,9 @@ class _ShortsCreationWidgetState extends State<ShortsCreationWidget> {
                     });
                   }
                 },
-                validator: (value) =>
-                    value == null ? 'Please select a video source' : null,
+                validator: (value) => value == null
+                    ? '${'msg_please_enter_a_'.tr}video source'
+                    : null,
               ),
               const Spacer(),
               Row(
