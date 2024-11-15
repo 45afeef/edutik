@@ -3,7 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:video_player/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-import '../do/shorts_data.dart';
+import '../../../do/shorts_data.dart';
 
 class ShortView extends StatefulWidget {
   final ShortsData data;

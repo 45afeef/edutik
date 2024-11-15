@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../feed/p/do/shorts_data.dart';
+import '../../../../do/shorts_data.dart';
 import '../controller.dart';
 
 class ShortsCreationWidget extends StatefulWidget {

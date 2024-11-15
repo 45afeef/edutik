@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../../utils/theme/theme_controller.dart';
-import '../../../../authentication/auth_service.dart';
-import 'controller.dart';
-import 'profile_uploads.dart';
+import '../../../../../utils/theme/theme_controller.dart';
+import '../../../authentication/auth_service.dart';
+import 'p/controller.dart';
+import 'w/profile_uploads.dart';
 
 class ProfilePage extends GetWidget<ProfileController> {
   const ProfilePage({super.key});
