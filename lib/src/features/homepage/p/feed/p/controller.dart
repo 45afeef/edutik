@@ -9,7 +9,7 @@ class FeedController extends GetxController {
       Get.find<RepositoryManager>().shortsRepository;
 
   // Define the necessary variables and methods for the feed page
-  final RxList<ShortsEntity> shorts_list = <ShortsEntity>[].obs;
+  final RxList<ShortsEntity> shortsList = <ShortsEntity>[].obs;
 
   @override
   void onInit() {
@@ -21,13 +21,13 @@ class FeedController extends GetxController {
   // =============            METHODS             ================ //
   // ============================================================= //
   void fetchShorts() async {
-    shorts_list.value = await shortsRepository.fetchAllShorts();
+    shortsList.value = await shortsRepository.fetchAllShorts();
   }
 
   void loadFeed() async {
     var fetchedShorts = await shortsRepository.fetchAllShorts();
     // Logic to load feed items
-    shorts_list.assignAll(fetchedShorts);
+    shortsList.assignAll(fetchedShorts);
   }
 
   void refreshFeed() {
