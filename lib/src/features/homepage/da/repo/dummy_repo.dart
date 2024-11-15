@@ -11,7 +11,8 @@ class DummyShortsRepository implements ShortsRepository {
 
   @override
   Future<List<ShortsModel>> fetchAllShorts() async {
-    await Future.delayed(const Duration(seconds: 2));
+    // TODO - INVETIGATE THIS - uncommenting this line result in non-refresing of the content
+    // await Future.delayed(const Duration(seconds: 2));
 
     return [
       ShortsModel(

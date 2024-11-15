@@ -20,10 +20,6 @@ class FeedController extends GetxController {
   // ============================================================= //
   // =============            METHODS             ================ //
   // ============================================================= //
-  void fetchShorts() async {
-    shortsList.value = await shortsRepository.fetchAllShorts();
-  }
-
   void loadFeed() async {
     var fetchedShorts = await shortsRepository.fetchAllShorts();
     // Logic to load feed items
