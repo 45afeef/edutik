@@ -5,7 +5,9 @@ import '../../../feed/presentation/domain/shorts_data.dart';
 import '../controller.dart';
 
 class ShortsCreationWidget extends StatefulWidget {
-  const ShortsCreationWidget({super.key});
+  const ShortsCreationWidget({super.key, required this.onSubmit});
+
+  final Function() onSubmit;
 
   @override
   State<ShortsCreationWidget> createState() => _ShortsCreationWidgetState();

@@ -45,6 +45,6 @@ class CreationPage extends GetWidget<CreationController> {
   }
 
   Widget _buildCreationScreen() {
-    return const ShortsCreationWidget();
+    return ShortsCreationWidget(onSubmit: () {});
   }
 }

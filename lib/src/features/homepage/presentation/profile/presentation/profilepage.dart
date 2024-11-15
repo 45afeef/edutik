@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../../../../../utils/theme/theme_controller.dart';
 import '../../../../authentication/auth_service.dart';
 import 'controller.dart';
+import 'profile_uploads.dart';
 
 class ProfilePage extends GetWidget<ProfileController> {
   const ProfilePage({super.key});
@@ -49,6 +50,7 @@ class ProfilePage extends GetWidget<ProfileController> {
                 subtitle: const Text('Education enthusiast.'),
               ),
               const Divider(),
+              const ProfileUploads(),
               const Divider(),
               // const ListTile(
               //   leading: Icon(Icons.settings),
