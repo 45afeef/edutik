@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'firebase_options.dart';
 import 'utils/locale/locale.dart';
 import 'utils/routes.dart';
+import 'utils/service_managers/repository_manager.dart';
 import 'utils/shared_prefs.dart';
 import 'utils/theme/theme.dart';
 
@@ -13,6 +14,9 @@ void main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await SharedPrefsUtil().init();
+
+// Initialize the RepositoryManager
+  Get.put<RepositoryManager>(RepositoryManager());
 
   runApp(const MyApp());
 }
