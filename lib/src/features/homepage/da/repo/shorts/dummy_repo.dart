@@ -97,4 +97,10 @@ class DummyShortsRepository implements ShortsRepository {
     // TODO: implement saveShorts
     throw UnimplementedError();
   }
+  
+  @override
+  Future<void> updateShorts(String id, ShortsModel shorts) {
+    // TODO: implement updateShorts
+    throw UnimplementedError();
+  }
 }

@@ -1,9 +1,7 @@
-import '../../shorts_model.dart';
 import '../../../do/repo/shorts_repo.dart';
+import '../../shorts_model.dart';
 
 class FirebaseShortsRepository implements ShortsRepository {
-
-
   @override
   Future<ShortsModel> fetchShorts(String id) {
     // TODO: implement getShorts
@@ -25,6 +23,12 @@ class FirebaseShortsRepository implements ShortsRepository {
   @override
   Future<void> deleteShorts(String id) {
     // TODO: implement deleteShorts
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<void> updateShorts(String id, ShortsModel shorts) {
+    // TODO: implement updateShorts
     throw UnimplementedError();
   }
 }

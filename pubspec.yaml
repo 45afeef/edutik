@@ -46,6 +46,8 @@ dependencies:
   video_player: ^2.9.2
   youtube_player_flutter: ^9.1.1
   freezed_annotation: ^2.4.4
+  cloud_firestore: ^5.5.0
+  supabase: ^2.5.0
 
 dev_dependencies:
   flutter_test:
