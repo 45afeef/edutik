@@ -1,5 +1,5 @@
-import '../../da/shorts_model.dart';
-import '../../do/repo/shorts_repo.dart';
+import '../../shorts_model.dart';
+import '../../../do/repo/shorts_repo.dart';
 
 class FirebaseShortsRepository implements ShortsRepository {
 

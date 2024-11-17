@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 
-import '../../src/features/homepage/da/repo/dummy_repo.dart';
-import '../../src/features/homepage/da/repo/firebase_repo.dart';
-import '../../src/features/homepage/da/repo/network_repo.dart';
+import '../../src/features/homepage/da/repo/shorts/dummy_repo.dart';
+import '../../src/features/homepage/da/repo/shorts/firebase_repo.dart';
+import '../../src/features/homepage/da/repo/shorts/network_repo.dart';
 import '../../src/features/homepage/do/repo/shorts_repo.dart';
 
 class RepositoryManager extends GetxService {

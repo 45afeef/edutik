@@ -1,6 +1,6 @@
-import '../../da/shorts_model.dart';
-import '../../do/repo/shorts_repo.dart';
-import '../../do/shorts_entity.dart';
+import '../../shorts_model.dart';
+import '../../../do/repo/shorts_repo.dart';
+import '../../../do/shorts_entity.dart';
 
 class DummyShortsRepository implements ShortsRepository {
   @override
