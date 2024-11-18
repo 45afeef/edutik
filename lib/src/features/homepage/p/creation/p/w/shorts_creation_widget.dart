@@ -7,7 +7,12 @@ import '../controller.dart';
 class ShortsCreationWidget extends StatefulWidget {
   const ShortsCreationWidget({super.key, required this.onSubmit});
 
-  final Function() onSubmit;
+  final Function(
+    String title,
+    String description,
+    String videoUrl,
+    VideoSource videoSource,
+  ) onSubmit;
 
   @override
   State<ShortsCreationWidget> createState() => _ShortsCreationWidgetState();
@@ -19,7 +24,7 @@ class _ShortsCreationWidgetState extends State<ShortsCreationWidget> {
   late String _title;
   late String _description;
   late String _videoUrl;
-  VideoSource? _videoSource;
+  VideoSource _videoSource = VideoSource.youTube;
 
   @override
   Widget build(BuildContext context) {
@@ -104,11 +109,13 @@ class _ShortsCreationWidgetState extends State<ShortsCreationWidget> {
                         if (_formKey.currentState != null &&
                             _formKey.currentState!.validate()) {
                           _formKey.currentState?.save();
-                          // Do something with the data
-                          print('Title: $_title');
-                          print('Description: $_description');
-                          print('Video URL: $_videoUrl');
-                          print('Video Source: $_videoSource');
+
+                          widget.onSubmit(
+                            _title,
+                            _description,
+                            _videoUrl,
+                            _videoSource,
+                          );
                         }
                       },
                       child: Text('lbl_submit'.tr),

@@ -1,8 +1,12 @@
 import 'package:get/get.dart';
 
+import '../../../da/shorts_model.dart';
+import '../../../do/repo/shorts_repo.dart';
 import '../../../do/shorts_entity.dart';
 
 class CreationController extends GetxController {
+  final ShortsRepository shortsRepository = Get.find<ShortsRepository>();
+
   // Define the necessary variables and methods for the creation page
 
   final _isCreating = false.obs;
@@ -18,11 +22,21 @@ class CreationController extends GetxController {
   }
 
   void submitCreation() {
-    // Logic to submit the creation
-    print('Title: $title');
-    print('Description: $description');
-    print('Video URL: $videoUrl');
-    print('Video Source: $videoSource');
+    ShortsModel shorts = ShortsModel(
+      creatorProfile:
+          'currentUserProfile', // TODO - update the current user profile here.
+      creatorName:
+          'currentUserName', // TODO - update the current user name here.
+      description: description.value,
+      videoUrl: videoUrl.value,
+      videoSource: videoSource.value,
+      title: title.value,
+      likes: 0,
+      views: 0,
+    );
+
+    // Save the shorts
+    shortsRepository.saveShorts(shorts);
   }
 
   void clearFields() {
@@ -30,5 +44,17 @@ class CreationController extends GetxController {
     description.value = '';
     videoUrl.value = '';
     videoSource.value = VideoSource.network;
+  }
+
+  void updateTitleDescriptionVideourlAndType(
+    String title,
+    String description,
+    String videoUrl,
+    VideoSource videoSource,
+  ) {
+    this.title.value = title;
+    this.description.value = description;
+    this.videoUrl.value = videoUrl;
+    this.videoSource.value = videoSource;
   }
 }

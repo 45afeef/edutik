@@ -44,6 +44,12 @@ class CreationPage extends GetWidget<CreationController> {
   }
 
   Widget _buildCreationScreen() {
-    return ShortsCreationWidget(onSubmit: () {});
+    return ShortsCreationWidget(
+      onSubmit: (title, description, videoUrl, videoSource) {
+        controller.updateTitleDescriptionVideourlAndType(
+            title, description, videoUrl, videoSource);
+        controller.submitCreation();
+      },
+    );
   }
 }
