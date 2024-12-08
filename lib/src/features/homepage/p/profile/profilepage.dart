@@ -15,11 +15,45 @@ class ProfilePage extends GetWidget<ProfileController> {
     final ThemeController themController = Get.put(ThemeController());
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        actions: [
+          IconButton(
+            onPressed: themController.toggleTheme,
+            icon: const Icon(Icons.sync),
+          ),
+          IconButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog.adaptive(
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Get.back();
+                          auth.signOut();
+                        },
+                        child: Text("lbl_logout".tr),
+                      ),
+                      const SizedBox(width: 30),
+                      ElevatedButton(
+                          onPressed: Get.back, child: Text("lbl_cancel".tr)),
+                    ],
+                    content: Text('msg_are_you_sure_to_logout'.tr),
+                  );
+                },
+              );
+            },
+            icon: const Icon(Icons.logout),
+          ),
+          const IconButton(onPressed: null, icon: Icon(Icons.settings)),
+        ],
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
             children: <Widget>[
               Center(
                 child: CircleAvatar(
@@ -51,48 +85,6 @@ class ProfilePage extends GetWidget<ProfileController> {
               ),
               const Divider(),
               const ProfileUploads(),
-              const Divider(),
-              // const ListTile(
-              //   leading: Icon(Icons.settings),
-              //   title: Text('Settings'),
-              //   subtitle: Text('Manage your account settings.'),
-              // ),
-              InkWell(
-                onTap: themController.toggleTheme,
-                child: ListTile(
-                  leading: const Icon(Icons.sync),
-                  title: Text('lbl_toggle_theme'.tr),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog.adaptive(
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Get.back();
-                              auth.signOut();
-                            },
-                            child: Text("lbl_logout".tr),
-                          ),
-                          const SizedBox(width: 30),
-                          ElevatedButton(
-                              onPressed: Get.back,
-                              child: Text("lbl_cancel".tr)),
-                        ],
-                        content: Text('msg_are_you_sure_to_logout'.tr),
-                      );
-                    },
-                  );
-                },
-                child: ListTile(
-                  leading: const Icon(Icons.logout),
-                  title: Text('lbl_logout'.tr),
-                ),
-              ),
             ],
           ),
         ),
