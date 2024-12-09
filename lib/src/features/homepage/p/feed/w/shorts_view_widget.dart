@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -50,50 +51,56 @@ class _ShortViewState extends State<ShortView> {
 
         // Creator section
         Positioned(
-          bottom: 10,
-          left: 10,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(widget.data.creatorProfile),
-                    radius: 20,
-                  ),
-                  const SizedBox(width: 8),
-                  Text(widget.data.creatorName),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Text(
-                widget.data.title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
+          bottom: 0,
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                color: _isExpanded
+                    ? Get.theme.scaffoldBackgroundColor
+                    : Colors.transparent),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(widget.data.creatorProfile),
+                      radius: 20,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(widget.data.creatorName),
+                  ],
                 ),
-              ),
-              const SizedBox(height: 8),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _isExpanded = !_isExpanded;
-                  });
-                },
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  width: _isExpanded
-                      ? MediaQuery.of(context).size.width * 0.8
-                      : MediaQuery.of(context).size.width * 0.7,
-                  child: Text(
-                    widget.data.description,
-                    maxLines: _isExpanded ? null : 2,
-                    overflow: _isExpanded
-                        ? TextOverflow.visible
-                        : TextOverflow.ellipsis,
+                const SizedBox(height: 8),
+                Text(
+                  widget.data.title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 8),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _isExpanded = !_isExpanded;
+                    });
+                  },
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    width: _isExpanded
+                        ? MediaQuery.of(context).size.width * 0.8
+                        : MediaQuery.of(context).size.width * 0.7,
+                    child: Text(
+                      widget.data.description,
+                      maxLines: _isExpanded ? null : 2,
+                      overflow: _isExpanded
+                          ? TextOverflow.visible
+                          : TextOverflow.ellipsis,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
 
