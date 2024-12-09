@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'exams_grid_widget.dart';
+
 class HorizontalScrollPage extends StatelessWidget {
   final String pageName;
 
@@ -7,18 +9,17 @@ class HorizontalScrollPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Column(
-        children: List.generate(
-          10,
-          (index) => Container(
-            width: MediaQuery.of(context).size.width,
-            color: Colors.primaries[index % Colors.primaries.length],
-            child: Center(child: Text('$pageName Page ${index + 1}')),
-          ),
-        ),
-      ),
+    return ListView(
+      padding: EdgeInsets.zero,
+      children: Colors.primaries.map((color) {
+        return Container(
+          color: color,
+          height: 150.0,
+          child: Center(
+              child: Text(
+                  '$pageName Page ${Colors.primaries.indexOf(color) + 1}')),
+        );
+      }).toList(),
     );
   }
 }
@@ -28,11 +29,11 @@ class ProfileUploads extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
+    return const DefaultTabController(
       length: 4, // Number of tabs
       child: Column(
-        children: [
-          const TabBar(
+        children: <Widget>[
+          TabBar(
             tabAlignment: TabAlignment.center,
             isScrollable: true,
             tabs: [
@@ -42,12 +43,11 @@ class ProfileUploads extends StatelessWidget {
               Tab(text: 'Paid Services'),
             ],
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: const TabBarView(
+          Expanded(
+            child: TabBarView(
               children: [
                 HorizontalScrollPage(pageName: 'Classes'),
-                HorizontalScrollPage(pageName: 'Exams'),
+                ExamGrid(),
                 HorizontalScrollPage(pageName: 'Followers'),
                 HorizontalScrollPage(pageName: 'Paid Services'),
               ],

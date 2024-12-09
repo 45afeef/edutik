@@ -22,77 +22,6 @@ class _ShortViewState extends State<ShortView> {
   bool _isPlaying = true;
 
   @override
-  void initState() {
-    super.initState();
-
-    switch (widget.data.videoSource) {
-      case VideoSource.youTube:
-        initYoutubePlayer();
-        break;
-      case VideoSource.network:
-      default:
-        initNetworkVideoPlayer();
-    }
-  }
-
-  @override
-  void dispose() {
-    _videoPlayerController?.dispose();
-    _youtubePlayerController?.dispose();
-    super.dispose();
-  }
-
-  void initNetworkVideoPlayer() {
-    _videoPlayerController =
-        VideoPlayerController.networkUrl(Uri.parse(widget.data.videoUrl))
-          ..setLooping(true)
-          ..initialize().then((_) {
-            setState(
-                () {}); // Ensure the first frame is shown after the video is initialized
-            _videoPlayerController?.play(); // Auto-play the video
-          });
-  }
-
-  void initYoutubePlayer() {
-    _youtubePlayerController = YoutubePlayerController(
-      initialVideoId: widget.data.videoUrl,
-      flags: const YoutubePlayerFlags(
-        loop: true,
-        autoPlay: true,
-        mute: false,
-      ),
-    );
-  }
-
-  void handleUserTap() {
-    if (_videoPlayerController != null) {
-      if (_isPlaying) {
-        _videoPlayerController!.pause();
-        setState(() {
-          _isPlaying = false;
-        });
-      } else {
-        _videoPlayerController!.play();
-        setState(() {
-          _isPlaying = true;
-        });
-      }
-    } else if (_youtubePlayerController != null) {
-      if (_isPlaying) {
-        _youtubePlayerController!.pause();
-        setState(() {
-          _isPlaying = false;
-        });
-      } else {
-        _youtubePlayerController!.play();
-        setState(() {
-          _isPlaying = true;
-        });
-      }
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
@@ -168,12 +97,20 @@ class _ShortViewState extends State<ShortView> {
           ),
         ),
 
+        // Connected Objects and
         // Metrics Section
         Positioned(
           bottom: 50,
           right: 10,
           child: Column(
             children: [
+              // Assessment Count
+              const Icon(Icons.question_mark_rounded, color: Colors.white),
+              const SizedBox(width: 4),
+              const Text('Que', style: TextStyle(color: Colors.white)),
+              const SizedBox(height: 30),
+
+              // Favourite Count
               const Icon(Icons.favorite, color: Colors.white),
               const SizedBox(width: 4),
               Text(
@@ -181,6 +118,8 @@ class _ShortViewState extends State<ShortView> {
                 style: const TextStyle(color: Colors.white),
               ),
               const SizedBox(height: 30),
+
+              // Viewer Count
               const Icon(Icons.visibility, color: Colors.white),
               const SizedBox(width: 4),
               Text(
@@ -191,6 +130,77 @@ class _ShortViewState extends State<ShortView> {
           ),
         ),
       ],
+    );
+  }
+
+  @override
+  void dispose() {
+    _videoPlayerController?.dispose();
+    _youtubePlayerController?.dispose();
+    super.dispose();
+  }
+
+  void handleUserTap() {
+    if (_videoPlayerController != null) {
+      if (_isPlaying) {
+        _videoPlayerController!.pause();
+        setState(() {
+          _isPlaying = false;
+        });
+      } else {
+        _videoPlayerController!.play();
+        setState(() {
+          _isPlaying = true;
+        });
+      }
+    } else if (_youtubePlayerController != null) {
+      if (_isPlaying) {
+        _youtubePlayerController!.pause();
+        setState(() {
+          _isPlaying = false;
+        });
+      } else {
+        _youtubePlayerController!.play();
+        setState(() {
+          _isPlaying = true;
+        });
+      }
+    }
+  }
+
+  void initNetworkVideoPlayer() {
+    _videoPlayerController =
+        VideoPlayerController.networkUrl(Uri.parse(widget.data.videoUrl))
+          ..setLooping(true)
+          ..initialize().then((_) {
+            setState(
+                () {}); // Ensure the first frame is shown after the video is initialized
+            _videoPlayerController?.play(); // Auto-play the video
+          });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    switch (widget.data.videoSource) {
+      case VideoSource.youTube:
+        initYoutubePlayer();
+        break;
+      case VideoSource.network:
+      default:
+        initNetworkVideoPlayer();
+    }
+  }
+
+  void initYoutubePlayer() {
+    _youtubePlayerController = YoutubePlayerController(
+      initialVideoId: widget.data.videoUrl,
+      flags: const YoutubePlayerFlags(
+        loop: true,
+        autoPlay: true,
+        mute: false,
+      ),
     );
   }
 }

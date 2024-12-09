@@ -15,6 +15,7 @@ class ProfilePage extends GetWidget<ProfileController> {
     final ThemeController themController = Get.put(ThemeController());
 
     return Scaffold(
+      // Persistent AppBar that never scrolls
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         actions: [
@@ -49,45 +50,50 @@ class ProfilePage extends GetWidget<ProfileController> {
           ),
           const IconButton(onPressed: null, icon: Icon(Icons.settings)),
         ],
+        title: const Text('AppBar'),
+        elevation: 0.0,
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: ListView(
-            children: <Widget>[
-              Center(
-                child: CircleAvatar(
-                  radius: 50,
-                  backgroundImage: NetworkImage(auth.currentUser?.photoURL ??
-                      'https://via.placeholder.com/150'),
+      body: NestedScrollView(
+        // allows you to build a list of elements that would be scrolled away till the body reached the top
+        headerSliverBuilder: (context, _) {
+          return [
+            SliverList(
+              delegate: SliverChildListDelegate([
+                Center(
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundImage: NetworkImage(auth.currentUser?.photoURL ??
+                        'https://via.placeholder.com/150'),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              Center(
-                child: Text(
-                  auth.currentUser?.displayName ?? 'msg_no_name'.tr,
-                  style: const TextStyle(
-                      fontSize: 24, fontWeight: FontWeight.bold),
+                const SizedBox(height: 20),
+                Center(
+                  child: Text(
+                    auth.currentUser?.displayName ?? 'msg_no_name'.tr,
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              Center(
-                child: Text(
-                  auth.currentUser?.email ?? 'msg_no_email'.tr,
-                  style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                const SizedBox(height: 10),
+                Center(
+                  child: Text(
+                    auth.currentUser?.email ?? 'msg_no_email'.tr,
+                    style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              const Divider(),
-              ListTile(
-                title: Text('lbl_about'.tr),
-                subtitle: const Text('Education enthusiast.'),
-              ),
-              const Divider(),
-              const ProfileUploads(),
-            ],
-          ),
-        ),
+                const SizedBox(height: 20),
+                const Divider(),
+                ListTile(
+                  title: Text('lbl_about'.tr),
+                  subtitle: const Text('Education enthusiast.'),
+                ),
+                const Divider(),
+              ]),
+            ),
+          ];
+        },
+        // You tab view goes here
+        body: const ProfileUploads(),
       ),
     );
   }
