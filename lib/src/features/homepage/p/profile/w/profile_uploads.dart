@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../w/upcomming_feature.dart';
-import 'exams_grid_widget.dart';
+import 'quizzes_grid_widget.dart';
 
 class HorizontalScrollPage extends StatelessWidget {
   final String pageName;
@@ -31,7 +31,7 @@ class ProfileUploads extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DefaultTabController(
-      length: 5, // Number of tabs
+      length: 4, // Number of tabs
       child: Column(
         children: <Widget>[
           TabBar(
@@ -39,20 +39,18 @@ class ProfileUploads extends StatelessWidget {
             isScrollable: true,
             tabs: [
               Tab(text: 'Classes'),
-              Tab(text: 'Exams'),
-              Tab(text: 'Tips'),
-              Tab(text: 'Followers'),
+              Tab(text: 'Quizzes'),
               Tab(text: 'Paid Services'),
+              Tab(text: 'Monetization'),
             ],
           ),
           Expanded(
             child: TabBarView(
               children: [
                 UpcomingFeature(featureName: 'Classes'),
-                ExamGrid(),
-                UpcomingFeature(featureName: 'Tips'),
-                UpcomingFeature(featureName: 'Followers'),
+                QuizzesGrid(),
                 UpcomingFeature(featureName: 'Paid Services'),
+                UpcomingFeature(excerpt: 'You can Earn money from EduKit'),
               ],
             ),
           )

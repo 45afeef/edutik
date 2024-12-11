@@ -39,7 +39,7 @@ class UpcomingFeature extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           AspectRatio(
-            aspectRatio: 2,
+            aspectRatio: 3,
             child: (imageUrl != null)
                 ? Image.network(imageUrl!)
                 : SvgPicture.asset(randomImage),
@@ -64,9 +64,7 @@ class UpcomingFeature extends StatelessWidget {
           const Text(
             'This feature is currently under construction. We are working hard to bring it to you soon!',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 14,
-            ),
+            style: TextStyle(fontSize: 14),
           ),
         ],
       ),
