@@ -50,7 +50,6 @@ class ProfilePage extends GetWidget<ProfileController> {
           ),
           const IconButton(onPressed: null, icon: Icon(Icons.settings)),
         ],
-        title: const Text('AppBar'),
         elevation: 0.0,
       ),
       body: NestedScrollView(

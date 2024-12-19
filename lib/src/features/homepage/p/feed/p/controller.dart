@@ -9,19 +9,16 @@ class FeedController extends GetxController {
   // Define the necessary variables and methods for the feed page
   final RxList<ShortsEntity> shortsList = <ShortsEntity>[].obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    loadFeed();
-  }
-
-  // ============================================================= //
-  // =============            METHODS             ================ //
-  // ============================================================= //
   void loadFeed() async {
     var fetchedShorts = await shortsRepository.fetchAllShorts();
     // Logic to load feed items
     shortsList.assignAll(fetchedShorts);
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    loadFeed();
   }
 
   void refreshFeed() {
