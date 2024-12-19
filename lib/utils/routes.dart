@@ -1,8 +1,10 @@
 import 'package:get/get.dart';
 
+import '../src/features/assessment/a/assessment_binding.dart';
+import '../src/features/assessment/p/assessment_screen.dart';
+import '../src/features/assessment/p/result/p/result_screen.dart';
 import '../src/features/authentication/auth_middleware.dart';
 import '../src/features/authentication/signinpage.dart';
-import '../src/features/quiz/p/quizpage.dart';
 import '../src/features/homepage/a/home_binding.dart';
 import '../src/features/homepage/homepage.dart';
 import '../src/features/homepage/p/creation/a/creation_binding.dart';
@@ -21,7 +23,8 @@ class AppRoute {
   static const String feedPage = '/feeds';
   static const String profilePage = '/profile';
   static const String creationPage = '/create';
-  static const String quizPage = '/quiz';
+  static const String resultScreen = '/result';
+  static const String assessmentScreen = '/assessment';
 
   static final List<GetPage> routes = [
     GetPage(
@@ -47,6 +50,14 @@ class AppRoute {
     GetPage(name: onboarding, page: () => const OnboardingPage()),
     GetPage(name: signUp, page: () => const SigninPage()),
     GetPage(name: signIn, page: () => const SigninPage()),
-    GetPage(name: quizPage, page: () => const QuizPage()),
+    GetPage(
+      name: assessmentScreen,
+      page: () => const AssessmentScreen(),
+      binding: AssessmentBinding(),
+    ),
+    GetPage(
+      name: resultScreen,
+      page: () => const AssessmentResultScreen(),
+    )
   ];
 }

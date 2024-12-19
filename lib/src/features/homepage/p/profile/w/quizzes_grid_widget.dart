@@ -15,7 +15,7 @@ class QuizzesGrid extends StatelessWidget {
       children: Colors.primaries.map((color) {
         return InkWell(
           onTap: () {
-            Get.toNamed(AppRoute.quizPage);
+            Get.toNamed(AppRoute.assessmentScreen);
           },
           child: Container(
             color: color,
