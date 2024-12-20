@@ -37,6 +37,10 @@ class AssessmentController extends GetxController {
   String get timeSpentOnCurrentQuestion =>
       _getTimeSpentOnQuestion(currentQuestionIndex.value);
 
+  Future<List<Assessment>> fetchAllAssessments() async {
+    return await _repo.getAllAssessments();
+  }
+
   Future<Assessment> fetchAssessment() async {
     Assessment response = await _repo.getAssessment(1);
 

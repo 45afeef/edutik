@@ -98,6 +98,10 @@ class DummyService extends DatabaseService {
             // Add more data here
           ].map((e) => e.toJson())
         ];
+      case 'assessments':
+        var assessment =
+            await getData(collection: 'assessments', documentId: '1');
+        return List.generate(5, (i) => assessment);
       default:
         // TODO: implement deleteData
         throw UnimplementedError();
@@ -114,6 +118,7 @@ class DummyService extends DatabaseService {
         final input =
             await rootBundle.loadString('assets/dummy_assessment.json');
 
+        Future.delayed(const Duration(seconds: 30));
         return jsonDecode(input);
       default:
     }
