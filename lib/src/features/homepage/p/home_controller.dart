@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'creation/p/controller.dart';
-import 'feed/p/controller.dart';
-import 'profile/p/controller.dart';
+import 'creation/p/creation_controller.dart';
+import 'feed/p/feed_controller.dart';
+import 'profile/p/profile_controller.dart';
 
 int _initialPage = 2;
 

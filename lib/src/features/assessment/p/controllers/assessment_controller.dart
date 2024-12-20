@@ -11,7 +11,7 @@ import '../../do/repositories/assessment_repository.dart';
 class AssessmentController extends GetxController {
   static AssessmentController get call => Get.find();
 
-  // final AssessmentRepository _repo = DummyAssessmentRepo();
+  // Initialize AssessmentRepository - which is responsible to comunicate with data sources
   final AssessmentRepository _repo = Get.find<AssessmentRepository>();
 
   /// AssessmentResult class will handle all the data storing related tasks in cache or memory

@@ -14,9 +14,7 @@ class QuizzesGrid extends StatelessWidget {
       crossAxisCount: 3,
       children: Colors.primaries.map((color) {
         return InkWell(
-          onTap: () {
-            Get.toNamed(AppRoute.assessmentScreen);
-          },
+          onTap: () => Get.toNamed(AppRoute.assessmentScreen),
           child: Container(
             color: color,
             height: 150.0,

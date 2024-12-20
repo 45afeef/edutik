@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../../../utils/theme/theme_controller.dart';
 import '../../../authentication/auth_service.dart';
-import 'p/controller.dart';
+import 'p/profile_controller.dart';
 import 'w/profile_uploads.dart';
 
 class ProfilePage extends GetWidget<ProfileController> {

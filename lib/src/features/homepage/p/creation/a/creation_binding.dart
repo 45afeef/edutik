@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../p/controller.dart';
+import '../p/creation_controller.dart';
 
 class CreationBinding extends Bindings {
   @override

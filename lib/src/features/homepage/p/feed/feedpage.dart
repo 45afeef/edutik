@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'p/controller.dart';
+import 'p/feed_controller.dart';
 import 'p/shorts_page.dart';
 
 class FeedPage extends GetWidget<FeedController> {
