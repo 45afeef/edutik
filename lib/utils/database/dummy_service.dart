@@ -101,7 +101,7 @@ class DummyService extends DatabaseService {
       case 'assessments':
         var assessment =
             await getData(collection: 'assessments', documentId: '1');
-        return List.generate(5, (i) => assessment);
+        return List.generate(50, (i) => assessment);
       default:
         // TODO: implement deleteData
         throw UnimplementedError();

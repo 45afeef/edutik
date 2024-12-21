@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../w/upcomming_feature.dart';
+import '../../w/upcomming_feature.dart';
 import 'quizzes_grid_widget.dart';
 
 class HorizontalScrollPage extends StatelessWidget {

@@ -6,7 +6,7 @@ import '../src/features/assessment/p/result/p/result_screen.dart';
 import '../src/features/authentication/auth_middleware.dart';
 import '../src/features/authentication/signinpage.dart';
 import '../src/features/homepage/a/home_binding.dart';
-import '../src/features/homepage/homepage.dart';
+import '../src/features/homepage/p/homepage.dart';
 import '../src/features/homepage/p/creation/a/creation_binding.dart';
 import '../src/features/homepage/p/creation/creationpage.dart';
 import '../src/features/homepage/p/feed/feedpage.dart';

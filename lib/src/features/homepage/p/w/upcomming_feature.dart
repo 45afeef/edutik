@@ -38,11 +38,14 @@ class UpcomingFeature extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         children: [
-          AspectRatio(
-            aspectRatio: 3,
-            child: (imageUrl != null)
-                ? Image.network(imageUrl!)
-                : SvgPicture.asset(randomImage),
+          SizedBox(
+            height: 70,
+            child: AspectRatio(
+              aspectRatio: 3,
+              child: (imageUrl != null)
+                  ? Image.network(imageUrl!)
+                  : SvgPicture.asset(randomImage),
+            ),
           ),
           const SizedBox(height: 10),
           Text(
