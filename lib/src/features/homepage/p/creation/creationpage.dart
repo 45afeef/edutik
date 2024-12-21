@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'p/creation_controller.dart';
+import 'p/w/rounder_image_with_button.dart';
 import 'p/w/shorts_creation_widget.dart';
 
 class CreationPage extends GetWidget<CreationController> {
@@ -17,32 +18,6 @@ class CreationPage extends GetWidget<CreationController> {
     );
   }
 
-  Widget _buildIntentionScreen() {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          IconButton.outlined(
-            icon: const Icon(Icons.add),
-            enableFeedback: true,
-            tooltip: "lbl_create".tr,
-            padding: const EdgeInsets.all(24),
-            iconSize: 24.0,
-            splashRadius: 28.0,
-            constraints: const BoxConstraints(),
-            alignment: Alignment.center,
-            onPressed: () {
-              controller.isCreating = true;
-            },
-          ),
-          const SizedBox(height: 10),
-          Text("lbl_create".tr),
-          Text("EduTik", style: Get.textTheme.bodyLarge)
-        ],
-      ),
-    );
-  }
-
   Widget _buildCreationScreen() {
     return ShortsCreationWidget(
       onSubmit: (title, description, videoUrl, videoSource) {
@@ -50,6 +25,36 @@ class CreationPage extends GetWidget<CreationController> {
             title, description, videoUrl, videoSource);
         controller.submitCreation();
       },
+    );
+  }
+
+  Widget _buildIntentionScreen() {
+    return SafeArea(
+      child: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          RoundedImageWithButton(
+            'Create Exam',
+            'https://cdn.dribbble.com/userupload/8649959/file/original-9c6c904f1a4c04b2ecf4eff7e1a22e4f.png?resize=752x&vertical=center',
+            onPressed: () {},
+          ),
+          RoundedImageWithButton(
+            'Create Shorts',
+            'https://th.bing.com/th/id/OIP.FS6YltTUtgofukeesFx21AHaHa?w=610&h=610&rs=1&pid=ImgDetMain',
+            onPressed: () => controller.isCreating = true,
+          ),
+          const RoundedImageWithButton(
+            'Create New Batch',
+            'https://media.glassdoor.com/l/14/bb/de/5e/middle-school-class.jpg',
+            onPressed: null,
+          ),
+          const RoundedImageWithButton(
+            'Create Video Class',
+            'https://th.bing.com/th/id/OIP.obLEgRLmdz9aDxstTuWd5AHaE7?rs=1&pid=ImgDetMain',
+            onPressed: null,
+          ),
+        ],
+      ),
     );
   }
 }
