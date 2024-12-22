@@ -12,13 +12,13 @@ class CreationPage extends GetWidget<CreationController> {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        if (!controller.isCreating) return _buildIntentionScreen();
-        return _buildCreationScreen();
+        if (!controller.isCreating) return _buildCreationIntentionPage();
+        return _buildCreationPage();
       },
     );
   }
 
-  Widget _buildCreationScreen() {
+  Widget _buildCreationPage() {
     return ShortsCreationWidget(
       onSubmit: (title, description, videoUrl, videoSource) {
         controller.updateTitleDescriptionVideourlAndType(
@@ -28,7 +28,7 @@ class CreationPage extends GetWidget<CreationController> {
     );
   }
 
-  Widget _buildIntentionScreen() {
+  Widget _buildCreationIntentionPage() {
     return SafeArea(
       child: ListView(
         padding: const EdgeInsets.all(16),

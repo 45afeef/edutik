@@ -18,8 +18,8 @@ import 'widgets/mcq.dart';
 import 'widgets/one_word_question_widget.dart';
 import 'widgets/unsupported_assessment_type.dart';
 
-class AssessmentScreen extends GetWidget<AssessmentController> {
-  const AssessmentScreen({super.key});
+class AssessmentPage extends GetWidget<AssessmentController> {
+  const AssessmentPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +116,7 @@ class AssessmentScreen extends GetWidget<AssessmentController> {
                                 ),
                               ),
                               CompletedWidget(onComplete: () {
-                                Get.toNamed(AppRoute.resultScreen);
+                                Get.toNamed(AppRoute.resultPage);
                               })
                             ],
                           ),

@@ -25,7 +25,7 @@ class QuizzesGrid extends GetWidget<AssessmentController> {
               children: snapshort.data!
                   .map(
                     (e) => InkWell(
-                      onTap: () => Get.toNamed(AppRoute.assessmentScreen),
+                      onTap: () => Get.toNamed(AppRoute.assessmentPage),
                       child: Container(
                         padding: const EdgeInsets.all(6),
                         color: Colors.primaries[snapshort.data!.indexOf(e) %

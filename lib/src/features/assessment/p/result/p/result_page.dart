@@ -5,8 +5,8 @@ import '../../../../../../utils/date_time_utils.dart';
 import '../../../do/assessment_item.dart';
 import '../../controllers/assessment_controller.dart';
 
-class AssessmentResultScreen extends StatelessWidget {
-  const AssessmentResultScreen({super.key});
+class AssessmentResultPage extends StatelessWidget {
+  const AssessmentResultPage({super.key});
 
   @override
   Widget build(BuildContext context) {
