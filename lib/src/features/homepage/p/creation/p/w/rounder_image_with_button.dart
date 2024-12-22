@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class RoundedImageWithButton extends StatelessWidget {
   final String cta;
   final String imageUrl;
+  final bool isAssetImage;
   final void Function()? onPressed;
 
   const RoundedImageWithButton(
     this.cta,
     this.imageUrl, {
     required this.onPressed,
+    this.isAssetImage = false,
     super.key,
   });
   @override
@@ -21,12 +23,19 @@ class RoundedImageWithButton extends StatelessWidget {
           // Rounded corner image
           ClipRRect(
             borderRadius: BorderRadius.circular(20.0),
-            child: Image.network(
-              imageUrl,
-              width: double.infinity,
-              height: 200,
-              fit: BoxFit.cover,
-            ),
+            child: isAssetImage
+                ? Image.asset(
+                    imageUrl,
+                    width: double.infinity,
+                    height: 200,
+                    fit: BoxFit.cover,
+                  )
+                : Image.network(
+                    imageUrl,
+                    width: double.infinity,
+                    height: 200,
+                    fit: BoxFit.cover,
+                  ),
           ),
           const SizedBox(height: 20), // Full width CTA button with white border
           ElevatedButton.icon(

@@ -45,7 +45,8 @@ class CreationPage extends GetWidget<CreationController> {
           ),
           const RoundedImageWithButton(
             'Create New Batch',
-            'https://media.glassdoor.com/l/14/bb/de/5e/middle-school-class.jpg',
+            'assets/images/school_batches.png',
+            isAssetImage: true,
             onPressed: null,
           ),
           const RoundedImageWithButton(
