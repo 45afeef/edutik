@@ -94,8 +94,8 @@ class AssessmentCreationPage extends StatelessWidget {
 
                           return ListTile(
                             leading: Container(
-                              width: 32,
-                              height: 32,
+                              width: 16,
+                              height: 16,
                               decoration: const BoxDecoration(
                                 color: Colors.grey,
                                 borderRadius:
@@ -112,12 +112,22 @@ class AssessmentCreationPage extends StatelessWidget {
                               question['question'],
                               style: Get.theme.textTheme.titleLarge,
                             ),
-                            subtitle: Text(
-                              'Type: ${question["type"]}',
-                              style: Get.theme.textTheme.labelSmall,
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                const SizedBox(height: 16),
+                                Text(question['option1'].toString().trim(),
+                                    style: Get.theme.textTheme.labelSmall),
+                                Text(question['option2'].toString().trim(),
+                                    style: Get.theme.textTheme.labelSmall),
+                                Text(question['option3'].toString().trim(),
+                                    style: Get.theme.textTheme.labelSmall),
+                                Text(question['option4'].toString().trim(),
+                                    style: Get.theme.textTheme.labelSmall),
+                              ],
                             ),
                             onLongPress: () => _showDeleteForm(context),
-                            onTap: () => editQuestion(question),
+                            onTap: () => _editQuestion(question),
                           );
                         },
                         separatorBuilder: (BuildContext context, int index) {
@@ -145,14 +155,14 @@ class AssessmentCreationPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => showQuestionTypeSelection(context),
+        onPressed: () => _showQuestionTypeSelection(context),
         child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
-  void editQuestion(Map<String, dynamic> question) {
+  void _editQuestion(Map<String, dynamic> question) {
     showModalBottomSheet(
       context: Get.context!,
       isScrollControlled: true,
@@ -221,27 +231,6 @@ class AssessmentCreationPage extends StatelessWidget {
     );
   }
 
-  void showQuestionTypeSelection(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return Wrap(
-          children: [
-            ListTile(
-              title: const Text('Multiple Choice Question'),
-              onTap: () => _showQuestionForm(context, 'mcq'),
-            ),
-            ListTile(
-              title: const Text(
-                  'More assessment item types can be added in future releases.'),
-              onTap: () => Navigator.pop(context),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   void _showDeleteForm(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -276,6 +265,7 @@ class AssessmentCreationPage extends StatelessWidget {
         final TextEditingController option2Controller = TextEditingController();
         final TextEditingController option3Controller = TextEditingController();
         final TextEditingController option4Controller = TextEditingController();
+
         return Padding(
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -292,37 +282,78 @@ class AssessmentCreationPage extends StatelessWidget {
               const SizedBox(height: 20),
               TextField(
                 controller: option1Controller,
-                decoration: const InputDecoration(labelText: 'Option A'),
+                decoration: InputDecoration(labelText: 'option_a'.tr),
               ),
               TextField(
                 controller: option2Controller,
-                decoration: const InputDecoration(labelText: 'Option B'),
+                decoration: InputDecoration(labelText: 'option_b'.tr),
               ),
               TextField(
                 controller: option3Controller,
-                decoration: const InputDecoration(labelText: 'Option C'),
+                decoration: InputDecoration(labelText: 'option_c'.tr),
               ),
               TextField(
                 controller: option4Controller,
-                decoration: const InputDecoration(labelText: 'Option D'),
+                decoration: InputDecoration(labelText: 'option_d'.tr),
               ),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  McqModel mcq =
-                      McqModel(question: questionController.text, options: [
-                    option1Controller.text,
-                    option2Controller.text,
-                    option3Controller.text,
-                    option4Controller.text,
-                  ]);
-                  _controller.addQuestion(mcq);
-                  Navigator.pop(context);
+                  if (questionController.text.isEmpty ||
+                      option1Controller.text.isEmpty ||
+                      option2Controller.text.isEmpty ||
+                      option3Controller.text.isEmpty ||
+                      option4Controller.text.isEmpty) {
+                    // Show an error message
+                    Get.snackbar('Error', 'Please fill in all fields.');
+                  } else if ({
+                        option1Controller.text,
+                        option2Controller.text,
+                        option3Controller.text,
+                        option4Controller.text,
+                      }.length <
+                      4) {
+                    // Show an error message if options are not unique
+                    Get.snackbar('Error', 'Options must be unique.');
+                  } else {
+                    McqModel mcq = McqModel(
+                      question: questionController.text,
+                      options: [
+                        option1Controller.text,
+                        option2Controller.text,
+                        option3Controller.text,
+                        option4Controller.text,
+                      ],
+                    );
+                    _controller.addQuestion(mcq);
+                    Navigator.pop(context);
+                  }
                 },
-                child: const Text('Save Question'),
+                child: Text('save_question'.tr),
               ),
             ],
           ),
+        );
+      },
+    );
+  }
+
+  void _showQuestionTypeSelection(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Wrap(
+          children: [
+            ListTile(
+              title: const Text('Multiple Choice Question'),
+              onTap: () => _showQuestionForm(context, 'mcq'),
+            ),
+            ListTile(
+              title: const Text(
+                  'More assessment item types can be added in future releases.'),
+              onTap: () => Navigator.pop(context),
+            ),
+          ],
         );
       },
     );
