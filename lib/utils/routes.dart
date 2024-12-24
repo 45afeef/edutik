@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import '../src/features/assessment/a/assessment_binding.dart';
+import '../src/features/assessment/p/assessment_creation_page.dart';
 import '../src/features/assessment/p/assessment_page.dart';
 import '../src/features/assessment/p/result/p/result_page.dart';
 import '../src/features/authentication/auth_middleware.dart';
@@ -25,6 +26,7 @@ class AppRoute {
   static const String creationPage = '/create';
   static const String resultPage = '/result';
   static const String assessmentPage = '/assessment';
+  static const String assessmentCreationPage = '/create/assessment';
 
   static final List<GetPage> routes = [
     GetPage(
@@ -56,8 +58,12 @@ class AppRoute {
       binding: AssessmentBinding(),
     ),
     GetPage(
+      name: assessmentCreationPage,
+      page: () => AssessmentCreationPage(),
+    ),
+    GetPage(
       name: resultPage,
       page: () => const AssessmentResultPage(),
-    )
+    ),
   ];
 }

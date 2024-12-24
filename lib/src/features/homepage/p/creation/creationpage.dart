@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../utils/routes.dart';
 import 'p/creation_controller.dart';
 import 'p/w/rounder_image_with_button.dart';
 import 'p/w/shorts_creation_widget.dart';
@@ -26,7 +27,7 @@ class CreationPage extends GetWidget<CreationController> {
           RoundedImageWithButton(
             "${'create'.tr} ${'exam'.tr}",
             'https://cdn.dribbble.com/userupload/8649959/file/original-9c6c904f1a4c04b2ecf4eff7e1a22e4f.png?resize=752x&vertical=center',
-            onPressed: () {},
+            onPressed: () => Get.toNamed(AppRoute.assessmentCreationPage),
           ),
           RoundedImageWithButton(
             "${'create'.tr} ${'shorts'.tr}",
