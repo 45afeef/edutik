@@ -4,5 +4,6 @@ import '../assessment_item.dart';
 class NinjaFruit extends ClosedEndedAssessmentItem {
   NinjaFruit({
     required super.question,
+    required super.answer,
   });
 }

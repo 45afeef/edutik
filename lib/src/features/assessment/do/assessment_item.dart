@@ -1,19 +1,9 @@
-
-
 /// TODO - Need to measure the effectiveness of the assessment item
 /// http://www.schreyerinstitute.psu.edu/pdf/GuideToItemAnalysis.pdf
 abstract class AssessmentItem {
   final String question;
 
   AssessmentItem({required this.question});
-}
-
-abstract class ClosedEndedAssessmentItem extends AssessmentItem {
-  ClosedEndedAssessmentItem({required super.question});
-}
-
-abstract class OpenEndedAssessmentItem extends AssessmentItem {
-  OpenEndedAssessmentItem({required super.question});
 }
 
 /// This class [AssessmentItemResponse] is a common result class for all [AssessmentItem]s
@@ -36,4 +26,17 @@ class AssessmentItemResponse {
   void updateResponse(String response) {
     studentAnswer = response.toString();
   }
+}
+
+abstract class ClosedEndedAssessmentItem extends AssessmentItem {
+  final String answer;
+
+  ClosedEndedAssessmentItem({
+    required super.question,
+    required this.answer,
+  });
+}
+
+abstract class OpenEndedAssessmentItem extends AssessmentItem {
+  OpenEndedAssessmentItem({required super.question});
 }

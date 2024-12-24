@@ -5,6 +5,7 @@ class MCQ extends ClosedEndedAssessmentItem {
 
   MCQ({
     required super.question,
+    required super.answer,
     required this.options,
   });
 }
@@ -17,6 +18,9 @@ class MCQ extends ClosedEndedAssessmentItem {
 /// This type of question clearly measure the understanding,
 /// not memory. - because memory is supplied along with question
 class MemoryplusApplicationMCQ extends MCQ {
-  MemoryplusApplicationMCQ({required super.question, required super.options});
+  MemoryplusApplicationMCQ({
+    required super.question,
+    required super.answer,
+    required super.options,
+  });
 }
-

@@ -21,6 +21,7 @@ McqModel _$McqModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$McqModel {
   String get question => throw _privateConstructorUsedError;
+  String get answer => throw _privateConstructorUsedError;
   List<String> get options => throw _privateConstructorUsedError;
 
   /// Serializes this McqModel to a JSON map.
@@ -38,7 +39,7 @@ abstract class $McqModelCopyWith<$Res> {
   factory $McqModelCopyWith(McqModel value, $Res Function(McqModel) then) =
       _$McqModelCopyWithImpl<$Res, McqModel>;
   @useResult
-  $Res call({String question, List<String> options});
+  $Res call({String question, String answer, List<String> options});
 }
 
 /// @nodoc
@@ -57,12 +58,17 @@ class _$McqModelCopyWithImpl<$Res, $Val extends McqModel>
   @override
   $Res call({
     Object? question = null,
+    Object? answer = null,
     Object? options = null,
   }) {
     return _then(_value.copyWith(
       question: null == question
           ? _value.question
           : question // ignore: cast_nullable_to_non_nullable
+              as String,
+      answer: null == answer
+          ? _value.answer
+          : answer // ignore: cast_nullable_to_non_nullable
               as String,
       options: null == options
           ? _value.options
@@ -80,7 +86,7 @@ abstract class _$$McqModelImplCopyWith<$Res>
       __$$McqModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String question, List<String> options});
+  $Res call({String question, String answer, List<String> options});
 }
 
 /// @nodoc
@@ -97,12 +103,17 @@ class __$$McqModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? question = null,
+    Object? answer = null,
     Object? options = null,
   }) {
     return _then(_$McqModelImpl(
       question: null == question
           ? _value.question
           : question // ignore: cast_nullable_to_non_nullable
+              as String,
+      answer: null == answer
+          ? _value.answer
+          : answer // ignore: cast_nullable_to_non_nullable
               as String,
       options: null == options
           ? _value._options
@@ -115,7 +126,10 @@ class __$$McqModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$McqModelImpl implements _McqModel {
-  _$McqModelImpl({required this.question, required final List<String> options})
+  _$McqModelImpl(
+      {required this.question,
+      required this.answer,
+      required final List<String> options})
       : _options = options;
 
   factory _$McqModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -123,6 +137,8 @@ class _$McqModelImpl implements _McqModel {
 
   @override
   final String question;
+  @override
+  final String answer;
   final List<String> _options;
   @override
   List<String> get options {
@@ -133,7 +149,7 @@ class _$McqModelImpl implements _McqModel {
 
   @override
   String toString() {
-    return 'McqModel(question: $question, options: $options)';
+    return 'McqModel(question: $question, answer: $answer, options: $options)';
   }
 
   @override
@@ -143,13 +159,14 @@ class _$McqModelImpl implements _McqModel {
             other is _$McqModelImpl &&
             (identical(other.question, question) ||
                 other.question == question) &&
+            (identical(other.answer, answer) || other.answer == answer) &&
             const DeepCollectionEquality().equals(other._options, _options));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, question, const DeepCollectionEquality().hash(_options));
+  int get hashCode => Object.hash(runtimeType, question, answer,
+      const DeepCollectionEquality().hash(_options));
 
   /// Create a copy of McqModel
   /// with the given fields replaced by the non-null parameter values.
@@ -170,6 +187,7 @@ class _$McqModelImpl implements _McqModel {
 abstract class _McqModel implements McqModel {
   factory _McqModel(
       {required final String question,
+      required final String answer,
       required final List<String> options}) = _$McqModelImpl;
 
   factory _McqModel.fromJson(Map<String, dynamic> json) =
@@ -177,6 +195,8 @@ abstract class _McqModel implements McqModel {
 
   @override
   String get question;
+  @override
+  String get answer;
   @override
   List<String> get options;
 

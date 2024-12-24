@@ -6,6 +6,7 @@ class MatchTheFollowing extends ClosedEndedAssessmentItem {
 
   MatchTheFollowing({
     required super.question,
+    required super.answer,
     required this.leftSideItems,
     required this.rightSideItems,
   }) : assert(leftSideItems.length == rightSideItems.length);

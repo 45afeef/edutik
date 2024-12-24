@@ -7,8 +7,9 @@ part 'mcq_model.g.dart';
 
 @freezed
 class McqModel extends MCQ with _$McqModel {
-   factory McqModel({
+  factory McqModel({
     required String question,
+    required String answer,
     required List<String> options,
   }) = _McqModel;
 

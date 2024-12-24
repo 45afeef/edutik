@@ -6,6 +6,7 @@ class FlashCard extends ClosedEndedAssessmentItem {
 
   FlashCard({
     required super.question,
+    required super.answer,
     required this.explanation,
   });
 }
