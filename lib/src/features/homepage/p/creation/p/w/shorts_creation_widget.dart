@@ -5,14 +5,14 @@ import '../../../../do/shorts_entity.dart';
 import '../creation_controller.dart';
 
 class ShortsCreationWidget extends StatefulWidget {
-  const ShortsCreationWidget({super.key, required this.onSubmit});
-
   final Function(
     String title,
     String description,
     String videoUrl,
     VideoSource videoSource,
   ) onSubmit;
+
+  const ShortsCreationWidget({super.key, required this.onSubmit});
 
   @override
   State<ShortsCreationWidget> createState() => _ShortsCreationWidgetState();
@@ -98,7 +98,7 @@ class _ShortsCreationWidgetState extends State<ShortsCreationWidget> {
                   Expanded(
                     child: TextButton(
                       onPressed: () {
-                        Get.find<CreationController>().isCreating = false;
+                        Get.find<ShortsCreationController>().isCreating = false;
                       },
                       child: Text("lbl_cancel".tr),
                     ),

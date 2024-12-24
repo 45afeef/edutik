@@ -14,7 +14,7 @@ class HomeController extends GetxController {
 
   // Controllers for each page
   late FeedController feedController;
-  late CreationController creationController;
+  late ShortsCreationController creationController;
   late ProfileController profileController;
 
   void changePage(int index) {
@@ -26,7 +26,7 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     feedController = Get.put(FeedController());
-    creationController = Get.put(CreationController());
+    creationController = Get.put(ShortsCreationController());
     profileController = Get.put(ProfileController());
   }
 }

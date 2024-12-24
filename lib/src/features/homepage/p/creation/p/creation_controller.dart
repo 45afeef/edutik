@@ -4,7 +4,7 @@ import '../../../da/shorts_model.dart';
 import '../../../do/repo/shorts_repo.dart';
 import '../../../do/shorts_entity.dart';
 
-class CreationController extends GetxController {
+class ShortsCreationController extends GetxController {
   final ShortsRepository shortsRepository = Get.find<ShortsRepository>();
 
   // Define the necessary variables and methods for the creation page
@@ -19,6 +19,13 @@ class CreationController extends GetxController {
 
   set isCreating(bool isCreating) {
     _isCreating.value = isCreating;
+  }
+
+  void clearFields() {
+    title.value = '';
+    description.value = '';
+    videoUrl.value = '';
+    videoSource.value = VideoSource.network;
   }
 
   void submitCreation() {
@@ -37,13 +44,6 @@ class CreationController extends GetxController {
 
     // Save the shorts
     shortsRepository.saveShorts(shorts);
-  }
-
-  void clearFields() {
-    title.value = '';
-    description.value = '';
-    videoUrl.value = '';
-    videoSource.value = VideoSource.network;
   }
 
   void updateTitleDescriptionVideourlAndType(

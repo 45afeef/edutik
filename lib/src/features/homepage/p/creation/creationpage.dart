@@ -6,7 +6,7 @@ import 'p/creation_controller.dart';
 import 'p/w/rounder_image_with_button.dart';
 import 'p/w/shorts_creation_widget.dart';
 
-class CreationPage extends GetWidget<CreationController> {
+class CreationPage extends GetWidget<ShortsCreationController> {
   const CreationPage({super.key});
 
   @override

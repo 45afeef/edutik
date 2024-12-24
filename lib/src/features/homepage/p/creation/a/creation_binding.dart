@@ -5,6 +5,6 @@ import '../p/creation_controller.dart';
 class CreationBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<CreationController>(() => CreationController());
+    Get.lazyPut<ShortsCreationController>(() => ShortsCreationController());
   }
 }
