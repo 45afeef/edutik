@@ -19,7 +19,9 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
   @override
   Future<AssessmentModel> getAssessment(int id) async {
     var input = await databaseService.getData(
-        collection: 'assessments', documentId: '$id');
+      collection: 'assessments',
+      documentId: '$id',
+    );
 
     var output = AssessmentModel.fromJson(input);
 

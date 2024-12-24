@@ -1,7 +1,7 @@
 import '../assessment_item.dart';
 
 class MCQ extends ClosedEndedAssessmentItem {
-  List<String> options;
+  final List<String> options;
 
   MCQ({
     required super.question,

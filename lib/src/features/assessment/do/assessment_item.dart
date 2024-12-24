@@ -3,7 +3,7 @@
 /// TODO - Need to measure the effectiveness of the assessment item
 /// http://www.schreyerinstitute.psu.edu/pdf/GuideToItemAnalysis.pdf
 abstract class AssessmentItem {
-  String question;
+  final String question;
 
   AssessmentItem({required this.question});
 }

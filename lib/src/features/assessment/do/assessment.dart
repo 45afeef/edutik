@@ -35,17 +35,17 @@ enum AssessmentType {
 
 class Assessment {
   final String name;
-  final AssessmentType assessmentType;
+  final AssessmentType type;
   final List<AssessmentItem> items;
 
   Assessment({
     required this.name,
-    required this.assessmentType,
+    required this.type,
     required this.items,
   });
 
   factory Assessment.empty() =>
-      Assessment(name: '', assessmentType: AssessmentType.ipsative, items: []);
+      Assessment(name: '', type: AssessmentType.ipsative, items: [],);
 }
 
 class AssessmentResult {
