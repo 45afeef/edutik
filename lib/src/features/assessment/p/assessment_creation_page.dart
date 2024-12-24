@@ -93,37 +93,39 @@ class AssessmentCreationPage extends StatelessWidget {
                           final question = _controller.questions[index];
 
                           return ListTile(
-                            leading: Container(
-                              width: 16,
-                              height: 16,
-                              decoration: const BoxDecoration(
-                                color: Colors.grey,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8)),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  (index + 1).toString(),
-                                  style: const TextStyle(color: Colors.black),
-                                ),
-                              ),
-                            ),
                             title: Text(
                               question['question'],
                               style: Get.theme.textTheme.titleLarge,
                             ),
+                            contentPadding: const EdgeInsets.all(8),
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 const SizedBox(height: 16),
-                                Text(question['option1'].toString().trim(),
-                                    style: Get.theme.textTheme.labelSmall),
-                                Text(question['option2'].toString().trim(),
-                                    style: Get.theme.textTheme.labelSmall),
-                                Text(question['option3'].toString().trim(),
-                                    style: Get.theme.textTheme.labelSmall),
-                                Text(question['option4'].toString().trim(),
-                                    style: Get.theme.textTheme.labelSmall),
+                                ...[
+                                  question['option1'],
+                                  question['option2'],
+                                  question['option3'],
+                                  question['option4']
+                                ].map(
+                                  (option) {
+                                    return Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          option.trim(),
+                                          style: Get.theme.textTheme.labelSmall,
+                                        ),
+                                        option == question['answer']
+                                            ? const Icon(Icons.check_circle)
+                                            : const SizedBox(
+                                                width: 24,
+                                                height: 24,
+                                              )
+                                      ],
+                                    );
+                                  },
+                                ),
                               ],
                             ),
                             onLongPress: () => _showDeleteForm(context),
@@ -177,6 +179,13 @@ class AssessmentCreationPage extends StatelessWidget {
             TextEditingController(text: question['option3']);
         final TextEditingController option4Controller =
             TextEditingController(text: question['option4']);
+        int selectedOption = [
+          question['option1'],
+          question['option2'],
+          question['option3'],
+          question['option4'],
+        ].indexOf(question['answer']);
+
         return Padding(
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -184,46 +193,121 @@ class AssessmentCreationPage extends StatelessWidget {
             right: 16.0,
           ),
           child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  controller: questionController,
-                  decoration: const InputDecoration(labelText: 'Edit Question'),
-                ),
-                const SizedBox(height: 20),
-                TextField(
-                  controller: option1Controller,
-                  decoration: const InputDecoration(labelText: 'Option A'),
-                ),
-                TextField(
-                  controller: option2Controller,
-                  decoration: const InputDecoration(labelText: 'Option B'),
-                ),
-                TextField(
-                  controller: option3Controller,
-                  decoration: const InputDecoration(labelText: 'Option C'),
-                ),
-                TextField(
-                  controller: option4Controller,
-                  decoration: const InputDecoration(labelText: 'Option D'),
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    final updatedQuestion = Map.of(question);
-                    updatedQuestion['question'] = questionController.text;
-                    updatedQuestion['option1'] = option1Controller.text;
-                    updatedQuestion['option2'] = option2Controller.text;
-                    updatedQuestion['option3'] = option3Controller.text;
-                    updatedQuestion['option4'] = option4Controller.text;
-                    _controller.updateQuestion(updatedQuestion);
+            child: StatefulBuilder(
+              builder: (context, setState) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextField(
+                      controller: questionController,
+                      decoration:
+                          const InputDecoration(labelText: 'Edit Question'),
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: option1Controller,
+                            decoration:
+                                const InputDecoration(labelText: 'Option A'),
+                          ),
+                        ),
+                        Radio<int>(
+                          value: 0,
+                          groupValue: selectedOption,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedOption = value!;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: option2Controller,
+                            decoration:
+                                const InputDecoration(labelText: 'Option B'),
+                          ),
+                        ),
+                        Radio<int>(
+                          value: 1,
+                          groupValue: selectedOption,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedOption = value!;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: option3Controller,
+                            decoration:
+                                const InputDecoration(labelText: 'Option C'),
+                          ),
+                        ),
+                        Radio<int>(
+                          value: 2,
+                          groupValue: selectedOption,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedOption = value!;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: option4Controller,
+                            decoration:
+                                const InputDecoration(labelText: 'Option D'),
+                          ),
+                        ),
+                        Radio<int>(
+                          value: 3,
+                          groupValue: selectedOption,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedOption = value!;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        final updatedQuestion = Map.of(question);
+                        updatedQuestion['question'] = questionController.text;
+                        updatedQuestion['option1'] = option1Controller.text;
+                        updatedQuestion['option2'] = option2Controller.text;
+                        updatedQuestion['option3'] = option3Controller.text;
+                        updatedQuestion['option4'] = option4Controller.text;
+                        updatedQuestion['answer'] = [
+                          option1Controller.text,
+                          option2Controller.text,
+                          option3Controller.text,
+                          option4Controller.text,
+                        ][selectedOption];
+                        _controller.updateQuestion(updatedQuestion);
 
-                    Navigator.pop(context);
-                  },
-                  child: const Text('Update Question'),
-                ),
-              ],
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Update Question'),
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         );
@@ -254,7 +338,7 @@ class AssessmentCreationPage extends StatelessWidget {
     );
   }
 
-  void _showQuestionForm(BuildContext context, String type) {
+  void _showQuestionForm(BuildContext context) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -265,74 +349,141 @@ class AssessmentCreationPage extends StatelessWidget {
         final TextEditingController option2Controller = TextEditingController();
         final TextEditingController option3Controller = TextEditingController();
         final TextEditingController option4Controller = TextEditingController();
+        int selectedOption = 0; // Default selected option
 
-        return Padding(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-            left: 16.0,
-            right: 16.0,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: questionController,
-                decoration: const InputDecoration(labelText: 'Question'),
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+                left: 16.0,
+                right: 16.0,
               ),
-              const SizedBox(height: 20),
-              TextField(
-                controller: option1Controller,
-                decoration: InputDecoration(labelText: 'option_a'.tr),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    controller: questionController,
+                    decoration: const InputDecoration(labelText: 'Question'),
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: option1Controller,
+                          decoration: InputDecoration(labelText: 'option_a'.tr),
+                        ),
+                      ),
+                      Radio<int>(
+                        value: 0,
+                        groupValue: selectedOption,
+                        onChanged: (value) {
+                          setState(() {
+                            selectedOption = value!;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: option2Controller,
+                          decoration: InputDecoration(labelText: 'option_b'.tr),
+                        ),
+                      ),
+                      Radio<int>(
+                        value: 1,
+                        groupValue: selectedOption,
+                        onChanged: (value) {
+                          setState(() {
+                            selectedOption = value!;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: option3Controller,
+                          decoration: InputDecoration(labelText: 'option_c'.tr),
+                        ),
+                      ),
+                      Radio<int>(
+                        value: 2,
+                        groupValue: selectedOption,
+                        onChanged: (value) {
+                          setState(() {
+                            selectedOption = value!;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: option4Controller,
+                          decoration: InputDecoration(labelText: 'option_d'.tr),
+                        ),
+                      ),
+                      Radio<int>(
+                        value: 3,
+                        groupValue: selectedOption,
+                        onChanged: (value) {
+                          setState(() {
+                            selectedOption = value!;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (questionController.text.isEmpty ||
+                          option1Controller.text.isEmpty ||
+                          option2Controller.text.isEmpty ||
+                          option3Controller.text.isEmpty ||
+                          option4Controller.text.isEmpty) {
+                        // Show an error message
+                        Get.snackbar('Error', 'Please fill in all fields.');
+                      } else if ({
+                            option1Controller.text,
+                            option2Controller.text,
+                            option3Controller.text,
+                            option4Controller.text,
+                          }.length <
+                          4) {
+                        // Show an error message if options are not unique
+                        Get.snackbar('Error', 'Options must be unique.');
+                      } else {
+                        final options = [
+                          option1Controller.text,
+                          option2Controller.text,
+                          option3Controller.text,
+                          option4Controller.text,
+                        ];
+                        McqModel mcq = McqModel(
+                          question: questionController.text,
+                          options: options,
+                          answer: options[selectedOption],
+                        );
+                        _controller.addQuestion(mcq);
+                        Navigator.pop(context);
+                      }
+                    },
+                    child: Text('save_question'.tr),
+                  ),
+                ],
               ),
-              TextField(
-                controller: option2Controller,
-                decoration: InputDecoration(labelText: 'option_b'.tr),
-              ),
-              TextField(
-                controller: option3Controller,
-                decoration: InputDecoration(labelText: 'option_c'.tr),
-              ),
-              TextField(
-                controller: option4Controller,
-                decoration: InputDecoration(labelText: 'option_d'.tr),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  if (questionController.text.isEmpty ||
-                      option1Controller.text.isEmpty ||
-                      option2Controller.text.isEmpty ||
-                      option3Controller.text.isEmpty ||
-                      option4Controller.text.isEmpty) {
-                    // Show an error message
-                    Get.snackbar('Error', 'Please fill in all fields.');
-                  } else if ({
-                        option1Controller.text,
-                        option2Controller.text,
-                        option3Controller.text,
-                        option4Controller.text,
-                      }.length <
-                      4) {
-                    // Show an error message if options are not unique
-                    Get.snackbar('Error', 'Options must be unique.');
-                  } else {
-                    McqModel mcq = McqModel(
-                      question: questionController.text,
-                      options: [
-                        option1Controller.text,
-                        option2Controller.text,
-                        option3Controller.text,
-                        option4Controller.text,
-                      ],
-                    );
-                    _controller.addQuestion(mcq);
-                    Navigator.pop(context);
-                  }
-                },
-                child: Text('save_question'.tr),
-              ),
-            ],
-          ),
+            );
+          },
         );
       },
     );
@@ -346,7 +497,7 @@ class AssessmentCreationPage extends StatelessWidget {
           children: [
             ListTile(
               title: const Text('Multiple Choice Question'),
-              onTap: () => _showQuestionForm(context, 'mcq'),
+              onTap: () => _showQuestionForm(context),
             ),
             ListTile(
               title: const Text(

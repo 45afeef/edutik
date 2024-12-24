@@ -11,7 +11,10 @@ class AssessmentCreationController extends GetxController {
 
   Future<void> addQuestion(AssessmentItem item) async {
     if (item is MCQ) {
-      var data = {'question': item.question};
+      var data = {
+        'question': item.question,
+        'answer': item.answer,
+      };
       for (var i = 0; i < item.options.length; i++) {
         if (i > 9) break;
         data['option${i + 1}'] = item.options[i];

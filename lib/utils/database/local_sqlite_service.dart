@@ -17,7 +17,7 @@ String _createMcqTableScript = '''CREATE TABLE mcq (
     option8 TEXT,
     option9 TEXT,
     option10 TEXT,
-    correct_option INTEGER,
+    answer TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ''';
