@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../da/models/items/mcq_model.dart';
+import '../do/closed_ended/mcq.dart';
 import 'controllers/assessment_creation_controller.dart';
 
 class AssessmentCreationPage extends StatelessWidget {
@@ -484,7 +484,7 @@ class AssessmentCreationPage extends StatelessWidget {
                           option3Controller.text,
                           option4Controller.text,
                         ];
-                        McqModel mcq = McqModel(
+                        MCQ mcq = MCQ(
                           question: questionController.text,
                           options: options,
                           answer: options[selectedOption],
