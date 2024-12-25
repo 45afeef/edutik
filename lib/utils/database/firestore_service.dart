@@ -26,9 +26,11 @@ class FirebaseService implements DatabaseService {
     required String collection,
   }) async {
     QuerySnapshot querySnapshot = await _firestore.collection(collection).get();
-    return querySnapshot.docs
-        .map((doc) => doc.data() as Map<String, dynamic>)
-        .toList();
+    return querySnapshot.docs.map((doc) {
+      var data = doc.data() as Map<String, dynamic>;
+      data['id'] = doc.id;
+      return data;
+    }).toList();
   }
 
   @override

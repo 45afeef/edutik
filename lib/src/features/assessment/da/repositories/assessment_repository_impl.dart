@@ -17,14 +17,23 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
   }
 
   @override
-  Future<AssessmentModel> getAssessment(int id) async {
+  Future<AssessmentModel> getAssessment(String id) async {
     var input = await databaseService.getData(
       collection: 'assessments',
-      documentId: '$id',
+      documentId: id,
     );
 
     var output = AssessmentModel.fromJson(input);
 
     return output;
+  }
+
+  @override
+  Future<void> saveAssessment(AssessmentModel assessmentModel) {
+    final data = assessmentModel.toJson();
+    return databaseService.addData(
+      collection: 'assessments',
+      data: data,
+    );
   }
 }

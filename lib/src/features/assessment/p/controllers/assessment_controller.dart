@@ -51,8 +51,8 @@ class AssessmentController extends GetxController {
   }
 
   /// Fetches a specific assessment from the repository
-  Future<Assessment> fetchAssessment() async {
-    Assessment response = await _repo.getAssessment(1);
+  Future<Assessment> fetchAssessment(String assessmentId) async {
+    Assessment response = await _repo.getAssessment(assessmentId);
     assessment.value = response;
     return response;
   }

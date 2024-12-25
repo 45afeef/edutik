@@ -17,8 +17,8 @@ class AssessmentItemModel extends AssessmentItem with _$AssessmentItemModel {
 
   const factory AssessmentItemModel.mcq({
     required String question,
+    required String answer,
     required List<String> options,
-    required int correctOption,
   }) = _$MCQ;
 
   // const factory AssessmentItemModel.singleWord({

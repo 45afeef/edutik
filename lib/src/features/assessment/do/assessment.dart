@@ -1,5 +1,65 @@
-
 import 'assessment_item.dart';
+
+class Assessment {
+  final String? id;
+  final String name;
+  final AssessmentType type;
+  final List<AssessmentItem> items;
+
+  Assessment({
+    this.id,
+    required this.name,
+    required this.type,
+    required this.items,
+  });
+
+  factory Assessment.empty() => Assessment(
+        id: '',
+        name: '',
+        type: AssessmentType.ipsative,
+        items: [],
+      );
+}
+
+class AssessmentResult {
+  Map<int, AssessmentItemResponse> studentResponse;
+
+  // Constructor
+  AssessmentResult({Map<int, AssessmentItemResponse>? initialResponse})
+      : studentResponse = initialResponse ?? {};
+
+  AssessmentItemResponse? getItemResponse(int index) => studentResponse[index];
+
+  // Methods
+  void setItemResponse(int index, AssessmentItemResponse response) =>
+      studentResponse[index] = response;
+}
+
+/// Assessments are mainly conduts for many reasons. I'm listing some of the core
+/// reasons
+///
+/// 1. Identifying Mistakes
+/// 2. Identifying Knowlege and Knowlege Gaps
+/// 3. Identifying Confusions
+/// 4. Identifying Misconceptions
+/// 5. Measuring Mastery levels
+/// 6. Predicting future performance
+/// 7. Feedback for learning imporvements
+/// 8. Validating teaching Methods
+/// 9. Motivation and Accountability
+/// 10. Curriculum Alignment
+
+// SINGLE result object can create following analysis
+// encouraging, suggesting areas for improvement
+// Analyze the correctness of each assessment item
+// Calculate the time taken to complete the assessment
+//   Identify unusually fast or slow responses. Longer times may indicate confusion or careful consideration.
+// Feedback Generation:
+//       Based on the above analyses, generate personalized feedback:
+//           Encourage strengths.
+//           Suggest targeted study areas.
+//           Address misconceptions or knowledge gaps.
+class AssessmentResultAnalysis {}
 
 enum AssessmentType {
   /// [screening] assessment is used as pre lesson assessment. Used for screening the student
@@ -32,61 +92,6 @@ enum AssessmentType {
   /// [ipsative] Compares a student’s current performance against their previous performances.
   ipsative,
 }
-
-class Assessment {
-  final String name;
-  final AssessmentType type;
-  final List<AssessmentItem> items;
-
-  Assessment({
-    required this.name,
-    required this.type,
-    required this.items,
-  });
-
-  factory Assessment.empty() =>
-      Assessment(name: '', type: AssessmentType.ipsative, items: [],);
-}
-
-class AssessmentResult {
-  Map<int, AssessmentItemResponse> studentResponse;
-
-  // Constructor
-  AssessmentResult({Map<int, AssessmentItemResponse>? initialResponse})
-      : studentResponse = initialResponse ?? {};
-
-  // Methods
-  void setItemResponse(int index, AssessmentItemResponse response) =>
-      studentResponse[index] = response;
-
-  AssessmentItemResponse? getItemResponse(int index) => studentResponse[index];
-}
-
-/// Assessments are mainly conduts for many reasons. I'm listing some of the core
-/// reasons
-///
-/// 1. Identifying Mistakes
-/// 2. Identifying Knowlege and Knowlege Gaps
-/// 3. Identifying Confusions
-/// 4. Identifying Misconceptions
-/// 5. Measuring Mastery levels
-/// 6. Predicting future performance
-/// 7. Feedback for learning imporvements
-/// 8. Validating teaching Methods
-/// 9. Motivation and Accountability
-/// 10. Curriculum Alignment
-
-// SINGLE result object can create following analysis
-// encouraging, suggesting areas for improvement
-// Analyze the correctness of each assessment item
-// Calculate the time taken to complete the assessment
-//   Identify unusually fast or slow responses. Longer times may indicate confusion or careful consideration.
-// Feedback Generation:
-//       Based on the above analyses, generate personalized feedback:
-//           Encourage strengths.
-//           Suggest targeted study areas.
-//           Address misconceptions or knowledge gaps.
-class AssessmentResultAnalysis {}
 
 // for a experienced and passioned teacher, its easy to measure this outcomes, but i'm designing a computer software. for now the only input is assessment. so how can i understand whether it is a mistake, misconception, confusion, knowledge gap, guessing, or others using algorithms
 // Copilot

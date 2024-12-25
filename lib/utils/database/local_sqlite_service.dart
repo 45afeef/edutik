@@ -45,6 +45,13 @@ class SqLiteService implements DatabaseService {
     db.insert(collection, data, conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
+  Future<void> deleteAllData({
+    required String collection,
+  }) async {
+    final db = await database;
+    db.delete(collection);
+  }
+
   @override
   Future<void> deleteData({
     required String collection,

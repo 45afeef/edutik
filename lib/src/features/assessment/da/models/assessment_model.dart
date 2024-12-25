@@ -1,21 +1,25 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../do/assessment.dart';
-import 'assessment_item.dart';
+import '../../do/assessment_item.dart';
+import '../../do/closed_ended/flashcard.dart';
+import '../../do/closed_ended/match_the_following.dart';
+import '../../do/closed_ended/mcq.dart';
+import '../../do/open_ended/one_word.dart';
 
-part 'assessment_model.freezed.dart';
 part 'assessment_model.g.dart';
 
 @freezed
-class AssessmentModel extends Assessment with _$AssessmentModel {
-  const factory AssessmentModel({
-    required String name,
-    required AssessmentType type,
-    required List<AssessmentItemModel> items,
-  }) = _AssessmentModel;
+class AssessmentModel extends Assessment {
+  AssessmentModel({
+    super.id,
+    required super.name,
+    required super.type,
+    required super.items,
+  });
 
   factory AssessmentModel.fromJson(Map<String, dynamic> json) =>
-      _$AssessmentModelFromJson(json);
+      _$AssessmentFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AssessmentModelToJson(this);
 }
-
-

@@ -21,25 +21,24 @@ AssessmentItemModel _$AssessmentItemModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$AssessmentItemModel {
   String get question => throw _privateConstructorUsedError;
+  String get answer => throw _privateConstructorUsedError;
   List<String> get options => throw _privateConstructorUsedError;
-  int get correctOption => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            String question, List<String> options, int correctOption)
+            String question, String answer, List<String> options)
         mcq,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String question, List<String> options, int correctOption)?
+    TResult? Function(String question, String answer, List<String> options)?
         mcq,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String question, List<String> options, int correctOption)?
-        mcq,
+    TResult Function(String question, String answer, List<String> options)? mcq,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -76,7 +75,7 @@ abstract class $AssessmentItemModelCopyWith<$Res> {
           AssessmentItemModel value, $Res Function(AssessmentItemModel) then) =
       _$AssessmentItemModelCopyWithImpl<$Res, AssessmentItemModel>;
   @useResult
-  $Res call({String question, List<String> options, int correctOption});
+  $Res call({String question, String answer, List<String> options});
 }
 
 /// @nodoc
@@ -95,22 +94,22 @@ class _$AssessmentItemModelCopyWithImpl<$Res, $Val extends AssessmentItemModel>
   @override
   $Res call({
     Object? question = null,
+    Object? answer = null,
     Object? options = null,
-    Object? correctOption = null,
   }) {
     return _then(_value.copyWith(
       question: null == question
           ? _value.question
           : question // ignore: cast_nullable_to_non_nullable
               as String,
+      answer: null == answer
+          ? _value.answer
+          : answer // ignore: cast_nullable_to_non_nullable
+              as String,
       options: null == options
           ? _value.options
           : options // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      correctOption: null == correctOption
-          ? _value.correctOption
-          : correctOption // ignore: cast_nullable_to_non_nullable
-              as int,
     ) as $Val);
   }
 }
@@ -123,7 +122,7 @@ abstract class _$$$MCQImplCopyWith<$Res>
       __$$$MCQImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String question, List<String> options, int correctOption});
+  $Res call({String question, String answer, List<String> options});
 }
 
 /// @nodoc
@@ -139,22 +138,22 @@ class __$$$MCQImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? question = null,
+    Object? answer = null,
     Object? options = null,
-    Object? correctOption = null,
   }) {
     return _then(_$$MCQImpl(
       question: null == question
           ? _value.question
           : question // ignore: cast_nullable_to_non_nullable
               as String,
+      answer: null == answer
+          ? _value.answer
+          : answer // ignore: cast_nullable_to_non_nullable
+              as String,
       options: null == options
           ? _value._options
           : options // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      correctOption: null == correctOption
-          ? _value.correctOption
-          : correctOption // ignore: cast_nullable_to_non_nullable
-              as int,
     ));
   }
 }
@@ -164,8 +163,8 @@ class __$$$MCQImplCopyWithImpl<$Res>
 class _$$MCQImpl implements _$MCQ {
   const _$$MCQImpl(
       {required this.question,
-      required final List<String> options,
-      required this.correctOption})
+      required this.answer,
+      required final List<String> options})
       : _options = options;
 
   factory _$$MCQImpl.fromJson(Map<String, dynamic> json) =>
@@ -173,6 +172,8 @@ class _$$MCQImpl implements _$MCQ {
 
   @override
   final String question;
+  @override
+  final String answer;
   final List<String> _options;
   @override
   List<String> get options {
@@ -182,11 +183,8 @@ class _$$MCQImpl implements _$MCQ {
   }
 
   @override
-  final int correctOption;
-
-  @override
   String toString() {
-    return 'AssessmentItemModel.mcq(question: $question, options: $options, correctOption: $correctOption)';
+    return 'AssessmentItemModel.mcq(question: $question, answer: $answer, options: $options)';
   }
 
   @override
@@ -196,15 +194,14 @@ class _$$MCQImpl implements _$MCQ {
             other is _$$MCQImpl &&
             (identical(other.question, question) ||
                 other.question == question) &&
-            const DeepCollectionEquality().equals(other._options, _options) &&
-            (identical(other.correctOption, correctOption) ||
-                other.correctOption == correctOption));
+            (identical(other.answer, answer) || other.answer == answer) &&
+            const DeepCollectionEquality().equals(other._options, _options));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, question,
-      const DeepCollectionEquality().hash(_options), correctOption);
+  int get hashCode => Object.hash(runtimeType, question, answer,
+      const DeepCollectionEquality().hash(_options));
 
   /// Create a copy of AssessmentItemModel
   /// with the given fields replaced by the non-null parameter values.
@@ -218,30 +215,29 @@ class _$$MCQImpl implements _$MCQ {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            String question, List<String> options, int correctOption)
+            String question, String answer, List<String> options)
         mcq,
   }) {
-    return mcq(question, options, correctOption);
+    return mcq(question, answer, options);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String question, List<String> options, int correctOption)?
+    TResult? Function(String question, String answer, List<String> options)?
         mcq,
   }) {
-    return mcq?.call(question, options, correctOption);
+    return mcq?.call(question, answer, options);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String question, List<String> options, int correctOption)?
-        mcq,
+    TResult Function(String question, String answer, List<String> options)? mcq,
     required TResult orElse(),
   }) {
     if (mcq != null) {
-      return mcq(question, options, correctOption);
+      return mcq(question, answer, options);
     }
     return orElse();
   }
@@ -285,17 +281,17 @@ class _$$MCQImpl implements _$MCQ {
 abstract class _$MCQ implements AssessmentItemModel {
   const factory _$MCQ(
       {required final String question,
-      required final List<String> options,
-      required final int correctOption}) = _$$MCQImpl;
+      required final String answer,
+      required final List<String> options}) = _$$MCQImpl;
 
   factory _$MCQ.fromJson(Map<String, dynamic> json) = _$$MCQImpl.fromJson;
 
   @override
   String get question;
   @override
-  List<String> get options;
+  String get answer;
   @override
-  int get correctOption;
+  List<String> get options;
 
   /// Create a copy of AssessmentItemModel
   /// with the given fields replaced by the non-null parameter values.

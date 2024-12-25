@@ -5,8 +5,8 @@ import '../da/models/items/mcq_model.dart';
 import 'controllers/assessment_creation_controller.dart';
 
 class AssessmentCreationPage extends StatelessWidget {
-  final AssessmentCreationController _controller =
-      Get.put(AssessmentCreationController());
+  final AssessmentDraftController _draftController =
+      Get.put(AssessmentDraftController());
   final TextEditingController _assessmentNameController =
       TextEditingController();
 
@@ -67,7 +67,7 @@ class AssessmentCreationPage extends StatelessWidget {
                       child: Center(
                         child: Obx(
                           () => Text(
-                            _controller.questions.length.toString(),
+                            _draftController.questions.length.toString(),
                             style: const TextStyle(color: Colors.white),
                           ),
                         ),
@@ -88,9 +88,9 @@ class AssessmentCreationPage extends StatelessWidget {
                       return ListView.separated(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: _controller.questions.length,
+                        itemCount: _draftController.questions.length,
                         itemBuilder: (context, index) {
-                          final question = _controller.questions[index];
+                          final question = _draftController.questions[index];
 
                           return ListTile(
                             title: Text(
@@ -142,10 +142,25 @@ class AssessmentCreationPage extends StatelessWidget {
                 const SizedBox(height: 100),
                 Obx(
                   () => ElevatedButton(
-                    onPressed: _controller.questions.length < 10
+                    onPressed: _draftController.questions.length < 3
                         ? null
                         : () {
-                            throw UnimplementedError();
+                            // TODO - validate the input data
+                            if (_assessmentNameController.text.isEmpty) {
+                              Get.snackbar(
+                                'Name is missing',
+                                'Choose the right name for the assessment before saving',
+                              );
+                              return;
+                            }
+                            // Save the Assessment to cloud
+                            _draftController
+                                .saveAssessment(_assessmentNameController.text)
+                                .then((value) {
+                              // Delete the Assessment details from the local draft (db)
+                              _draftController
+                                  .deleteAssessmentDataFromDraftTable();
+                            });
                           },
                     child: Text('${'publish'.tr} ${'assessment'.tr}'),
                   ),
@@ -299,7 +314,7 @@ class AssessmentCreationPage extends StatelessWidget {
                           option3Controller.text,
                           option4Controller.text,
                         ][selectedOption];
-                        _controller.updateQuestion(updatedQuestion);
+                        _draftController.updateQuestion(updatedQuestion);
 
                         Navigator.pop(context);
                       },
@@ -474,7 +489,7 @@ class AssessmentCreationPage extends StatelessWidget {
                           options: options,
                           answer: options[selectedOption],
                         );
-                        _controller.addQuestion(mcq);
+                        _draftController.addQuestion(mcq);
                         Navigator.pop(context);
                       }
                     },

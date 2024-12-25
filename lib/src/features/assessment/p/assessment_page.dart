@@ -55,11 +55,19 @@ class AssessmentPage extends GetWidget<AssessmentController> {
       return UnSupportedAssessmentItemTypeWidget();
     }
 
+    final String assessmentId = Get.arguments;
+
     return Scaffold(
       body: SafeArea(
         child: Center(
           child: FutureBuilder<Assessment>(
-            future: controller.fetchAssessment(),
+            // TODO - Bug found
+            // "EMERGENCY"
+            // This future builder is executed every time that apears on the screen. 
+            // Resutls in multiple http requst without any data changes. causes unnecessary call, 
+            // and drainig cloude quota and brandwidth.
+            
+            future: controller.fetchAssessment(assessmentId),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return Card(
