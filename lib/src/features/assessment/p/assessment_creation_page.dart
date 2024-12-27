@@ -142,7 +142,7 @@ class AssessmentCreationPage extends StatelessWidget {
                 const SizedBox(height: 100),
                 Obx(
                   () => ElevatedButton(
-                    onPressed: _draftController.questions.length < 3
+                    onPressed: _draftController.questions.length < 5
                         ? null
                         : () {
                             // TODO - validate the input data
@@ -160,6 +160,7 @@ class AssessmentCreationPage extends StatelessWidget {
                               // Delete the Assessment details from the local draft (db)
                               _draftController
                                   .deleteAssessmentDataFromDraftTable();
+                              Get.back();
                             });
                           },
                     child: Text('${'publish'.tr} ${'assessment'.tr}'),

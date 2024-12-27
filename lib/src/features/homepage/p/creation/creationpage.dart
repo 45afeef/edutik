@@ -52,10 +52,13 @@ class CreationPage extends GetWidget<ShortsCreationController> {
 
   Widget _buildCreationPage() {
     return ShortsCreationWidget(
-      onSubmit: (title, description, videoUrl, videoSource) {
+      onSubmit: (title, description, videoUrl, videoSource) async {
         controller.updateTitleDescriptionVideourlAndType(
             title, description, videoUrl, videoSource);
-        controller.submitCreation();
+        await controller.submitCreation();
+
+        Get.back();
+        return;
       },
     );
   }

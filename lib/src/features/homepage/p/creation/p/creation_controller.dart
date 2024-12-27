@@ -28,7 +28,7 @@ class ShortsCreationController extends GetxController {
     videoSource.value = VideoSource.network;
   }
 
-  void submitCreation() {
+  Future<void> submitCreation() {
     ShortsModel shorts = ShortsModel(
       creatorProfile:
           'currentUserProfile', // TODO - update the current user profile here.
@@ -43,7 +43,7 @@ class ShortsCreationController extends GetxController {
     );
 
     // Save the shorts
-    shortsRepository.saveShorts(shorts);
+    return shortsRepository.saveShorts(shorts);
   }
 
   void updateTitleDescriptionVideourlAndType(
