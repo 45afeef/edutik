@@ -15,6 +15,24 @@ class SupabaseService implements DatabaseService {
   }
 
   @override
+  Future<void> deleteData({
+    required String collection,
+    required String documentId,
+  }) async {
+    await _client.from(collection).delete().eq('id', documentId);
+  }
+
+  @override
+  Future<List<Map<String, dynamic>>> getAllData({
+    required String collection,
+  }) async {
+    final response = await _client.from(collection).select();
+
+    return response;
+    // return List<Map<String, dynamic>>.from(response);
+  }
+
+  @override
   Future<Map<String, dynamic>> getData({
     required String collection,
     required String documentId,
@@ -32,23 +50,5 @@ class SupabaseService implements DatabaseService {
     required Map<String, dynamic> data,
   }) async {
     await _client.from(collection).update(data).eq('id', documentId);
-  }
-
-  @override
-  Future<void> deleteData({
-    required String collection,
-    required String documentId,
-  }) async {
-    await _client.from(collection).delete().eq('id', documentId);
-  }
-
-  @override
-  Future<List<Map<String, dynamic>>> getAllData({
-    required String collection,
-  }) async {
-    final response = await _client.from(collection).select();
-
-    return response;
-    // return List<Map<String, dynamic>>.from(response);
   }
 }

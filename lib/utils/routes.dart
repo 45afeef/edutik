@@ -1,15 +1,19 @@
 import 'package:get/get.dart';
 
+import '../src/features/assessment/a/assessment_binding.dart';
+import '../src/features/assessment/p/assessment_creation_page.dart';
+import '../src/features/assessment/p/assessment_page.dart';
+import '../src/features/assessment/p/result/p/result_page.dart';
 import '../src/features/authentication/auth_middleware.dart';
 import '../src/features/authentication/signinpage.dart';
 import '../src/features/homepage/a/home_binding.dart';
 import '../src/features/homepage/p/creation/a/creation_binding.dart';
 import '../src/features/homepage/p/creation/creationpage.dart';
 import '../src/features/homepage/p/feed/feedpage.dart';
-import '../src/features/homepage/homepage.dart';
+import '../src/features/homepage/p/homepage.dart';
 import '../src/features/homepage/p/profile/profilepage.dart';
-import '../src/features/onboardingScreen/onboarding.dart';
-import '../src/features/onboardingScreen/onboarding_middleware.dart';
+import '../src/features/onboardingPage/onboarding.dart';
+import '../src/features/onboardingPage/onboarding_middleware.dart';
 
 class AppRoute {
   static const String home = '/';
@@ -20,6 +24,9 @@ class AppRoute {
   static const String feedPage = '/feeds';
   static const String profilePage = '/profile';
   static const String creationPage = '/create';
+  static const String resultPage = '/result';
+  static const String assessmentPage = '/assessment';
+  static const String assessmentCreationPage = '/create/assessment';
 
   static final List<GetPage> routes = [
     GetPage(
@@ -45,5 +52,18 @@ class AppRoute {
     GetPage(name: onboarding, page: () => const OnboardingPage()),
     GetPage(name: signUp, page: () => const SigninPage()),
     GetPage(name: signIn, page: () => const SigninPage()),
+    GetPage(
+      name: assessmentPage,
+      page: () => const AssessmentPage(),
+      binding: AssessmentBinding(),
+    ),
+    GetPage(
+      name: assessmentCreationPage,
+      page: () => AssessmentCreationPage(),
+    ),
+    GetPage(
+      name: resultPage,
+      page: () => const AssessmentResultPage(),
+    ),
   ];
 }

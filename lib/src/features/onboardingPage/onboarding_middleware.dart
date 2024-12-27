@@ -8,7 +8,8 @@ import '../authentication/auth_service.dart';
 class OnboardingMiddleware extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
-    // Redirect to onboarding screen if the user either not authenticated or never seen the onboarding screen before
+    // Redirect to onboarding page if the user either not authenticated 
+    // or never seen the onboarding page before
     return SharedPrefsUtil().isOnboardingShown() &&
             AuthService().isAuthenticated
         ? null

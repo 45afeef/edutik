@@ -1,54 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'p/controller.dart';
+import '../../../../../utils/routes.dart';
+import 'p/creation_controller.dart';
+import 'p/w/rounder_image_with_button.dart';
 import 'p/w/shorts_creation_widget.dart';
 
-class CreationPage extends GetWidget<CreationController> {
+class CreationPage extends GetWidget<ShortsCreationController> {
   const CreationPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       () {
-        if (!controller.isCreating) return _buildIntentionScreen();
-        return _buildCreationScreen();
+        if (!controller.isCreating) return _buildCreationIntentionPage();
+        return _buildCreationPage();
       },
     );
   }
 
-  Widget _buildIntentionScreen() {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
+  Widget _buildCreationIntentionPage() {
+    return SafeArea(
+      child: ListView(
+        padding: const EdgeInsets.all(16),
         children: [
-          IconButton.outlined(
-            icon: const Icon(Icons.add),
-            enableFeedback: true,
-            tooltip: "lbl_create".tr,
-            padding: const EdgeInsets.all(24),
-            iconSize: 24.0,
-            splashRadius: 28.0,
-            constraints: const BoxConstraints(),
-            alignment: Alignment.center,
-            onPressed: () {
-              controller.isCreating = true;
-            },
+          RoundedImageWithButton(
+            "${'create'.tr} ${'exam'.tr}",
+            'https://cdn.dribbble.com/userupload/8649959/file/original-9c6c904f1a4c04b2ecf4eff7e1a22e4f.png?resize=752x&vertical=center',
+            onPressed: () => Get.toNamed(AppRoute.assessmentCreationPage),
           ),
-          const SizedBox(height: 10),
-          Text("lbl_create".tr),
-          Text("EduTik", style: Get.textTheme.bodyLarge)
+          RoundedImageWithButton(
+            "${'create'.tr} ${'shorts'.tr}",
+            'https://th.bing.com/th/id/OIP.FS6YltTUtgofukeesFx21AHaHa?w=610&h=610&rs=1&pid=ImgDetMain',
+            onPressed: () => controller.isCreating = true,
+          ),
+          RoundedImageWithButton(
+            "${'create'.tr} ${'batch'.tr}",
+            'assets/images/school_batches.png',
+            isAssetImage: true,
+            onPressed: null,
+          ),
+          RoundedImageWithButton(
+            "${'create'.tr} ${'video_class'.tr}",
+            'https://th.bing.com/th/id/OIP.obLEgRLmdz9aDxstTuWd5AHaE7?rs=1&pid=ImgDetMain',
+            onPressed: null,
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildCreationScreen() {
+  Widget _buildCreationPage() {
     return ShortsCreationWidget(
-      onSubmit: (title, description, videoUrl, videoSource) {
+      onSubmit: (title, description, videoUrl, videoSource) async {
         controller.updateTitleDescriptionVideourlAndType(
             title, description, videoUrl, videoSource);
-        controller.submitCreation();
+        await controller.submitCreation();
+
+        Get.back();
+        return;
       },
     );
   }

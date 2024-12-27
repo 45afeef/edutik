@@ -1,0 +1,163 @@
+{
+    "name": "This is the First Term Exam",
+    "type": "screening",
+    "items": [
+        {
+            "type": "one_word_question",
+            "question": "What is your thoughts about Albert Eienstien"
+        },
+        {
+            "type": "mcq",
+            "question": "This is the question No One",
+            "options": [
+                "One",
+                "Two",
+                "Three",
+                "Four"
+            ]
+        },
+        {
+            "type": "flashcard",
+            "question": "This is the question No One",
+            "explanation": "This is the explanation"
+        },
+        {
+            "type": "match_the_following",
+            "question": "This is the question No Two",
+            "leftSideItems": [
+                "This",
+                "is",
+                "the",
+                "explanation"
+            ],
+            "rightSideItems": [
+                "This",
+                "is",
+                "the",
+                "explanation"
+            ]
+        },
+        {
+            "type": "flashcard",
+            "question": "This is the first question in first flash card",
+            "explanation": "explanation"
+        },
+        {
+            "type": "mcq",
+            "question": "What is the capital of France?",
+            "options": [
+                "Paris",
+                "Rome",
+                "Berlin",
+                "Madrid"
+            ]
+        },
+        {
+            "type": "mcq",
+            "question": "Which element has the chemical symbol O?",
+            "options": [
+                "Oxygen",
+                "Gold",
+                "Iron",
+                "Helium"
+            ]
+        },
+        {
+            "type": "flashcard",
+            "question": "question in Second flash card",
+            "explanation": "explanation"
+        },
+        {
+            "type": "mcq",
+            "question": "Who wrote Romeo and Juliet?",
+            "options": [
+                "William Shakespeare",
+                "Charles Dickens",
+                "Jane Austen",
+                "Mark Twain"
+            ]
+        },
+        {
+            "type": "one_word_question",
+            "question": "Who is commonly known as the father of India?"
+        },
+        {
+            "type": "mcq",
+            "question": "What is the largest planet in our solar system?",
+            "options": [
+                "Jupiter",
+                "Mars",
+                "Earth",
+                "Venus"
+            ]
+        },
+        {
+            "type": "mcq",
+            "question": "What is the boiling point of water?",
+            "options": [
+                "100°C",
+                "90°C",
+                "120°C",
+                "80°C"
+            ]
+        },
+        {
+            "type": "mcq",
+            "question": "Who painted the Mona Lisa?",
+            "options": [
+                "Leonardo da Vinci",
+                "Vincent Van Gogh",
+                "Pablo Picasso",
+                "Claude Monet"
+            ]
+        },
+        {
+            "type": "mcq",
+            "question": "What is the currency of Japan?",
+            "options": [
+                "Yen",
+                "Dollar",
+                "Euro",
+                "Won"
+            ]
+        },
+        {
+            "type": "mcq",
+            "question": "How many continents are there on Earth?",
+            "options": [
+                "Seven",
+                "Six",
+                "Five",
+                "Eight"
+            ]
+        },
+        {
+            "type": "mcq",
+            "question": "What is the main ingredient in sushi?",
+            "options": [
+                "Rice",
+                "Fish",
+                "Cheese",
+                "Beef"
+            ]
+        },
+        {
+            "type": "true_or_false",
+            "question": "The only true or false question",
+            "options": [
+                "more",
+                "wow"
+            ]
+        },
+        {
+            "type": "mcq",
+            "question": "What is the hardest natural substance?",
+            "options": [
+                "Diamond",
+                "Gold",
+                "Iron",
+                "Quartz"
+            ]
+        }
+    ]
+}

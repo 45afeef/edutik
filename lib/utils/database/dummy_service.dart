@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
+
 import '../../src/features/homepage/da/shorts_model.dart';
 import '../../src/features/homepage/do/shorts_entity.dart';
 import 'database_service.dart';
@@ -94,6 +98,10 @@ class DummyService extends DatabaseService {
             // Add more data here
           ].map((e) => e.toJson())
         ];
+      case 'assessments':
+        var assessment =
+            await getData(collection: 'assessments', documentId: '1');
+        return List.generate(50, (i) => assessment);
       default:
         // TODO: implement deleteData
         throw UnimplementedError();
@@ -101,8 +109,19 @@ class DummyService extends DatabaseService {
   }
 
   @override
-  Future<Map<String, dynamic>> getData(
-      {required String collection, required String documentId}) {
+  Future<Map<String, dynamic>> getData({
+    required String collection,
+    required String documentId,
+  }) async {
+    switch (collection) {
+      case 'assessments':
+        final input =
+            await rootBundle.loadString('assets/dummy_assessment.json');
+
+        Future.delayed(const Duration(seconds: 30));
+        return jsonDecode(input);
+      default:
+    }
     // TODO: implement getData
     throw UnimplementedError();
   }

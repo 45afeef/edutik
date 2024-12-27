@@ -14,6 +14,26 @@ class FirebaseService implements DatabaseService {
   }
 
   @override
+  Future<void> deleteData({
+    required String collection,
+    required String documentId,
+  }) async {
+    await _firestore.collection(collection).doc(documentId).delete();
+  }
+
+  @override
+  Future<List<Map<String, dynamic>>> getAllData({
+    required String collection,
+  }) async {
+    QuerySnapshot querySnapshot = await _firestore.collection(collection).get();
+    return querySnapshot.docs.map((doc) {
+      var data = doc.data() as Map<String, dynamic>;
+      data['id'] = doc.id;
+      return data;
+    }).toList();
+  }
+
+  @override
   Future<Map<String, dynamic>> getData({
     required String collection,
     required String documentId,
@@ -31,23 +51,5 @@ class FirebaseService implements DatabaseService {
     required Map<String, dynamic> data,
   }) async {
     await _firestore.collection(collection).doc(documentId).update(data);
-  }
-
-  @override
-  Future<void> deleteData({
-    required String collection,
-    required String documentId,
-  }) async {
-    await _firestore.collection(collection).doc(documentId).delete();
-  }
-
-  @override
-  Future<List<Map<String, dynamic>>> getAllData({
-    required String collection,
-  }) async {
-    QuerySnapshot querySnapshot = await _firestore.collection(collection).get();
-    return querySnapshot.docs
-        .map((doc) => doc.data() as Map<String, dynamic>)
-        .toList();
   }
 }
