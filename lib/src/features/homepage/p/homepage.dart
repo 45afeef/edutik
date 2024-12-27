@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'creation/creationpage.dart';
-import 'feed/feedpage.dart';
 import 'home_controller.dart';
 import 'profile/profilepage.dart';
+import 'w/upcomming_feature.dart';
 
 class HomePage extends GetWidget<HomeController> {
   const HomePage({super.key});
@@ -31,7 +31,12 @@ class HomePage extends GetWidget<HomeController> {
         onPageChanged: (value) => controller.currentPageIndex.value = value,
         controller: controller.tabsController,
         children: const [
-          FeedPage(),
+          // TODO replace this with actual feed page
+          UpcomingFeature(
+            featureName: 'Feeds Page',
+            excerpt:
+                'Update this app first whenever a new update is available to get this feature before your friends try this',
+          ),
           CreationPage(),
           ProfilePage(),
         ],
