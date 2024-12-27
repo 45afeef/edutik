@@ -32,7 +32,7 @@ class CreationPage extends GetWidget<ShortsCreationController> {
           RoundedImageWithButton(
             "${'create'.tr} ${'shorts'.tr}",
             'https://th.bing.com/th/id/OIP.FS6YltTUtgofukeesFx21AHaHa?w=610&h=610&rs=1&pid=ImgDetMain',
-            onPressed: () => controller.isCreating = true,
+            onPressed: null,
           ),
           RoundedImageWithButton(
             "${'create'.tr} ${'batch'.tr}",
