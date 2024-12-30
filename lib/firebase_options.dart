@@ -55,7 +55,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '854440408795',
     projectId: 'edutik',
     authDomain: 'edutik.firebaseapp.com',
-    storageBucket: 'edutik.appspot.com',
+    storageBucket: 'edutik.firebasestorage.app',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -63,7 +63,7 @@ class DefaultFirebaseOptions {
     appId: '1:854440408795:android:4559075459057779893efe',
     messagingSenderId: '854440408795',
     projectId: 'edutik',
-    storageBucket: 'edutik.appspot.com',
+    storageBucket: 'edutik.firebasestorage.app',
   );
 
 }

@@ -1,1 +1,34 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"edutik","appId":"1:854440408795:android:4559075459057779893efe","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"edutik","configurations":{"android":"1:854440408795:android:4559075459057779893efe","web":"1:854440408795:web:80fe3a9510626b95893efe"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "edutik",
+          "appId": "1:854440408795:android:4559075459057779893efe",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "edutik",
+          "configurations": {
+            "android": "1:854440408795:android:4559075459057779893efe",
+            "web": "1:854440408795:web:80fe3a9510626b95893efe"
+          }
+        }
+      }
+    }
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

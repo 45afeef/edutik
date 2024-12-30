@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "854440408795",
     "project_id": "edutik",
-    "storage_bucket": "edutik.appspot.com"
+    "storage_bucket": "edutik.firebasestorage.app"
   },
   "client": [
     {
@@ -13,6 +13,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "854440408795-73j7vtgn57la0dg85p4tmkd5vm31q0us.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.edukit.social.edukit",
+            "certificate_hash": "e05a83fcba7511c9b7e1f8151c2dfeb6aba93a08"
+          }
+        },
         {
           "client_id": "854440408795-qvm9tk6o4d7f4tjpeamdghfnq2eh05ii.apps.googleusercontent.com",
           "client_type": 3
