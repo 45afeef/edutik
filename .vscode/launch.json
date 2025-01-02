@@ -5,6 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Flutter Web",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "args": [
+                "-d",
+                "chrome",
+                "--web-port=5000",
+            ]
+        },
+        {
             "name": "edukit",
             "request": "launch",
             "type": "dart"
