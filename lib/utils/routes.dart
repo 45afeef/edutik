@@ -24,6 +24,7 @@ class AppRoute {
   static const String feedPage = '/feeds';
   static const String profilePage = '/profile';
   static const String creationPage = '/create';
+
   static const String resultPage = '/result';
   static const String assessmentPage = '/assessment';
   static const String assessmentCreationPage = '/create/assessment';
@@ -47,23 +48,23 @@ class AppRoute {
           page: () => const CreationPage(),
         ),
         GetPage(name: profilePage, page: () => const ProfilePage()),
+        GetPage(
+          name: assessmentPage,
+          page: () => const AssessmentPage(),
+          binding: AssessmentBinding(),
+        ),
+        GetPage(
+          name: assessmentCreationPage,
+          page: () => AssessmentCreationPage(),
+        ),
+        GetPage(
+          name: resultPage,
+          page: () => const AssessmentResultPage(),
+        ),
       ],
     ),
     GetPage(name: onboarding, page: () => const OnboardingPage()),
     GetPage(name: signUp, page: () => const SigninPage()),
     GetPage(name: signIn, page: () => const SigninPage()),
-    GetPage(
-      name: assessmentPage,
-      page: () => const AssessmentPage(),
-      binding: AssessmentBinding(),
-    ),
-    GetPage(
-      name: assessmentCreationPage,
-      page: () => AssessmentCreationPage(),
-    ),
-    GetPage(
-      name: resultPage,
-      page: () => const AssessmentResultPage(),
-    ),
   ];
 }

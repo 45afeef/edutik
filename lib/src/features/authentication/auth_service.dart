@@ -9,10 +9,10 @@ class AuthService {
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  User? get currentUser => _firebaseAuth.currentUser;
-
   bool isAuthenticated =
       FirebaseAuth.instance.currentUser?.isAnonymous == false;
+
+  User? get currentUser => _firebaseAuth.currentUser;
 
   get onLoggingIn => _loggingState;
 
@@ -26,17 +26,11 @@ class AuthService {
     });
   }
 
-  void signOut() {
-    FirebaseAuth.instance.signOut().then((_) {
-      // TODO - This is not working well or not a good practice. Please make use of global stream listner to handle user auth state changes and navigation.
-      Get.offAllNamed(AppRoute.home);
-    });
-  }
-
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
+    final GoogleSignInAccount? googleUser = await GoogleSignIn(
+            clientId: const String.fromEnvironment('GOOGLE_CLIENT_ID'))
+        .signIn();
     // Obtain the auth details from the request
     final GoogleSignInAuthentication? googleAuth =
         await googleUser?.authentication;
@@ -49,5 +43,12 @@ class AuthService {
 
     // Once signed in, return the UserCredential
     return await _firebaseAuth.signInWithCredential(credential);
+  }
+
+  void signOut() {
+    FirebaseAuth.instance.signOut().then((_) {
+      // TODO - This is not working well or not a good practice. Please make use of global stream listner to handle user auth state changes and navigation.
+      Get.offAllNamed(AppRoute.home);
+    });
   }
 }
