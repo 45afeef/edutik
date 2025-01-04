@@ -18,6 +18,9 @@ class HomePage extends GetWidget<HomeController> {
               BottomNavigationBarItem(
                   icon: Icon(Icons.create_outlined), label: 'Create'),
               BottomNavigationBarItem(
+                  icon: Icon(Icons.admin_panel_settings_outlined),
+                  label: 'BrainRot'),
+              BottomNavigationBarItem(
                   icon: Icon(Icons.person_2), label: 'Profile'),
             ],
             currentIndex: controller.currentPageIndex.value,
@@ -25,7 +28,10 @@ class HomePage extends GetWidget<HomeController> {
               controller.currentPageIndex.value = value;
               controller.tabsController.jumpToPage(value);
             },
-            selectedItemColor: Colors.pink,
+            showSelectedLabels: true,
+            showUnselectedLabels: false,
+            selectedItemColor: Get.theme.colorScheme.primary,
+            unselectedItemColor: Get.theme.colorScheme.secondary,
           )),
       body: PageView(
         onPageChanged: (value) => controller.currentPageIndex.value = value,
@@ -38,6 +44,11 @@ class HomePage extends GetWidget<HomeController> {
                 'Update this app first whenever a new update is available to get this feature before your friends try this',
           ),
           CreationPage(),
+          UpcomingFeature(
+            featureName: "Let's fight together against BRAINROT",
+            excerpt:
+                "Its our duty to make bright future for our kids, Lets group together and fight against brainrot",
+          ),
           ProfilePage(),
         ],
       ),
