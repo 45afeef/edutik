@@ -26,7 +26,7 @@ class AppRoute {
   static const String creationPage = '/create';
 
   static const String resultPage = '/result';
-  static const String assessmentPage = '/assessment';
+  static const String assessmentPage = '/assessment/:id';
   static const String assessmentCreationPage = '/create/assessment';
 
   static final List<GetPage> routes = [
@@ -50,7 +50,7 @@ class AppRoute {
         GetPage(name: profilePage, page: () => const ProfilePage()),
         GetPage(
           name: assessmentPage,
-          page: () => const AssessmentPage(),
+          page: () => const AssessmentPage(), // Updated to pass the ID
           binding: AssessmentBinding(),
         ),
         GetPage(

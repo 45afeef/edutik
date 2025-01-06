@@ -55,7 +55,8 @@ class AssessmentPage extends GetWidget<AssessmentController> {
       return UnSupportedAssessmentItemTypeWidget();
     }
 
-    final String assessmentId = Get.arguments;
+    final String assessmentId =
+        Get.parameters['id']!; // Updated to use Get.parameters
 
     return Scaffold(
       body: SafeArea(
