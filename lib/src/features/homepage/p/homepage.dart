@@ -14,7 +14,11 @@ class HomePage extends GetWidget<HomeController> {
     return Scaffold(
       bottomNavigationBar: Obx(() => BottomNavigationBar(
             items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Feed'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: 'Shorts'), // Create a post form like grapevine's feed.
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.text_format), label: 'Essays'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.create_outlined), label: 'Create'),
               BottomNavigationBarItem(
@@ -43,6 +47,7 @@ class HomePage extends GetWidget<HomeController> {
             excerpt:
                 'Update this app first whenever a new update is available to get this feature before your friends try this',
           ),
+          UpcomingFeature(),
           CreationPage(),
           UpcomingFeature(
             featureName: "Let's fight together against BRAINROT",

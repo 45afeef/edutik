@@ -63,16 +63,16 @@ class AssessmentPage extends GetWidget<AssessmentController> {
           child: FutureBuilder<Assessment>(
             // TODO - Bug found
             // "EMERGENCY"
-            // This future builder is executed every time that apears on the screen. 
-            // Resutls in multiple http requst without any data changes. causes unnecessary call, 
-            // and drainig cloude quota and brandwidth.
-            
+            // This future builder is executed every time that appears on the screen.
+            // Results in multiple HTTP requests without any data changes. Causes unnecessary calls,
+            // and drains cloud quota and bandwidth.
+
             future: controller.fetchAssessment(assessmentId),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return Card(
                   child: Text(
-                    '${'error_loading_assessemnt'.tr}.${snapshot.error}',
+                    '${'error_loading_assessment'.tr}.${snapshot.error}',
                   ),
                 );
               }
@@ -105,8 +105,8 @@ class AssessmentPage extends GetWidget<AssessmentController> {
                         Expanded(
                           child: PageView(
                             onPageChanged: (value) {
-                              // Update the current Question.
-                              // Why this check - to make sure the last page is shown well. as the last page is not a question page. but a submit page.
+                              // Update the current question.
+                              // Why this check - to make sure the last page is shown well, as the last page is not a question page, but a submit page.
                               if (value.isLowerThan(
                                   controller.assessment.value.items.length)) {
                                 controller.currentQuestion = value;
