@@ -54,7 +54,7 @@ class QuizzesGrid extends GetWidget<AssessmentController> {
                             onPressed: () {
                               // TODO - move this code away from UI
                               Share.share(
-                                '*${e.name.trim()}* \n\n attempt for free \nhttps://edutik.web.app${AppRoute.assessmentPage.replaceFirst(':id', e.id!)}',
+                                '*${e.name.trim()}* \n\n${'msg_attempt_for_free'.tr} \nhttps://edutik.web.app${AppRoute.assessmentPage.replaceFirst(':id', e.id!)}',
                               );
                             },
                             icon: const Icon(
