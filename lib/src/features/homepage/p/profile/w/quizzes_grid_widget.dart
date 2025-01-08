@@ -25,14 +25,14 @@ class QuizzesGrid extends GetWidget<AssessmentController> {
               crossAxisCount: 3,
               children: snapshort.data!
                   .map(
-                    (e) => Stack(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(6),
-                          color: Colors.primaries[snapshort.data!.indexOf(e) %
-                              Colors.primaries.length],
-                          height: 150.0,
-                          child: Center(
+                    (e) => Container(
+                      padding: const EdgeInsets.all(6),
+                      color: Colors.primaries[
+                          snapshort.data!.indexOf(e) % Colors.primaries.length],
+                      height: 150.0,
+                      child: Stack(
+                        children: [
+                          Center(
                             child: TextButton(
                               onPressed: () => Get.toNamed(
                                 AppRoute.assessmentPage
@@ -45,24 +45,24 @@ class QuizzesGrid extends GetWidget<AssessmentController> {
                               ),
                             ),
                           ),
-                        ),
-                        Positioned(
-                          right: 0,
-                          bottom: 0,
-                          child: IconButton(
-                            iconSize: 18,
-                            onPressed: () {
-                              // TODO - move this code away from UI
-                              Share.share(
-                                '*${e.name.trim()}* \n\n${'msg_attempt_for_free'.tr} \nhttps://edutik.web.app${AppRoute.assessmentPage.replaceFirst(':id', e.id!)}',
-                              );
-                            },
-                            icon: const Icon(
-                              Icons.share,
+                          Positioned(
+                            right: 0,
+                            bottom: 0,
+                            child: IconButton(
+                              iconSize: 18,
+                              onPressed: () {
+                                // TODO - move this code away from UI
+                                Share.share(
+                                  '*${e.name.trim()}* \n\n${'msg_attempt_for_free'.tr} \nhttps://edutik.web.app${AppRoute.assessmentPage.replaceFirst(':id', e.id!)}',
+                                );
+                              },
+                              icon: const Icon(
+                                Icons.share,
+                              ),
                             ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
                   )
                   .toList(),

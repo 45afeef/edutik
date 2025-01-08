@@ -26,9 +26,14 @@ class FirebaseService implements DatabaseService {
     required String collection,
   }) async {
     QuerySnapshot querySnapshot = await _firestore.collection(collection).get();
+
     return querySnapshot.docs.map((doc) {
       var data = doc.data() as Map<String, dynamic>;
+
+      // recording the resource identifier along with the result
+      // This is because the resource identifier is stored seperate in firebase from data.
       data['id'] = doc.id;
+
       return data;
     }).toList();
   }
@@ -41,7 +46,13 @@ class FirebaseService implements DatabaseService {
     DocumentSnapshot doc =
         await _firestore.collection(collection).doc(documentId).get();
 
-    return doc.data() as Map<String, dynamic>;
+    var data = doc.data() as Map<String, dynamic>;
+
+    // recording the resource identifier along with the result
+    // This is because the resource identifier is stored seperate in firebase from data.
+    data['id'] = doc.id;
+
+    return data;
   }
 
   @override
