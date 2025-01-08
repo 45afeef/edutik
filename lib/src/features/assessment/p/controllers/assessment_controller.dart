@@ -30,6 +30,9 @@ class AssessmentController extends GetxController {
   /// Timer for tracking time spent on each question
   Timer? _timer;
 
+  /// Cache for storing assessments
+  Map<String, Assessment> assessmentCache = <String, Assessment>{};
+
   /// Updates the current question index and starts the timer
   set currentQuestion(int index) => currentQuestionIndex.value = index;
 
@@ -47,13 +50,40 @@ class AssessmentController extends GetxController {
 
   /// Fetches all available assessments from the repository
   Future<List<Assessment>> fetchAllAssessments() async {
-    return await _repo.getAllAssessments();
+    // Check if all assessments are already in the cache
+    // TODO - BAD BEHAVIOUR -  This condition will result in lowers number of http calls,
+    // which causes bad behaviour from users pov. even though this is cost effective,
+    // this don't give much options to users
+    // UPDATE the code in future
+    if (assessmentCache.isNotEmpty) {
+      return assessmentCache.values.toList();
+    }
+
+    // If not in the cache, make the network request
+    List<Assessment> response = await _repo.getAllAssessments();
+
+    // Convert to a map where the key is the id field of each assessment from list
+    assessmentCache = {for (var obj in response) obj.id!: obj};
+
+    return response;
   }
 
   /// Fetches a specific assessment from the repository
   Future<Assessment> fetchAssessment(String assessmentId) async {
+    // Check if the assessment is already in the cache
+    if (assessmentCache.containsKey(assessmentId)) {
+      return assessmentCache[assessmentId]!;
+    }
+
+    // If not in the cache, make the network request
     Assessment response = await _repo.getAssessment(assessmentId);
+
+    // Update the cache with the new response
+    assessmentCache[assessmentId] = response;
+
+    // Update the current assessment
     assessment.value = response;
+
     return response;
   }
 
