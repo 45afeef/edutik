@@ -50,6 +50,7 @@ class UpcomingFeature extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             featureName,
+            textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
