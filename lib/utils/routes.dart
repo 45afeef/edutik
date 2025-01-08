@@ -12,6 +12,8 @@ import '../src/features/homepage/p/creation/creationpage.dart';
 import '../src/features/homepage/p/feed/feedpage.dart';
 import '../src/features/homepage/p/homepage.dart';
 import '../src/features/homepage/p/profile/profilepage.dart';
+import '../src/features/institute/a/institute_binding.dart';
+import '../src/features/institute/p/institutepage.dart';
 import '../src/features/onboardingPage/onboarding.dart';
 import '../src/features/onboardingPage/onboarding_middleware.dart';
 
@@ -28,6 +30,9 @@ class AppRoute {
   static const String resultPage = '/result';
   static const String assessmentPage = '/assessment/:id';
   static const String assessmentCreationPage = '/create/assessment';
+
+  // INSTITUTE specific routes
+  static const String institutePage = '/institute/:instituteId';
 
   static final List<GetPage> routes = [
     GetPage(
@@ -50,7 +55,7 @@ class AppRoute {
         GetPage(name: profilePage, page: () => const ProfilePage()),
         GetPage(
           name: assessmentPage,
-          page: () => const AssessmentPage(), // Updated to pass the ID
+          page: () => const AssessmentPage(),
           binding: AssessmentBinding(),
         ),
         GetPage(
@@ -66,5 +71,10 @@ class AppRoute {
     GetPage(name: onboarding, page: () => const OnboardingPage()),
     GetPage(name: signUp, page: () => const SigninPage()),
     GetPage(name: signIn, page: () => const SigninPage()),
+    GetPage(
+      name: institutePage,
+      page: () => const Institutepage(),
+      binding: InstituteBinding(),
+    ),
   ];
 }

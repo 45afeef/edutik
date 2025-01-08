@@ -5,6 +5,8 @@ import '../src/features/assessment/da/repositories/assessment_repository_impl.da
 import '../src/features/assessment/do/repositories/assessment_repository.dart';
 import '../src/features/homepage/da/repo/shorts_repository_impl.dart';
 import '../src/features/homepage/do/repo/shorts_repo.dart';
+import '../src/features/institute/da/repo/institute_reopsitory_impl.dart';
+import '../src/features/institute/do/repo/institute_repo.dart';
 import 'database/database_service.dart';
 import 'database/firestore_service.dart';
 import 'network_info.dart';
@@ -32,6 +34,9 @@ class InitialBindings extends Bindings {
     );
     Get.put<AssessmentRepository>(
       AssessmentRepositoryImpl(Get.find<DatabaseService>()),
+    );
+    Get.put<InstituteRepository>(
+      InstituteReopsitoryImpl(Get.find<DatabaseService>()),
     );
 
     // Network connectivity
