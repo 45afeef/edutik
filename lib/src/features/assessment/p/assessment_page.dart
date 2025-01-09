@@ -62,12 +62,6 @@ class AssessmentPage extends GetWidget<AssessmentController> {
       body: SafeArea(
         child: Center(
           child: FutureBuilder<Assessment>(
-            // TODO - Bug found
-            // "EMERGENCY"
-            // This future builder is executed every time that appears on the screen.
-            // Results in multiple HTTP requests without any data changes. Causes unnecessary calls,
-            // and drains cloud quota and bandwidth.
-
             future: controller.fetchAssessment(assessmentId),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
@@ -98,39 +92,42 @@ class AssessmentPage extends GetWidget<AssessmentController> {
                       ],
                     )
                   : Column(
-                      children: [
-                        LinearProgressIndicator(
-                          value: (controller.currentQuestionIndex.value + 1) /
-                              controller.assessment.value.items.length,
-                        ),
-                        Expanded(
-                          child: PageView(
-                            onPageChanged: (value) {
-                              // Update the current question.
-                              // Why this check - to make sure the last page is shown well, as the last page is not a question page, but a submit page.
-                              if (value.isLowerThan(
-                                  controller.assessment.value.items.length)) {
-                                controller.currentQuestion = value;
-                              }
-                              HapticFeedback.mediumImpact();
-                            },
-                            scrollDirection: Axis.vertical,
-                            children: [
-                              ...controller.assessment.value.items.map(
-                                (assessmentItem) => Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Center(
-                                      child: buildAssessmentWidget(
-                                          assessmentItem)),
+                      children: controller.assessment.value.items.isEmpty
+                          ? []
+                          : [
+                              LinearProgressIndicator(
+                                value: (controller.currentQuestionIndex.value +
+                                        1) /
+                                    controller.assessment.value.items.length,
+                              ),
+                              Expanded(
+                                child: PageView(
+                                  onPageChanged: (value) {
+                                    // Update the current question.
+                                    // Why this check - to make sure the last page is shown well, as the last page is not a question page, but a submit page.
+                                    if (value.isLowerThan(controller
+                                        .assessment.value.items.length)) {
+                                      controller.currentQuestion = value;
+                                    }
+                                    HapticFeedback.mediumImpact();
+                                  },
+                                  scrollDirection: Axis.vertical,
+                                  children: [
+                                    ...controller.assessment.value.items.map(
+                                      (assessmentItem) => Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Center(
+                                            child: buildAssessmentWidget(
+                                                assessmentItem)),
+                                      ),
+                                    ),
+                                    CompletedWidget(onComplete: () {
+                                      Get.toNamed(AppRoute.resultPage);
+                                    })
+                                  ],
                                 ),
                               ),
-                              CompletedWidget(onComplete: () {
-                                Get.toNamed(AppRoute.resultPage);
-                              })
                             ],
-                          ),
-                        ),
-                      ],
                     ));
             },
           ),

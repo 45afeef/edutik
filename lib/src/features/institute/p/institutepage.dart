@@ -14,7 +14,7 @@ class Institutepage extends GetWidget<InstituteController> {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: FutureBuilder(
+          child: FutureBuilder<Institute>(
               future: controller.fetchInstitute(instituteId),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {

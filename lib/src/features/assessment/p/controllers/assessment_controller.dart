@@ -72,6 +72,8 @@ class AssessmentController extends GetxController {
   Future<Assessment> fetchAssessment(String assessmentId) async {
     // Check if the assessment is already in the cache
     if (assessmentCache.containsKey(assessmentId)) {
+      // Update the current assessment
+      assessment.value = assessmentCache[assessmentId]!;
       return assessmentCache[assessmentId]!;
     }
 
