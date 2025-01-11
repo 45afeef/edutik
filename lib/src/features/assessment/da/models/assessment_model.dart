@@ -1,4 +1,4 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import '../../do/assessment.dart';
 import '../../do/assessment_item.dart';
@@ -9,7 +9,6 @@ import '../../do/open_ended/one_word.dart';
 
 part 'assessment_model.g.dart';
 
-@freezed
 class AssessmentModel extends Assessment {
   AssessmentModel({
     super.id,

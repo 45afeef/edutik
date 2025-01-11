@@ -25,6 +25,7 @@ mixin _$InstituteModel {
   String get address => throw _privateConstructorUsedError;
   @JsonKey(name: 'profile_image')
   String get profileUrl => throw _privateConstructorUsedError;
+  List<String> get publicAssessmentRefs => throw _privateConstructorUsedError;
 
   /// Serializes this InstituteModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -46,7 +47,8 @@ abstract class $InstituteModelCopyWith<$Res> {
       {String? id,
       String name,
       String address,
-      @JsonKey(name: 'profile_image') String profileUrl});
+      @JsonKey(name: 'profile_image') String profileUrl,
+      List<String> publicAssessmentRefs});
 }
 
 /// @nodoc
@@ -68,6 +70,7 @@ class _$InstituteModelCopyWithImpl<$Res, $Val extends InstituteModel>
     Object? name = null,
     Object? address = null,
     Object? profileUrl = null,
+    Object? publicAssessmentRefs = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -86,6 +89,10 @@ class _$InstituteModelCopyWithImpl<$Res, $Val extends InstituteModel>
           ? _value.profileUrl
           : profileUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      publicAssessmentRefs: null == publicAssessmentRefs
+          ? _value.publicAssessmentRefs
+          : publicAssessmentRefs // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
   }
 }
@@ -102,7 +109,8 @@ abstract class _$$InstituteModelImplCopyWith<$Res>
       {String? id,
       String name,
       String address,
-      @JsonKey(name: 'profile_image') String profileUrl});
+      @JsonKey(name: 'profile_image') String profileUrl,
+      List<String> publicAssessmentRefs});
 }
 
 /// @nodoc
@@ -122,6 +130,7 @@ class __$$InstituteModelImplCopyWithImpl<$Res>
     Object? name = null,
     Object? address = null,
     Object? profileUrl = null,
+    Object? publicAssessmentRefs = null,
   }) {
     return _then(_$InstituteModelImpl(
       id: freezed == id
@@ -140,6 +149,10 @@ class __$$InstituteModelImplCopyWithImpl<$Res>
           ? _value.profileUrl
           : profileUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      publicAssessmentRefs: null == publicAssessmentRefs
+          ? _value._publicAssessmentRefs
+          : publicAssessmentRefs // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -151,7 +164,9 @@ class _$InstituteModelImpl implements _InstituteModel {
       {this.id,
       required this.name,
       required this.address,
-      @JsonKey(name: 'profile_image') required this.profileUrl});
+      @JsonKey(name: 'profile_image') required this.profileUrl,
+      required final List<String> publicAssessmentRefs})
+      : _publicAssessmentRefs = publicAssessmentRefs;
 
   factory _$InstituteModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$InstituteModelImplFromJson(json);
@@ -165,10 +180,18 @@ class _$InstituteModelImpl implements _InstituteModel {
   @override
   @JsonKey(name: 'profile_image')
   final String profileUrl;
+  final List<String> _publicAssessmentRefs;
+  @override
+  List<String> get publicAssessmentRefs {
+    if (_publicAssessmentRefs is EqualUnmodifiableListView)
+      return _publicAssessmentRefs;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_publicAssessmentRefs);
+  }
 
   @override
   String toString() {
-    return 'InstituteModel(id: $id, name: $name, address: $address, profileUrl: $profileUrl)';
+    return 'InstituteModel(id: $id, name: $name, address: $address, profileUrl: $profileUrl, publicAssessmentRefs: $publicAssessmentRefs)';
   }
 
   @override
@@ -180,12 +203,15 @@ class _$InstituteModelImpl implements _InstituteModel {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.profileUrl, profileUrl) ||
-                other.profileUrl == profileUrl));
+                other.profileUrl == profileUrl) &&
+            const DeepCollectionEquality()
+                .equals(other._publicAssessmentRefs, _publicAssessmentRefs));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, address, profileUrl);
+  int get hashCode => Object.hash(runtimeType, id, name, address, profileUrl,
+      const DeepCollectionEquality().hash(_publicAssessmentRefs));
 
   /// Create a copy of InstituteModel
   /// with the given fields replaced by the non-null parameter values.
@@ -206,11 +232,11 @@ class _$InstituteModelImpl implements _InstituteModel {
 
 abstract class _InstituteModel implements InstituteModel {
   factory _InstituteModel(
-          {final String? id,
-          required final String name,
-          required final String address,
-          @JsonKey(name: 'profile_image') required final String profileUrl}) =
-      _$InstituteModelImpl;
+      {final String? id,
+      required final String name,
+      required final String address,
+      @JsonKey(name: 'profile_image') required final String profileUrl,
+      required final List<String> publicAssessmentRefs}) = _$InstituteModelImpl;
 
   factory _InstituteModel.fromJson(Map<String, dynamic> json) =
       _$InstituteModelImpl.fromJson;
@@ -224,6 +250,8 @@ abstract class _InstituteModel implements InstituteModel {
   @override
   @JsonKey(name: 'profile_image')
   String get profileUrl;
+  @override
+  List<String> get publicAssessmentRefs;
 
   /// Create a copy of InstituteModel
   /// with the given fields replaced by the non-null parameter values.

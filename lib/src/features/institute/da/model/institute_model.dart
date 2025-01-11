@@ -12,6 +12,7 @@ class InstituteModel extends Institute with _$InstituteModel {
     required String name,
     required String address,
     @JsonKey(name: 'profile_image') required String profileUrl,
+    required List<String> publicAssessmentRefs,
   }) = _InstituteModel;
 
   factory InstituteModel.fromJson(Map<String, dynamic> json) =>

@@ -21,7 +21,11 @@ class ProfilePage extends GetWidget<ProfileController> {
         actions: [
           IconButton(
             onPressed: themController.toggleTheme,
-            icon: const Icon(Icons.sync),
+            icon: Icon(
+              themController.isDarkMode.value
+                  ? Icons.nights_stay_sharp
+                  : Icons.sunny,
+            ),
           ),
           IconButton(
             onPressed: () {

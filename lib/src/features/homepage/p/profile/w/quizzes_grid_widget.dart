@@ -25,10 +25,10 @@ class QuizzesGrid extends GetWidget<AssessmentController> {
               crossAxisCount: 3,
               children: snapshort.data!
                   .map(
-                    (e) => Container(
+                    (assessment) => Container(
                       padding: const EdgeInsets.all(6),
                       color: Colors.primaries[
-                          snapshort.data!.indexOf(e) % Colors.primaries.length],
+                          snapshort.data!.indexOf(assessment) % Colors.primaries.length],
                       height: 150.0,
                       child: Stack(
                         children: [
@@ -36,10 +36,10 @@ class QuizzesGrid extends GetWidget<AssessmentController> {
                             child: TextButton(
                               onPressed: () => Get.toNamed(
                                 AppRoute.assessmentPage
-                                    .replaceFirst(':id', e.id!),
+                                    .replaceFirst(':id', assessment.id!),
                               ),
                               child: Text(
-                                e.name,
+                                assessment.name,
                                 style: Theme.of(context).textTheme.bodySmall,
                                 textAlign: TextAlign.center,
                               ),
@@ -53,7 +53,7 @@ class QuizzesGrid extends GetWidget<AssessmentController> {
                               onPressed: () {
                                 // TODO - move this code away from UI
                                 Share.share(
-                                  '*${e.name.trim()}* \n\n${'msg_attempt_for_free'.tr} \nhttps://edutik.web.app${AppRoute.assessmentPage.replaceFirst(':id', e.id!)}',
+                                  '*${assessment.name.trim()}* \n\n${'msg_attempt_for_free'.tr} \nhttps://edutik.web.app${AppRoute.assessmentPage.replaceFirst(':id', assessment.id!)}',
                                 );
                               },
                               icon: const Icon(

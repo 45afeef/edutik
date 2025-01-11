@@ -46,6 +46,10 @@ class FirebaseService implements DatabaseService {
     DocumentSnapshot doc =
         await _firestore.collection(collection).doc(documentId).get();
 
+    if (!doc.exists) {
+      throw Exception("Document can't found on firestore$collection/$documentId");
+    }
+
     var data = doc.data() as Map<String, dynamic>;
 
     // recording the resource identifier along with the result

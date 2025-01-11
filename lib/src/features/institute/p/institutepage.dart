@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../utils/routes.dart';
 import '../do/entity/institute.dart';
 import 'controllers/institute_controller.dart';
 
@@ -20,7 +21,7 @@ class Institutepage extends GetWidget<InstituteController> {
                 if (snapshot.hasError) {
                   return Card(
                     child: Text(
-                      '${'error_loading_assessment'.tr}.${snapshot.error}',
+                      '${'error_loading_assessment'.tr} - ${snapshot.error}',
                     ),
                   );
                 }
@@ -30,17 +31,14 @@ class Institutepage extends GetWidget<InstituteController> {
 
                 Institute instituteData = snapshot.data!;
                 return Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundImage: NetworkImage(instituteData.profileUrl ??
-                          'https://via.placeholder.com/150'),
+                    Image.network(
+                      instituteData.profileUrl,
+                      fit: BoxFit.cover,
                     ),
                     const SizedBox(height: 20),
                     Text(
-                      instituteData.name ?? 'msg_no_name'.tr,
+                      instituteData.name,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                           fontSize: 24, fontWeight: FontWeight.bold),
@@ -50,6 +48,37 @@ class Institutepage extends GetWidget<InstituteController> {
                       instituteData.address,
                       textAlign: TextAlign.center,
                     ),
+                    const SizedBox(height: 20),
+                    Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          final assessmentId =
+                              instituteData.publicAssessmentRefs![2];
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Card(
+                              child: AspectRatio(
+                                aspectRatio: 3.0,
+                                child: Center(
+                                  child: ListTile(
+                                    leading: Text('${index + 1}'),
+                                    title: Text(
+                                        '${'public'.tr} ${'assessment'.tr}'),
+                                    onTap: () => Get.toNamed(
+                                      AppRoute.assessmentPage
+                                          .replaceFirst(':id', assessmentId),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                        // itemCount: instituteData.publicAssessmentRefs!.length,
+                        itemCount: 500,
+                      ),
+                    )
                   ],
                 );
               }),

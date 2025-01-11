@@ -14,8 +14,7 @@ class Assessment {
   });
 
   factory Assessment.empty() => Assessment(
-        id: '',
-        name: '',
+                name: '',
         type: AssessmentType.ipsative,
         items: [],
       );
