@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../../../../assessment/p/controllers/assessment_controller.dart';
 import '../../../../authentication/auth_service.dart';
 import '../do/entity/user_profile.dart';
 import '../do/repository/profile_repo.dart';
@@ -8,11 +9,11 @@ class ProfileController extends GetxController {
   final UserProfileRepository _repo = Get.find<UserProfileRepository>();
 
   Map<String, UserProfile> userProfileCache = <String, UserProfile>{};
-
   Rx<UserProfile> userProfile = UserProfile.empty().obs;
   bool _isOwnProfile = true;
 
   final AuthService auth = AuthService();
+  late AssessmentController assessmentController;
 
   bool get isOwnProfile => _isOwnProfile;
 
@@ -46,6 +47,12 @@ class ProfileController extends GetxController {
     userProfile.value = response;
 
     return response;
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    assessmentController = Get.put(AssessmentController());
   }
 
   void signOut() => auth.signOut();
