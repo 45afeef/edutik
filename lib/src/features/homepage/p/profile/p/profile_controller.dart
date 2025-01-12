@@ -1,36 +1,52 @@
 import 'package:get/get.dart';
 
-import '../../../../assessment/p/controllers/assessment_controller.dart';
+import '../../../../authentication/auth_service.dart';
+import '../do/entity/user_profile.dart';
+import '../do/repository/profile_repo.dart';
 
 class ProfileController extends GetxController {
-  // Define the necessary variables and methods for the profile page
+  final UserProfileRepository _repo = Get.find<UserProfileRepository>();
 
-  final RxString userName = ''.obs;
-  final RxString userEmail = ''.obs;
-  final RxString userProfilePic = ''.obs;
+  Map<String, UserProfile> userProfileCache = <String, UserProfile>{};
 
-  // Controllers declarations
-  late AssessmentController assessmentController;
+  Rx<UserProfile> userProfile = UserProfile.empty().obs;
+  bool _isOwnProfile = true;
 
-  void loadProfile() {
-    // TODO - add repository Logic to load profile details
-    userName.value = 'John Doe';
-    userEmail.value = 'john.doe@example.com';
-    userProfilePic.value = 'https://example.com/johndoe.jpg';
+  final AuthService auth = AuthService();
+
+  bool get isOwnProfile => _isOwnProfile;
+
+  Future<UserProfile> fetchProfile(String? profileId) async {
+    _isOwnProfile = profileId == null ||
+        (auth.currentUser != null && profileId == auth.currentUser!.uid);
+    profileId ??= auth.currentUser!.uid;
+
+    // Check if the user profile is already in the cache
+    if (userProfileCache.containsKey(profileId)) {
+      userProfile.value = userProfileCache[profileId]!;
+      return userProfile.value;
+    }
+
+    UserProfile response;
+    if (_isOwnProfile) {
+      response = UserProfile(
+        displayName: auth.currentUser!.displayName ?? '',
+        photoURL: auth.currentUser!.photoURL ?? '',
+        email: auth.currentUser!.email ?? '',
+      );
+    } else {
+      // If not in the cache, make the network request
+      response = await _repo.fetchProfile(profileId);
+    }
+
+    // Update the cache with the new response
+    userProfileCache[profileId] = response;
+
+    // Update the current institute
+    userProfile.value = response;
+
+    return response;
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-
-    assessmentController = Get.put(AssessmentController());
-
-    loadProfile();
-  }
-
-  void updateProfile(String name, String email, String profilePic) {
-    userName.value = name;
-    userEmail.value = email;
-    userProfilePic.value = profilePic;
-  }
+  void signOut() => auth.signOut();
 }
