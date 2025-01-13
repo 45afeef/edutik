@@ -27,7 +27,7 @@ class SigninPage extends StatelessWidget {
                   onPressed: () {
                     authService.signIn();
                   },
-                  child: authService.onLoggingIn.value
+                  child: authService.onLoggingIn
                       ? Container(
                           height: 40,
                           width: 40,

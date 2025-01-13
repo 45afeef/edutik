@@ -1,9 +1,11 @@
 class UserProfile {
+  final String? uid;
   final String displayName;
   final String photoURL;
   final String email;
 
   UserProfile({
+    this.uid,
     required this.displayName,
     required this.photoURL,
     required this.email,

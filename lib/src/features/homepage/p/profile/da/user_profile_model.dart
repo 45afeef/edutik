@@ -8,6 +8,7 @@ part 'user_profile_model.g.dart';
 @freezed
 class UserProfileModel extends UserProfile with _$UserProfileModel {
   factory UserProfileModel({
+    String? uid,
     required String displayName,
     required String photoURL,
     required String email,

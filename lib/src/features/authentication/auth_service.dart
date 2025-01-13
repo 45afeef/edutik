@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../utils/routes.dart';
+import '../homepage/p/profile/da/user_profile_model.dart';
+import '../homepage/p/profile/do/repository/profile_repo.dart';
 
 class AuthService {
   // Singleton instance
@@ -14,9 +16,6 @@ class AuthService {
   final RxBool _loggingState = false.obs;
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-
-  bool isAuthenticated =
-      FirebaseAuth.instance.currentUser?.isAnonymous == false;
 
   // Factory constructor to return the singleton instance
   factory AuthService() {
@@ -28,23 +27,35 @@ class AuthService {
 
   User? get currentUser => _firebaseAuth.currentUser;
 
-  get onLoggingIn => _loggingState;
+  // fields in singleton class behaive like final fields, so I have converted this to getter
+  bool get isAuthenticated =>
+      FirebaseAuth.instance.currentUser?.isAnonymous == false;
+
+  bool get onLoggingIn => _loggingState.value;
 
   void signIn() {
     if (kIsWeb) {
       print('Running on the web');
-      _signInWithGoogleInWeb().then((_) {
+      _signInWithGoogleInWeb().then((cred) {
         _loggingState.value = false;
+        // SUGGESION - use auth listner for auth state changes instead of hardcoded routing on auth state changes.
         Get.offAllNamed(AppRoute.home);
+
+        // create or update the userProfile
+        _createOrUpdateUserProfile(cred);
       }).catchError((onError) {
         _loggingState.value = false;
       });
     } else if (Platform.isAndroid) {
       print('Running on Android');
       _loggingState.value = true;
-      _signInWithGoogleInAndroid().then((_) {
+      _signInWithGoogleInAndroid().then((cred) {
         _loggingState.value = false;
+        // SUGGESION - use auth listner for auth state changes instead of hardcoded routing on auth state changes.
         Get.offAllNamed(AppRoute.home);
+
+        // create or update the userProfile
+        _createOrUpdateUserProfile(cred);
       }).catchError((onError) {
         _loggingState.value = false;
       });
@@ -66,6 +77,19 @@ class AuthService {
       // TODO - This is not working well or not a good practice. Please make use of global stream listener to handle user auth state changes and navigation.
       Get.offAllNamed(AppRoute.home);
     });
+  }
+
+  void _createOrUpdateUserProfile(UserCredential cred) {
+    final UserProfileRepository userProfileRepo =
+        Get.find<UserProfileRepository>();
+    userProfileRepo.saveProfile(
+      UserProfileModel(
+        uid: cred.user!.uid,
+        displayName: cred.user!.displayName ?? 'no name',
+        photoURL: cred.user!.photoURL ?? 'no photo',
+        email: cred.user!.email ?? 'no email',
+      ),
+    );
   }
 
   Future<UserCredential> _signInWithGoogleInAndroid() async {

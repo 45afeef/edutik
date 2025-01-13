@@ -20,6 +20,7 @@ UserProfileModel _$UserProfileModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserProfileModel {
+  String? get uid => throw _privateConstructorUsedError;
   String get displayName => throw _privateConstructorUsedError;
   String get photoURL => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
@@ -40,7 +41,7 @@ abstract class $UserProfileModelCopyWith<$Res> {
           UserProfileModel value, $Res Function(UserProfileModel) then) =
       _$UserProfileModelCopyWithImpl<$Res, UserProfileModel>;
   @useResult
-  $Res call({String displayName, String photoURL, String email});
+  $Res call({String? uid, String displayName, String photoURL, String email});
 }
 
 /// @nodoc
@@ -58,11 +59,16 @@ class _$UserProfileModelCopyWithImpl<$Res, $Val extends UserProfileModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uid = freezed,
     Object? displayName = null,
     Object? photoURL = null,
     Object? email = null,
   }) {
     return _then(_value.copyWith(
+      uid: freezed == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String?,
       displayName: null == displayName
           ? _value.displayName
           : displayName // ignore: cast_nullable_to_non_nullable
@@ -87,7 +93,7 @@ abstract class _$$UserProfileModelImplCopyWith<$Res>
       __$$UserProfileModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String displayName, String photoURL, String email});
+  $Res call({String? uid, String displayName, String photoURL, String email});
 }
 
 /// @nodoc
@@ -103,11 +109,16 @@ class __$$UserProfileModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uid = freezed,
     Object? displayName = null,
     Object? photoURL = null,
     Object? email = null,
   }) {
     return _then(_$UserProfileModelImpl(
+      uid: freezed == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String?,
       displayName: null == displayName
           ? _value.displayName
           : displayName // ignore: cast_nullable_to_non_nullable
@@ -128,11 +139,16 @@ class __$$UserProfileModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UserProfileModelImpl implements _UserProfileModel {
   _$UserProfileModelImpl(
-      {required this.displayName, required this.photoURL, required this.email});
+      {this.uid,
+      required this.displayName,
+      required this.photoURL,
+      required this.email});
 
   factory _$UserProfileModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserProfileModelImplFromJson(json);
 
+  @override
+  final String? uid;
   @override
   final String displayName;
   @override
@@ -142,7 +158,7 @@ class _$UserProfileModelImpl implements _UserProfileModel {
 
   @override
   String toString() {
-    return 'UserProfileModel(displayName: $displayName, photoURL: $photoURL, email: $email)';
+    return 'UserProfileModel(uid: $uid, displayName: $displayName, photoURL: $photoURL, email: $email)';
   }
 
   @override
@@ -150,6 +166,7 @@ class _$UserProfileModelImpl implements _UserProfileModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserProfileModelImpl &&
+            (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.displayName, displayName) ||
                 other.displayName == displayName) &&
             (identical(other.photoURL, photoURL) ||
@@ -159,7 +176,8 @@ class _$UserProfileModelImpl implements _UserProfileModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, displayName, photoURL, email);
+  int get hashCode =>
+      Object.hash(runtimeType, uid, displayName, photoURL, email);
 
   /// Create a copy of UserProfileModel
   /// with the given fields replaced by the non-null parameter values.
@@ -180,13 +198,16 @@ class _$UserProfileModelImpl implements _UserProfileModel {
 
 abstract class _UserProfileModel implements UserProfileModel {
   factory _UserProfileModel(
-      {required final String displayName,
+      {final String? uid,
+      required final String displayName,
       required final String photoURL,
       required final String email}) = _$UserProfileModelImpl;
 
   factory _UserProfileModel.fromJson(Map<String, dynamic> json) =
       _$UserProfileModelImpl.fromJson;
 
+  @override
+  String? get uid;
   @override
   String get displayName;
   @override

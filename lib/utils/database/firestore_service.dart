@@ -47,7 +47,8 @@ class FirebaseService implements DatabaseService {
         await _firestore.collection(collection).doc(documentId).get();
 
     if (!doc.exists) {
-      throw Exception("Document can't found on firestore$collection/$documentId");
+      throw Exception(
+          "Document can't found on firestore$collection/$documentId");
     }
 
     var data = doc.data() as Map<String, dynamic>;
@@ -57,6 +58,14 @@ class FirebaseService implements DatabaseService {
     data['id'] = doc.id;
 
     return data;
+  }
+
+  Future<void> setData({
+    required String collection,
+    required String documentId,
+    required Map<String, dynamic> data,
+  }) async {
+    await _firestore.collection(collection).doc(documentId).set(data);
   }
 
   @override
