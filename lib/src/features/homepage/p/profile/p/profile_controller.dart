@@ -20,6 +20,7 @@ class ProfileController extends GetxController {
   Future<UserProfile> fetchProfile(String? profileId) async {
     _isOwnProfile = profileId == null ||
         (auth.currentUser != null && profileId == auth.currentUser!.uid);
+
     profileId ??= auth.currentUser!.uid;
 
     // Check if the user profile is already in the cache
@@ -31,6 +32,7 @@ class ProfileController extends GetxController {
     UserProfile response;
     if (_isOwnProfile) {
       response = UserProfile(
+        uid: auth.currentUser!.uid,
         displayName: auth.currentUser!.displayName ?? '',
         photoURL: auth.currentUser!.photoURL ?? '',
         email: auth.currentUser!.email ?? '',

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../utils/database/local_sqlite_service.dart';
@@ -9,6 +10,9 @@ import '../../do/repositories/assessment_repository.dart';
 
 class AssessmentDraftController extends GetxController {
   final SqLiteService _databaseService = SqLiteService();
+
+  final TextEditingController assessmentNameController =
+      TextEditingController();
 
   RxList<Map<String, dynamic>> questions = <Map<String, dynamic>>[].obs;
 
@@ -39,11 +43,20 @@ class AssessmentDraftController extends GetxController {
     _loadQuestions();
   }
 
-  Future<void> saveAssessment(String assessmentName) {
+  Future<void> saveAssessment() async {
+    // Input validation
+    if (assessmentNameController.text.isEmpty) {
+      Get.snackbar(
+        'Name is missing',
+        'Choose the right name for the assessment before saving',
+      );
+      return;
+    }
+
     final AssessmentRepository repo = Get.find<AssessmentRepository>();
 
     final assessmentModel = AssessmentModel(
-        name: assessmentName,
+        name: assessmentNameController.text,
         type: AssessmentType.formative,
         items: [
           ...questions.map((q) {
@@ -55,7 +68,14 @@ class AssessmentDraftController extends GetxController {
           })
         ]);
 
-    return repo.saveAssessment(assessmentModel);
+    await repo.saveAssessment(assessmentModel);
+
+    // Delete the Assessment details from the local draft (db)
+    deleteAssessmentDataFromDraftTable();
+
+    Get.back();
+
+    return;
   }
 
   Future<void> updateQuestion(Map<String, dynamic> question) async {

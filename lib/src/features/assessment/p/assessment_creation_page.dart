@@ -7,8 +7,6 @@ import 'controllers/assessment_creation_controller.dart';
 class AssessmentCreationPage extends StatelessWidget {
   final AssessmentDraftController _draftController =
       Get.put(AssessmentDraftController());
-  final TextEditingController _assessmentNameController =
-      TextEditingController();
 
   AssessmentCreationPage({super.key});
 
@@ -36,7 +34,7 @@ class AssessmentCreationPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       TextField(
-                        controller: _assessmentNameController,
+                        controller: _draftController.assessmentNameController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12.0),
@@ -145,23 +143,8 @@ class AssessmentCreationPage extends StatelessWidget {
                     onPressed: _draftController.questions.length < 5
                         ? null
                         : () {
-                            // TODO - validate the input data
-                            if (_assessmentNameController.text.isEmpty) {
-                              Get.snackbar(
-                                'Name is missing',
-                                'Choose the right name for the assessment before saving',
-                              );
-                              return;
-                            }
                             // Save the Assessment to cloud
-                            _draftController
-                                .saveAssessment(_assessmentNameController.text)
-                                .then((value) {
-                              // Delete the Assessment details from the local draft (db)
-                              _draftController
-                                  .deleteAssessmentDataFromDraftTable();
-                              Get.back();
-                            });
+                            _draftController.saveAssessment();
                           },
                     child: Text('${'publish'.tr} ${'assessment'.tr}'),
                   ),

@@ -68,10 +68,10 @@ class ProfilePage extends GetWidget<ProfileController> {
               onPressed: () {
                 Share.share(
                   '''
-Visit this perfect profile in Edukit
+Visit this profile in Edukit of *${controller.userProfile.value.displayName}*
 
 here is the link
-${AppRoute.publicProfilePage.replaceFirst(':uid', profileId ?? auth.currentUser!.uid)}
+https://edutik.web.app${AppRoute.publicProfilePage.replaceFirst(':uid', profileId ?? auth.currentUser!.uid)}
 ''',
                 );
               },
