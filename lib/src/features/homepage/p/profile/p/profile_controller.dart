@@ -54,6 +54,4 @@ class ProfileController extends GetxController {
     super.onInit();
     assessmentController = Get.put(AssessmentController());
   }
-
-  void signOut() => auth.signOut();
 }

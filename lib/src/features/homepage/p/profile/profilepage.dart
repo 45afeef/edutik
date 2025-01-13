@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 
+import '../../../../../utils/routes.dart';
 import '../../../../../utils/theme/theme_controller.dart';
+import '../../../authentication/auth_service.dart';
 import 'p/profile_controller.dart';
 import 'w/profile_info.dart';
 import 'w/profile_uploads.dart';
@@ -15,6 +18,7 @@ class ProfilePage extends GetWidget<ProfileController> {
     controller.fetchProfile(profileId);
 
     final ThemeController themController = Get.put(ThemeController());
+    final AuthService auth = AuthService();
 
     return SafeArea(
       child: Scaffold(
@@ -32,30 +36,47 @@ class ProfilePage extends GetWidget<ProfileController> {
             ),
             IconButton(
               onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog.adaptive(
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Get.back();
-                            controller.signOut();
-                          },
-                          child: Text("lbl_logout".tr),
-                        ),
-                        const SizedBox(width: 30),
-                        ElevatedButton(
-                            onPressed: Get.back, child: Text("lbl_cancel".tr)),
-                      ],
-                      content: Text('msg_are_you_sure_to_logout'.tr),
-                    );
-                  },
+                !auth.isAuthenticated
+                    ? Get.toNamed(AppRoute.signIn)
+                    : showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog.adaptive(
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Get.back();
+                                  auth.signOut();
+                                },
+                                child: Text("lbl_logout".tr),
+                              ),
+                              const SizedBox(width: 30),
+                              ElevatedButton(
+                                  onPressed: Get.back,
+                                  child: Text("lbl_cancel".tr)),
+                            ],
+                            content: Text('msg_are_you_sure_to_logout'.tr),
+                          );
+                        },
+                      );
+              },
+              icon: auth.isAuthenticated
+                  ? const Icon(Icons.logout)
+                  : const Icon(Icons.login),
+            ),
+            IconButton(
+              onPressed: () {
+                Share.share(
+                  '''
+Visit this perfect profile in Edukit
+
+here is the link
+${AppRoute.publicProfilePage.replaceFirst(':uid', profileId ?? auth.currentUser!.uid)}
+''',
                 );
               },
-              icon: const Icon(Icons.logout),
+              icon: const Icon(Icons.share),
             ),
-            const IconButton(onPressed: null, icon: Icon(Icons.settings)),
           ],
           elevation: 0.0,
         ),
