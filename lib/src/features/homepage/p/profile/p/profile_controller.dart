@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../../assessment/p/controllers/assessment_controller.dart';
 import '../../../../authentication/auth_service.dart';
@@ -49,6 +50,16 @@ class ProfileController extends GetxController {
     userProfile.value = response;
 
     return response;
+  }
+
+  handleProfileSharing(String? profileId) {
+    Share.share(
+      '''Visit this profile of *${userProfile.value.displayName} in Edukit*
+
+here is the link
+https://edutik.web.app${AppRoute.publicProfilePage.replaceFirst(':uid', profileId ?? auth.currentUser!.uid)}
+''',
+    );
   }
 
   @override

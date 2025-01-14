@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../../../../utils/routes.dart';
 import '../../../../../utils/theme/theme_controller.dart';
@@ -65,16 +64,7 @@ class ProfilePage extends GetWidget<ProfileController> {
                   : const Icon(Icons.login),
             ),
             IconButton(
-              onPressed: () {
-                Share.share(
-                  '''
-Visit this profile in Edukit of *${controller.userProfile.value.displayName}*
-
-here is the link
-https://edutik.web.app${AppRoute.publicProfilePage.replaceFirst(':uid', profileId ?? auth.currentUser!.uid)}
-''',
-                );
-              },
+              onPressed: controller.handleProfileSharing(profileId),
               icon: const Icon(Icons.share),
             ),
           ],
