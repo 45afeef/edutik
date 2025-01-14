@@ -7,6 +7,11 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
 
   AssessmentRepositoryImpl(this.databaseService);
 
+  // TODO - RETHINK
+  // should I move the cache logic to here(assessment repository) from (assessement)controller
+  // Now on 11th of Jan 2024, I feel like the cache logic should held in repository and not in controller.
+  // If sanctioned, move all cache logic in various controllers to respective repositories.
+
   @override
   Future<List<AssessmentModel>> getAllAssessments() async {
     var input = await databaseService.getAllData(collection: 'assessments');

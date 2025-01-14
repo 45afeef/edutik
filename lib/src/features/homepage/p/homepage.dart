@@ -18,12 +18,7 @@ class HomePage extends GetWidget<HomeController> {
                   icon: Icon(Icons.home),
                   label: 'Shorts'), // Create a post form like grapevine's feed.
               BottomNavigationBarItem(
-                  icon: Icon(Icons.text_format), label: 'Essays'),
-              BottomNavigationBarItem(
                   icon: Icon(Icons.create_outlined), label: 'Create'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.admin_panel_settings_outlined),
-                  label: 'BrainRot'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.person_2), label: 'Profile'),
             ],
@@ -47,13 +42,7 @@ class HomePage extends GetWidget<HomeController> {
             excerpt:
                 'Update this app first whenever a new update is available to get this feature before your friends try this',
           ),
-          UpcomingFeature(),
           CreationPage(),
-          UpcomingFeature(
-            featureName: "Let's fight together against BRAINROT",
-            excerpt:
-                "Its our duty to make bright future for our kids, Lets group together and fight against brainrot",
-          ),
           ProfilePage(),
         ],
       ),

@@ -12,6 +12,7 @@ class InstituteReopsitoryImpl extends InstituteRepository {
     Map<String, dynamic> data = await databaseService.getData(
         collection: 'institutes', documentId: instituteId);
 
+    // TODO - handle institute not found error in UI
     return InstituteModel.fromJson(data);
   }
 }
