@@ -64,7 +64,7 @@ class ProfilePage extends GetWidget<ProfileController> {
                   : const Icon(Icons.login),
             ),
             IconButton(
-              onPressed: controller.handleProfileSharing(profileId),
+              onPressed: () => controller.handleProfileSharing(profileId),
               icon: const Icon(Icons.share),
             ),
           ],

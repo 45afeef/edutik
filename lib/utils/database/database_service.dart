@@ -23,4 +23,21 @@ abstract class DatabaseService {
     required String documentId,
     required Map<String, dynamic> data,
   });
+
+  // New methods
+  Future<List<Map<String, dynamic>>> queryData({
+    required String collection,
+    required Map<String, dynamic> query,
+  });
+
+  // Future<void> batchWrite({
+  //   required String collection,
+  //   required List<Map<String, dynamic>> dataBatch,
+  // });
+
+  // Future<int> countDocuments({
+  //   required String collection,
+  // });
+
+  // Future<List<String>> listCollections();
 }

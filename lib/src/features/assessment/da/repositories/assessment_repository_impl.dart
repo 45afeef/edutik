@@ -13,8 +13,11 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
   // If sanctioned, move all cache logic in various controllers to respective repositories.
 
   @override
-  Future<List<AssessmentModel>> getAllAssessments() async {
-    var input = await databaseService.getAllData(collection: 'assessments');
+  Future<List<AssessmentModel>> getAllAssessments(String ownerId) async {
+    var input = await databaseService.queryData(
+      collection: 'assessments',
+      query: {'creatorRef': ownerId},
+    );
 
     var output = input.map((e) => AssessmentModel.fromJson(e)).toList();
 

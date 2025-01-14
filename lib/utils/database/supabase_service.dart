@@ -44,6 +44,13 @@ class SupabaseService implements DatabaseService {
   }
 
   @override
+  Future<List<Map<String, dynamic>>> queryData(
+      {required String collection, required Map<String, dynamic> query}) {
+    // TODO: implement queryData
+    throw UnimplementedError();
+  }
+
+  @override
   Future<void> updateData({
     required String collection,
     required String documentId,

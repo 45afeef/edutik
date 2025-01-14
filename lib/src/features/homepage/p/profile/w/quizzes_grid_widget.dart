@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../../../../utils/routes.dart';
-import '../../../../assessment/p/controllers/assessment_controller.dart';
+import '../p/profile_controller.dart';
 
-class QuizzesGrid extends GetWidget<AssessmentController> {
+class QuizzesGrid extends GetWidget<ProfileController> {
   const QuizzesGrid({super.key});
 
   @override
@@ -28,7 +28,8 @@ class QuizzesGrid extends GetWidget<AssessmentController> {
                     (assessment) => Container(
                       padding: const EdgeInsets.all(6),
                       color: Colors.primaries[
-                          snapshort.data!.indexOf(assessment) % Colors.primaries.length],
+                          snapshort.data!.indexOf(assessment) %
+                              Colors.primaries.length],
                       height: 150.0,
                       child: Stack(
                         children: [

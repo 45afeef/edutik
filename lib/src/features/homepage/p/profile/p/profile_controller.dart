@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../../../../../utils/routes.dart';
+import '../../../../assessment/do/assessment.dart';
 import '../../../../assessment/p/controllers/assessment_controller.dart';
 import '../../../../authentication/auth_service.dart';
 import '../do/entity/user_profile.dart';
@@ -17,6 +19,9 @@ class ProfileController extends GetxController {
   late AssessmentController assessmentController;
 
   bool get isOwnProfile => _isOwnProfile;
+
+  Future<List<Assessment>> fetchAllAssessments() =>
+      assessmentController.fetchAllAssessments(userProfile.value.uid!);
 
   Future<UserProfile> fetchProfile(String? profileId) async {
     _isOwnProfile = profileId == null ||
@@ -43,6 +48,7 @@ class ProfileController extends GetxController {
       response = await _repo.fetchProfile(profileId);
     }
 
+    // response.uid = '';
     // Update the cache with the new response
     userProfileCache[profileId] = response;
 
@@ -52,7 +58,7 @@ class ProfileController extends GetxController {
     return response;
   }
 
-  handleProfileSharing(String? profileId) {
+  void handleProfileSharing(String? profileId) {
     Share.share(
       '''Visit this profile of *${userProfile.value.displayName} in Edukit*
 

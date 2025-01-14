@@ -134,4 +134,10 @@ class DummyService extends DatabaseService {
     // TODO: implement updateData
     throw UnimplementedError();
   }
+  
+  @override
+  Future<List<Map<String, dynamic>>> queryData({required String collection, required Map<String, dynamic> query}) {
+    // TODO: implement queryData
+    throw UnimplementedError();
+  }
 }
