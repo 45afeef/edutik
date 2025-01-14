@@ -15,6 +15,10 @@ class AssessmentModel extends Assessment {
     required super.name,
     required super.type,
     required super.items,
+    required super.creatorName,
+    required super.creatorRef,
+    required super.ownerName,
+    required super.ownerRef,
   });
 
   factory AssessmentModel.fromJson(Map<String, dynamic> json) =>

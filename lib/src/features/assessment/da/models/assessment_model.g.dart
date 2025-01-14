@@ -40,6 +40,10 @@ AssessmentModel _$AssessmentFromJson(Map<String, dynamic> json) =>
 
         return item;
       }).toList(),
+      creatorName: json['creatorName'] as String,
+      creatorRef: json['creatorRef'] as String,
+      ownerName: json['ownerName'] as String,
+      ownerRef: json['ownerRef'] as String,
     );
 
 // Complete the `toJson` method for `AssessmentModel`
@@ -63,6 +67,10 @@ Map<String, dynamic> _$AssessmentModelToJson(Assessment instance) =>
             throw Exception('Unknown assessment item type');
         }
       }).toList(),
+      'creatorName': instance.creatorName,
+      'creatorRef': instance.creatorRef,
+      'ownerName': instance.ownerName,
+      'ownerRef': instance.ownerRef,
     };
 
 // Here comes the json serialization of closed ended assessment types

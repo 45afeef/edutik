@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../utils/database/local_sqlite_service.dart';
+import '../../../authentication/auth_service.dart';
 import '../../da/models/assessment_model.dart';
 import '../../do/assessment.dart';
 import '../../do/assessment_item.dart';
@@ -10,6 +11,7 @@ import '../../do/repositories/assessment_repository.dart';
 
 class AssessmentDraftController extends GetxController {
   final SqLiteService _databaseService = SqLiteService();
+  final AuthService _auth = AuthService();
 
   final TextEditingController assessmentNameController =
       TextEditingController();
@@ -56,17 +58,22 @@ class AssessmentDraftController extends GetxController {
     final AssessmentRepository repo = Get.find<AssessmentRepository>();
 
     final assessmentModel = AssessmentModel(
-        name: assessmentNameController.text,
-        type: AssessmentType.formative,
-        items: [
-          ...questions.map((q) {
-            return MCQ(
-              question: q['question'],
-              answer: q['answer'],
-              options: [q['option1'], q['option2'], q['option3'], q['option4']],
-            );
-          })
-        ]);
+      name: assessmentNameController.text,
+      type: AssessmentType.formative,
+      items: [
+        ...questions.map((q) {
+          return MCQ(
+            question: q['question'],
+            answer: q['answer'],
+            options: [q['option1'], q['option2'], q['option3'], q['option4']],
+          );
+        })
+      ],
+      creatorName: _auth.currentUser!.displayName!,
+      creatorRef: _auth.currentUser!.uid,
+      ownerName: _auth.currentUser!.displayName!,
+      ownerRef: _auth.currentUser!.uid,
+    );
 
     await repo.saveAssessment(assessmentModel);
 

@@ -1,6 +1,7 @@
+import '../../homepage/do/content.dart';
 import 'assessment_item.dart';
 
-class Assessment {
+class Assessment extends Content {
   final String? id;
   final String name;
   final AssessmentType type;
@@ -11,12 +12,20 @@ class Assessment {
     required this.name,
     required this.type,
     required this.items,
+    required super.creatorName,
+    required super.creatorRef,
+    required super.ownerName,
+    required super.ownerRef,
   });
 
   factory Assessment.empty() => Assessment(
-                name: '',
+        name: '',
         type: AssessmentType.ipsative,
         items: [],
+        creatorName: '',
+        creatorRef: '',
+        ownerName: '',
+        ownerRef: '',
       );
 }
 
