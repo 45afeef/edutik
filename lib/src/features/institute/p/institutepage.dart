@@ -54,7 +54,7 @@ class Institutepage extends GetWidget<InstituteController> {
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, int index) {
                           final assessmentId =
-                              instituteData.publicAssessmentRefs![2];
+                              instituteData.publicAssessmentRefs![index];
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Card(
@@ -75,8 +75,7 @@ class Institutepage extends GetWidget<InstituteController> {
                             ),
                           );
                         },
-                        // itemCount: instituteData.publicAssessmentRefs!.length,
-                        itemCount: 500,
+                        itemCount: instituteData.publicAssessmentRefs!.length,
                       ),
                     )
                   ],
