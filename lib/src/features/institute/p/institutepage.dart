@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../utils/routes.dart';
+import '../../../../utils/routing/approute.dart';
 import '../do/entity/institute.dart';
 import 'controllers/institute_controller.dart';
 

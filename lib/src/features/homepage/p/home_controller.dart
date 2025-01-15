@@ -5,7 +5,7 @@ import 'creation/p/creation_controller.dart';
 import 'feed/p/feed_controller.dart';
 import 'profile/p/profile_controller.dart';
 
-int _initialPage = 1;
+int _initialPage = 0;
 
 class HomeController extends GetxController {
   final RxInt currentPageIndex = _initialPage.obs;

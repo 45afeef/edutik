@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../../../utils/routes.dart';
+import '../../../utils/routing/approute.dart';
 import '../homepage/p/profile/da/user_profile_model.dart';
 import '../homepage/p/profile/do/repository/profile_repo.dart';
 

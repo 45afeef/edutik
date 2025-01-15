@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../../../../../utils/routes.dart';
+import '../../../../../../utils/routing/approute.dart';
 import '../p/profile_controller.dart';
 
 class QuizzesGrid extends GetWidget<ProfileController> {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../utils/routes.dart';
+import '../../../utils/routing/approute.dart';
 import '../../../utils/shared_prefs.dart';
 import '../authentication/auth_service.dart';
 

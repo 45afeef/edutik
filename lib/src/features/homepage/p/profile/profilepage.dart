@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../utils/routes.dart';
+import '../../../../../utils/routing/approute.dart';
 import '../../../../../utils/theme/theme_controller.dart';
 import '../../../authentication/auth_service.dart';
 import 'p/profile_controller.dart';

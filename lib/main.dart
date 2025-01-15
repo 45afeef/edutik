@@ -7,7 +7,9 @@ import 'package:get/get.dart';
 import 'firebase_options.dart';
 import 'utils/initial_bindings.dart';
 import 'utils/locale/locale.dart';
-import 'utils/routes.dart';
+import 'utils/routing/approute.dart';
+import 'utils/routing/url_strategy_native.dart'
+    if (dart.library.html) 'utils/routing/url_strategy_web.dart';
 import 'utils/shared_prefs.dart';
 import 'utils/theme/theme.dart';
 
@@ -29,6 +31,8 @@ void main() async {
   };
 
   runApp(const MyApp());
+
+  urlConfig();
 }
 
 class MyApp extends StatelessWidget {
@@ -44,7 +48,6 @@ class MyApp extends StatelessWidget {
       getPages: AppRoute.routes,
       theme: lightTheme,
       darkTheme: darkTheme,
-      themeMode: ThemeMode.dark,
       locale: const Locale('en', 'US'),
       translations: AppTranslations(),
       fallbackLocale: const Locale('en', 'US'),
