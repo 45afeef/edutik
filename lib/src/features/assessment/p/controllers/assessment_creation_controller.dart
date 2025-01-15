@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -33,6 +35,25 @@ class AssessmentDraftController extends GetxController {
     }
 
     _loadQuestions();
+  }
+
+  void addQuestions(response) {
+    // Convert the JSON string to a Dart Map
+    // Map<String, dynamic> assessmentJson = jsonDecode(response);
+
+    // List<dynamic> parsedAssessmentItems = assessmentJson['items'];
+    List<dynamic> parsedAssessmentItems = _parseAIResponse(response);
+
+    for (var parsedItems in parsedAssessmentItems) {
+      MCQ mcq = MCQ(
+        question: parsedItems['question'],
+        answer: parsedItems['answer'],
+        options: (parsedItems['options'] as List<dynamic>)
+            .map((e) => e as String)
+            .toList(),
+      );
+      addQuestion(mcq);
+    }
   }
 
   void deleteAssessmentDataFromDraftTable() {
@@ -98,5 +119,20 @@ class AssessmentDraftController extends GetxController {
     final data = await _databaseService.getAllData(collection: 'mcq');
 
     questions.assignAll(data);
+  }
+
+  List<Map<String, dynamic>> _parseAIResponse(String response) {
+    final jsonRegex = RegExp(r'(\{.*\})', dotAll: true);
+    final match = jsonRegex.firstMatch(response);
+
+    if (match != null) {
+      final jsonString = match.group(1)!;
+      final Map<String, dynamic> jsonResponse = jsonDecode(jsonString);
+      final List<Map<String, dynamic>> items =
+          List<Map<String, dynamic>>.from(jsonResponse['items']);
+      return items;
+    } else {
+      return [];
+    }
   }
 }

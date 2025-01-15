@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../do/closed_ended/mcq.dart';
@@ -7,6 +10,9 @@ import 'controllers/assessment_creation_controller.dart';
 class AssessmentCreationPage extends StatelessWidget {
   final AssessmentDraftController _draftController =
       Get.put(AssessmentDraftController());
+
+  final TextEditingController _topicController = TextEditingController();
+  final TextEditingController _aiResponseController = TextEditingController();
 
   AssessmentCreationPage({super.key});
 
@@ -20,6 +26,7 @@ class AssessmentCreationPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                // Existing UI elements...
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: Column(
@@ -150,6 +157,61 @@ class AssessmentCreationPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 150),
+                // New section for AI-assisted creation
+                const Divider(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Enter Topic for AI-assisted Creation',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      TextField(
+                        controller: _topicController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      ElevatedButton(
+                        onPressed: _generateAndCopyPrompt,
+                        child: const Text('Generate and Copy Prompt'),
+                      ),
+                      const SizedBox(height: 16),
+                      const Text(
+                        'Paste AI Response Here',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      TextField(
+                        controller: _aiResponseController,
+                        maxLines: 10,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      ElevatedButton(
+                        onPressed: _convertResponseToAssessment,
+                        child: const Text('Convert to Assessment'),
+                      ),
+                    ],
+                  ),
+                ),
+                // Existing UI elements...
               ],
             ),
           ),
@@ -161,6 +223,14 @@ class AssessmentCreationPage extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
+  }
+
+  void _convertResponseToAssessment() {
+    final response = _aiResponseController.text;
+
+    // Parse the response and convert it to questions format
+    // Example: Parse JSON or other structured data from response and add it to _draftController.questions
+    _draftController.addQuestions(response);
   }
 
   void _editQuestion(Map<String, dynamic> question) {
@@ -312,6 +382,16 @@ class AssessmentCreationPage extends StatelessWidget {
         );
       },
     );
+  }
+
+  void _generateAndCopyPrompt() {
+    final topic = _topicController.text;
+    final prompt = 'Create an assessment on the following topic: $topic. '
+        'Include multiple-choice questions with four options each and indicate the correct option.'
+        'replay in this json format {"name": "Assessment-Name","items": [{"question": "String","answer": "String","options": ["Option1","Option2","Option3","Option4"],"type": "String"}]}';
+    Clipboard.setData(ClipboardData(text: prompt));
+    Get.snackbar('Prompt Copied',
+        'The prompt has been copied to the clipboard. Please paste it into your preferred AI model.');
   }
 
   void _showDeleteForm(BuildContext context) {
