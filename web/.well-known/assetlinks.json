@@ -1,0 +1,14 @@
+[
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.edukit.social.edukit",
+            "sha256_cert_fingerprints": [
+                "53:95:C6:CA:5D:E4:94:C9:67:61:B8:F0:1D:4E:AE:B7:73:B2:CB:52:12:85:D3:73:A8:61:72:70:37:94:8B:22"
+            ]
+        }
+    }
+]
