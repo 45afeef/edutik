@@ -31,9 +31,7 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
       documentId: id,
     );
 
-    var output = AssessmentModel.fromJson(input);
-
-    return output;
+    return AssessmentModel.fromJson(input);
   }
 
   @override

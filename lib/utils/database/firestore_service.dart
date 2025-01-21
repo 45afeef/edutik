@@ -27,15 +27,21 @@ class FirebaseService implements DatabaseService {
   }) async {
     QuerySnapshot querySnapshot = await _firestore.collection(collection).get();
 
-    return querySnapshot.docs.map((doc) {
-      var data = doc.data() as Map<String, dynamic>;
+    List<Map<String, dynamic>> output = [];
+    for (var doc in querySnapshot.docs) {
+      if (doc.exists) {
+        var data = doc.data() as Map<String, dynamic>;
 
-      // recording the resource identifier along with the result
-      // This is because the resource identifier is stored separate in Firebase from data.
-      data['id'] = doc.id;
+        // recording the resource identifier along with the result
+        // This is because the resource identifier is stored separate in Firebase from data.
+        data['id'] = doc.id;
 
-      return data;
-    }).toList();
+        output.add(data);
+      } else {
+        continue;
+      }
+    }
+    return output;
   }
 
   @override
