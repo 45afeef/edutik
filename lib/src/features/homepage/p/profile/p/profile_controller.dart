@@ -35,18 +35,8 @@ class ProfileController extends GetxController {
       return userProfile.value;
     }
 
-    UserProfile response;
-    if (_isOwnProfile) {
-      response = UserProfile(
-        uid: auth.currentUser!.uid,
-        displayName: auth.currentUser!.displayName ?? '',
-        photoURL: auth.currentUser!.photoURL ?? '',
-        email: auth.currentUser!.email ?? '',
-      );
-    } else {
-      // If not in the cache, make the network request
-      response = await _repo.fetchProfile(profileId);
-    }
+    // If not in the cache, make the network request
+    UserProfile response = await _repo.fetchProfile(profileId);
 
     // response.uid = '';
     // Update the cache with the new response

@@ -13,6 +13,9 @@ _$UserProfileModelImpl _$$UserProfileModelImplFromJson(
       displayName: json['displayName'] as String,
       photoURL: json['photoURL'] as String,
       email: json['email'] as String,
+      accessInstitutes: (json['accessInstitutes'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
     );
 
 Map<String, dynamic> _$$UserProfileModelImplToJson(
@@ -22,4 +25,5 @@ Map<String, dynamic> _$$UserProfileModelImplToJson(
       'displayName': instance.displayName,
       'photoURL': instance.photoURL,
       'email': instance.email,
+      'accessInstitutes': instance.accessInstitutes,
     };

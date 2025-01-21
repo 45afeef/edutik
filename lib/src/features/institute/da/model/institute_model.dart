@@ -14,6 +14,7 @@ class InstituteModel extends Institute with _$InstituteModel {
     // ignore: invalid_annotation_target
     @JsonKey(name: 'profile_image') required String profileUrl,
     required List<String> publicAssessmentRefs,
+    required List<String> editors,
   }) = _InstituteModel;
 
   factory InstituteModel.fromJson(Map<String, dynamic> json) =>

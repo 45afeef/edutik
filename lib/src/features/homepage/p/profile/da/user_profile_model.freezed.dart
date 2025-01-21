@@ -24,6 +24,7 @@ mixin _$UserProfileModel {
   String get displayName => throw _privateConstructorUsedError;
   String get photoURL => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
+  List<String>? get accessInstitutes => throw _privateConstructorUsedError;
 
   /// Serializes this UserProfileModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,7 +42,12 @@ abstract class $UserProfileModelCopyWith<$Res> {
           UserProfileModel value, $Res Function(UserProfileModel) then) =
       _$UserProfileModelCopyWithImpl<$Res, UserProfileModel>;
   @useResult
-  $Res call({String? uid, String displayName, String photoURL, String email});
+  $Res call(
+      {String? uid,
+      String displayName,
+      String photoURL,
+      String email,
+      List<String>? accessInstitutes});
 }
 
 /// @nodoc
@@ -63,6 +69,7 @@ class _$UserProfileModelCopyWithImpl<$Res, $Val extends UserProfileModel>
     Object? displayName = null,
     Object? photoURL = null,
     Object? email = null,
+    Object? accessInstitutes = freezed,
   }) {
     return _then(_value.copyWith(
       uid: freezed == uid
@@ -81,6 +88,10 @@ class _$UserProfileModelCopyWithImpl<$Res, $Val extends UserProfileModel>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      accessInstitutes: freezed == accessInstitutes
+          ? _value.accessInstitutes
+          : accessInstitutes // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -93,7 +104,12 @@ abstract class _$$UserProfileModelImplCopyWith<$Res>
       __$$UserProfileModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? uid, String displayName, String photoURL, String email});
+  $Res call(
+      {String? uid,
+      String displayName,
+      String photoURL,
+      String email,
+      List<String>? accessInstitutes});
 }
 
 /// @nodoc
@@ -113,6 +129,7 @@ class __$$UserProfileModelImplCopyWithImpl<$Res>
     Object? displayName = null,
     Object? photoURL = null,
     Object? email = null,
+    Object? accessInstitutes = freezed,
   }) {
     return _then(_$UserProfileModelImpl(
       uid: freezed == uid
@@ -131,6 +148,10 @@ class __$$UserProfileModelImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      accessInstitutes: freezed == accessInstitutes
+          ? _value._accessInstitutes
+          : accessInstitutes // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -142,7 +163,9 @@ class _$UserProfileModelImpl implements _UserProfileModel {
       {this.uid,
       required this.displayName,
       required this.photoURL,
-      required this.email});
+      required this.email,
+      final List<String>? accessInstitutes})
+      : _accessInstitutes = accessInstitutes;
 
   factory _$UserProfileModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserProfileModelImplFromJson(json);
@@ -155,10 +178,20 @@ class _$UserProfileModelImpl implements _UserProfileModel {
   final String photoURL;
   @override
   final String email;
+  final List<String>? _accessInstitutes;
+  @override
+  List<String>? get accessInstitutes {
+    final value = _accessInstitutes;
+    if (value == null) return null;
+    if (_accessInstitutes is EqualUnmodifiableListView)
+      return _accessInstitutes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'UserProfileModel(uid: $uid, displayName: $displayName, photoURL: $photoURL, email: $email)';
+    return 'UserProfileModel(uid: $uid, displayName: $displayName, photoURL: $photoURL, email: $email, accessInstitutes: $accessInstitutes)';
   }
 
   @override
@@ -171,13 +204,15 @@ class _$UserProfileModelImpl implements _UserProfileModel {
                 other.displayName == displayName) &&
             (identical(other.photoURL, photoURL) ||
                 other.photoURL == photoURL) &&
-            (identical(other.email, email) || other.email == email));
+            (identical(other.email, email) || other.email == email) &&
+            const DeepCollectionEquality()
+                .equals(other._accessInstitutes, _accessInstitutes));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, uid, displayName, photoURL, email);
+  int get hashCode => Object.hash(runtimeType, uid, displayName, photoURL,
+      email, const DeepCollectionEquality().hash(_accessInstitutes));
 
   /// Create a copy of UserProfileModel
   /// with the given fields replaced by the non-null parameter values.
@@ -201,7 +236,8 @@ abstract class _UserProfileModel implements UserProfileModel {
       {final String? uid,
       required final String displayName,
       required final String photoURL,
-      required final String email}) = _$UserProfileModelImpl;
+      required final String email,
+      final List<String>? accessInstitutes}) = _$UserProfileModelImpl;
 
   factory _UserProfileModel.fromJson(Map<String, dynamic> json) =
       _$UserProfileModelImpl.fromJson;
@@ -214,6 +250,8 @@ abstract class _UserProfileModel implements UserProfileModel {
   String get photoURL;
   @override
   String get email;
+  @override
+  List<String>? get accessInstitutes;
 
   /// Create a copy of UserProfileModel
   /// with the given fields replaced by the non-null parameter values.

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../../utils/routing/approute.dart';
 import '../do/entity/user_profile.dart';
 
 class ProfileInfo extends StatelessWidget {
@@ -36,6 +37,22 @@ class ProfileInfo extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
+        if (user.accessInstitutes != null && user.accessInstitutes!.isNotEmpty)
+          Row(
+            children: user.accessInstitutes!.map(
+              (instituteId) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextButton(
+                      onPressed: () => Get.toNamed(
+                            AppRoute.institutePage
+                                .replaceFirst(':instituteId', instituteId),
+                          ),
+                      child: Text(instituteId)),
+                );
+              },
+            ).toList(),
+          ),
         const Divider(),
         ListTile(
           title: Text('lbl_about'.tr),
