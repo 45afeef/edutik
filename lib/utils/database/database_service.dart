@@ -1,3 +1,12 @@
+class DatabaseException implements Exception {
+  final String message;
+
+  DatabaseException(this.message);
+
+  @override
+  String toString() => 'DatabaseException: $message';
+}
+
 abstract class DatabaseService {
   Future<void> addData({
     required String collection,

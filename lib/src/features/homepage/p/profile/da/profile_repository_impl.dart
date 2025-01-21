@@ -25,12 +25,20 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   }
 
   @override
-  Future<void> saveProfile(UserProfileModel profile) {
+  Future<void> saveProfile(UserProfileModel profile) async {
     if (databaseService is FirebaseService) {
-      return (databaseService as FirebaseService).setData(
+      try {
+        await fetchProfile(profile.uid!);
+      } on DatabaseException {
+        // DatabaseException occurs when there is no document found with the id provided.
+        // Which means that this is the first time user loggingIn - (in simple words - he just signedup right now)
+        // Indicates that user have no document in the user collection
+        return (databaseService as FirebaseService).setData(
           collection: _tableOrCollectionName,
           documentId: profile.uid!,
-          data: profile.toJson());
+          data: profile.toJson(),
+        );
+      }
     }
 
     return databaseService.addData(

@@ -47,7 +47,7 @@ class FirebaseService implements DatabaseService {
         await _firestore.collection(collection).doc(documentId).get();
 
     if (!doc.exists) {
-      throw Exception(
+      throw DatabaseException(
           "Document can't be found in Firestore: $collection/$documentId");
     }
 
