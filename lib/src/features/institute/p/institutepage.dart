@@ -4,36 +4,7 @@ import 'package:get/get.dart';
 import '../../homepage/p/w/upcomming_feature.dart';
 import '../do/entity/institute.dart';
 import 'controllers/institute_controller.dart';
-
-class AssessmentTab extends StatelessWidget {
-  final List<String>? assessmentRefs;
-  const AssessmentTab(this.assessmentRefs, {super.key});
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: assessmentRefs?.length,
-      itemBuilder: (BuildContext context, int index) {
-        final assessmentId = assessmentRefs?[index];
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Card(
-            child: ListTile(
-              leading: Text('${index + 1}'),
-              title: const Text('Public Assessment'),
-              onTap: () {
-                // Navigate to the assessment page
-                Navigator.pushNamed(
-                  context,
-                  '/assessmentPage/$assessmentId',
-                );
-              },
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
+import 'w/assessment_tab_view.dart';
 
 class Institutepage extends GetWidget<InstituteController> {
   const Institutepage({super.key});
@@ -106,7 +77,9 @@ class Institutepage extends GetWidget<InstituteController> {
                         Expanded(
                           child: TabBarView(
                             children: [
-                              AssessmentTab(instituteData.publicAssessmentRefs),
+                              AssessmentTabBarView(
+                                instituteData.publicAssessmentRefs,
+                              ),
                               const UpcomingFeature(featureName: 'Courses'),
                               const UpcomingFeature(featureName: 'Batches'),
                             ],
