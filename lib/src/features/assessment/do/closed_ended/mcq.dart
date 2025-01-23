@@ -7,7 +7,7 @@ class MCQ extends ClosedEndedAssessmentItem {
     required super.question,
     required super.answer,
     required this.options,
-  });
+  }) : assert(options.length >= 4);
 }
 
 /// This class of MCQ is created from the inspiration from this pdf

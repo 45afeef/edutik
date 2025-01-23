@@ -21,7 +21,7 @@ class ProfileController extends GetxController {
   bool get isOwnProfile => _isOwnProfile;
 
   Future<List<Assessment>> fetchAllAssessments() =>
-      assessmentController.fetchAllAssessments(userProfile.value.uid!);
+      assessmentController.fetchAllAssessments('users/${userProfile.value.uid}');
 
   Future<UserProfile> fetchProfile(String? profileId) async {
     _isOwnProfile = profileId == null ||

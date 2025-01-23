@@ -22,7 +22,7 @@ class ProfilePage extends GetWidget<ProfileController> {
           return Center(child: Text('some error occoured'.tr));
         }
         if (!snapshot.hasData) {
-          return Center(child: Text('no_profile_found'.tr));
+          return const Center(child: CircularProgressIndicator());
         }
         final ThemeController themController = Get.put(ThemeController());
         final AuthService auth = AuthService();

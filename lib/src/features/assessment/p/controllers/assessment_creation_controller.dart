@@ -66,7 +66,7 @@ class AssessmentDraftController extends GetxController {
     _loadQuestions();
   }
 
-  Future<void> saveAssessment() async {
+  Future<void> saveAssessment(String? ownerId, String? ownerName) async {
     // Input validation
     if (assessmentNameController.text.isEmpty) {
       Get.snackbar(
@@ -79,22 +79,25 @@ class AssessmentDraftController extends GetxController {
     final AssessmentRepository repo = Get.find<AssessmentRepository>();
 
     final assessmentModel = AssessmentModel(
-      name: assessmentNameController.text,
-      type: AssessmentType.formative,
-      items: [
-        ...questions.map((q) {
-          return MCQ(
-            question: q['question'],
-            answer: q['answer'],
-            options: [q['option1'], q['option2'], q['option3'], q['option4']],
-          );
-        })
-      ],
-      creatorName: _auth.currentUser!.displayName!,
-      creatorRef: _auth.currentUser!.uid,
-      ownerName: _auth.currentUser!.displayName!,
-      ownerRef: _auth.currentUser!.uid,
-    );
+        name: assessmentNameController.text,
+        type: AssessmentType.formative,
+        items: [
+          ...questions.map((q) {
+            return MCQ(
+              question: q['question'],
+              answer: q['answer'],
+              options: [q['option1'], q['option2'], q['option3'], q['option4']],
+            );
+          })
+        ],
+        creatorName: 'users/${_auth.currentUser!.displayName!}',
+        creatorRef: 'users/${_auth.currentUser!.uid}',
+        ownerName: ownerName != null
+            ? 'institutes/$ownerName'
+            : 'users/${_auth.currentUser!.displayName!}',
+        ownerRef: ownerId != null
+            ? 'institutes/$ownerId'
+            : 'users/${_auth.currentUser!.uid}');
 
     await repo.saveAssessment(assessmentModel);
 

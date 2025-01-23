@@ -16,7 +16,7 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
   Future<List<AssessmentModel>> getAllAssessments(String ownerId) async {
     var input = await databaseService.queryData(
       collection: 'assessments',
-      query: {'creatorRef': ownerId},
+      query: {'ownerRef': ownerId},
     );
 
     var output = input.map((e) => AssessmentModel.fromJson(e)).toList();
@@ -37,6 +37,7 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
   @override
   Future<void> saveAssessment(AssessmentModel assessmentModel) {
     final data = assessmentModel.toJson();
+
     return databaseService.addData(
       collection: 'assessments',
       data: data,

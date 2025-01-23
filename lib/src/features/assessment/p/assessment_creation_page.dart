@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -18,6 +16,9 @@ class AssessmentCreationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? ownerId = Get.arguments?['ownerId'];
+    String? ownerName = Get.arguments?['ownerName'];
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -111,22 +112,33 @@ class AssessmentCreationPage extends StatelessWidget {
                                   question['option1'],
                                   question['option2'],
                                   question['option3'],
-                                  question['option4']
-                                ].map(
+                                  question['option4'],
+                                  question['option5'],
+                                  question['option6'],
+                                  question['option7'],
+                                  question['option8'],
+                                  question['option9'],
+                                  question['option10'],
+                                ].where((e) => e != null).map(
                                   (option) {
                                     return Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
+                                      mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        Text(
-                                          option.trim(),
-                                          style: Get.theme.textTheme.labelSmall,
-                                        ),
                                         option == question['answer']
                                             ? const Icon(Icons.check_circle)
                                             : const SizedBox(
                                                 width: 24,
                                                 height: 24,
-                                              )
+                                              ),
+                                        Expanded(
+                                          child: Text(
+                                            option.trim(),
+                                            style:
+                                                Get.theme.textTheme.labelSmall,
+                                            softWrap: true,
+                                          ),
+                                        ),
                                       ],
                                     );
                                   },
@@ -151,7 +163,7 @@ class AssessmentCreationPage extends StatelessWidget {
                         ? null
                         : () {
                             // Save the Assessment to cloud
-                            _draftController.saveAssessment();
+                            _draftController.saveAssessment(ownerId, ownerName);
                           },
                     child: Text('${'publish'.tr} ${'assessment'.tr}'),
                   ),
