@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../utils/date_time_utils.dart';
+import '../../../homepage/do/content.dart';
 import '../../do/assessment.dart';
 import '../../do/assessment_item.dart';
 import '../../do/repositories/assessment_repository.dart';
@@ -49,7 +50,10 @@ class AssessmentController extends GetxController {
       _getTimeSpentOnQuestion(currentQuestionIndex.value);
 
   /// Fetches all available assessments from the repository
-  Future<List<Assessment>> fetchAllAssessments(String ownerId,) async {
+  Future<List<Assessment>> fetchAllAssessments(
+    String ownerId,
+    UserType ownerType,
+  ) async {
     // Check if all assessments are already in the cache
     // TODO - BAD BEHAVIOUR -  This condition will result in lowers number of http calls,
     // which causes bad behaviour from users pov. even though this is cost effective,
@@ -60,7 +64,8 @@ class AssessmentController extends GetxController {
     }
 
     // If not in the cache, make the network request
-    List<Assessment> response = await _repo.getAllAssessments(ownerId);
+    List<Assessment> response =
+        await _repo.getAllAssessments(ownerId, ownerType);
 
     // Convert to a map where the key is the id field of each assessment from list
     assessmentCache = {for (var obj in response) obj.id!: obj};

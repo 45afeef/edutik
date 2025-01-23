@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
 
+import '../../../assessment/do/assessment.dart';
+import '../../../assessment/p/controllers/assessment_controller.dart';
+import '../../../homepage/do/content.dart';
 import '../../do/entity/institute.dart';
 import '../../do/repo/institute_repo.dart';
 
@@ -26,5 +29,12 @@ class InstituteController extends GetxController {
     institute.value = response;
 
     return response;
+  }
+
+  Future<List<Assessment>> fetchInstitutesAssessments() async {
+    return Get.find<AssessmentController>().fetchAllAssessments(
+      institute.value.id!,
+      UserType.institute,
+    );
   }
 }

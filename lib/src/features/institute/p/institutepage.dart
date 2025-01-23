@@ -78,9 +78,7 @@ class Institutepage extends GetWidget<InstituteController> {
                           child: TabBarView(
                             children: [
                               AssessmentTabBarView(
-                                instituteData.publicAssessmentRefs,
-                                instituteId: instituteData.id,
-                                instituteName: instituteData.name,
+                                instituteData
                               ),
                               const UpcomingFeature(featureName: 'Courses'),
                               const UpcomingFeature(featureName: 'Batches'),

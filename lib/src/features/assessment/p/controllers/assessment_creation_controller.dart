@@ -66,6 +66,9 @@ class AssessmentDraftController extends GetxController {
     _loadQuestions();
   }
 
+  // Currently we assume that the owner is an institute when the ownerId and onwerName is supplied,
+  // Otherwise the owner is considered as an individual user.
+  // TODO - If possible move this creator and ownerRef identification logic to respected database repositories. Move from controller.
   Future<void> saveAssessment(String? ownerId, String? ownerName) async {
     // Input validation
     if (assessmentNameController.text.isEmpty) {

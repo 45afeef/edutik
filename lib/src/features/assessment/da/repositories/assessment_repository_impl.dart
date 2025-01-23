@@ -1,4 +1,5 @@
 import '../../../../../utils/database/database_service.dart';
+import '../../../homepage/do/content.dart';
 import '../../do/repositories/assessment_repository.dart';
 import '../models/assessment_model.dart';
 
@@ -13,10 +14,13 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
   // If sanctioned, move all cache logic in various controllers to respective repositories.
 
   @override
-  Future<List<AssessmentModel>> getAllAssessments(String ownerId) async {
+  Future<List<AssessmentModel>> getAllAssessments(
+    String ownerId,
+    UserType ownerType,
+  ) async {
     var input = await databaseService.queryData(
       collection: 'assessments',
-      query: {'ownerRef': ownerId},
+      query: {'ownerRef': '${ownerType.name}s/$ownerId'},
     );
 
     var output = input.map((e) => AssessmentModel.fromJson(e)).toList();

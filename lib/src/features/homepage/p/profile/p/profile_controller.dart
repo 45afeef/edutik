@@ -5,6 +5,7 @@ import '../../../../../../utils/routing/approute.dart';
 import '../../../../assessment/do/assessment.dart';
 import '../../../../assessment/p/controllers/assessment_controller.dart';
 import '../../../../authentication/auth_service.dart';
+import '../../../do/content.dart';
 import '../do/entity/user_profile.dart';
 import '../do/repository/profile_repo.dart';
 
@@ -21,7 +22,10 @@ class ProfileController extends GetxController {
   bool get isOwnProfile => _isOwnProfile;
 
   Future<List<Assessment>> fetchAllAssessments() =>
-      assessmentController.fetchAllAssessments('users/${userProfile.value.uid}');
+      assessmentController.fetchAllAssessments(
+        '${userProfile.value.uid}',
+        UserType.user,
+      );
 
   Future<UserProfile> fetchProfile(String? profileId) async {
     _isOwnProfile = profileId == null ||

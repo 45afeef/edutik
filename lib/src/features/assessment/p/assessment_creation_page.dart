@@ -16,6 +16,8 @@ class AssessmentCreationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ownerId and ownerName has only passed when the app user clicks the assessment-create button from institutes page and not from the createpage from home,
+    // This makes sure that if the ownerId and ownerName is present, it belongs to an institute and not to an individual user.
     String? ownerId = Get.arguments?['ownerId'];
     String? ownerName = Get.arguments?['ownerName'];
 
