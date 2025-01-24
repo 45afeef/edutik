@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../../../../utils/date_time_utils.dart';
 import '../../../do/assessment_item.dart';
+import '../../../do/closed_ended/mcq.dart';
 import '../../controllers/assessment_controller.dart';
 
 // In result_page.dart
@@ -39,6 +40,11 @@ class AssessmentResultPage extends StatelessWidget {
                         .assessmentResult.value
                         .getItemResponse(index);
 
+                    String? answer;
+                    if (item is MCQ) {
+                      answer = item.answer;
+                    }
+
                     return SizedBox(
                       height: 160,
                       child: FlipCard(
@@ -73,8 +79,7 @@ class AssessmentResultPage extends StatelessWidget {
                         back: Card(
                           child: Center(
                             child: Text(
-                              response.currectAnswer ??
-                                  'correct_answer_unawailable'.tr,
+                              answer ?? 'correct_answer_unawailable'.tr,
                             ),
                           ),
                         ),
