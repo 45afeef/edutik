@@ -11,6 +11,9 @@ _$InstituteModelImpl _$$InstituteModelImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String?,
       name: json['name'] as String,
       address: json['address'] as String,
+      phoneNumbers: (json['phoneNumbers'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
       profileUrl: json['profile_image'] as String,
       publicAssessmentRefs: (json['publicAssessmentRefs'] as List<dynamic>)
           .map((e) => e as String)
@@ -25,6 +28,7 @@ Map<String, dynamic> _$$InstituteModelImplToJson(
       'id': instance.id,
       'name': instance.name,
       'address': instance.address,
+      'phoneNumbers': instance.phoneNumbers,
       'profile_image': instance.profileUrl,
       'publicAssessmentRefs': instance.publicAssessmentRefs,
       'editors': instance.editors,

@@ -22,7 +22,8 @@ InstituteModel _$InstituteModelFromJson(Map<String, dynamic> json) {
 mixin _$InstituteModel {
   String? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get address =>
+  String get address => throw _privateConstructorUsedError;
+  List<String> get phoneNumbers =>
       throw _privateConstructorUsedError; // ignore: invalid_annotation_target
   @JsonKey(name: 'profile_image')
   String get profileUrl => throw _privateConstructorUsedError;
@@ -49,6 +50,7 @@ abstract class $InstituteModelCopyWith<$Res> {
       {String? id,
       String name,
       String address,
+      List<String> phoneNumbers,
       @JsonKey(name: 'profile_image') String profileUrl,
       List<String> publicAssessmentRefs,
       List<String> editors});
@@ -72,6 +74,7 @@ class _$InstituteModelCopyWithImpl<$Res, $Val extends InstituteModel>
     Object? id = freezed,
     Object? name = null,
     Object? address = null,
+    Object? phoneNumbers = null,
     Object? profileUrl = null,
     Object? publicAssessmentRefs = null,
     Object? editors = null,
@@ -89,6 +92,10 @@ class _$InstituteModelCopyWithImpl<$Res, $Val extends InstituteModel>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String,
+      phoneNumbers: null == phoneNumbers
+          ? _value.phoneNumbers
+          : phoneNumbers // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       profileUrl: null == profileUrl
           ? _value.profileUrl
           : profileUrl // ignore: cast_nullable_to_non_nullable
@@ -117,6 +124,7 @@ abstract class _$$InstituteModelImplCopyWith<$Res>
       {String? id,
       String name,
       String address,
+      List<String> phoneNumbers,
       @JsonKey(name: 'profile_image') String profileUrl,
       List<String> publicAssessmentRefs,
       List<String> editors});
@@ -138,6 +146,7 @@ class __$$InstituteModelImplCopyWithImpl<$Res>
     Object? id = freezed,
     Object? name = null,
     Object? address = null,
+    Object? phoneNumbers = null,
     Object? profileUrl = null,
     Object? publicAssessmentRefs = null,
     Object? editors = null,
@@ -155,6 +164,10 @@ class __$$InstituteModelImplCopyWithImpl<$Res>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String,
+      phoneNumbers: null == phoneNumbers
+          ? _value._phoneNumbers
+          : phoneNumbers // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       profileUrl: null == profileUrl
           ? _value.profileUrl
           : profileUrl // ignore: cast_nullable_to_non_nullable
@@ -178,10 +191,12 @@ class _$InstituteModelImpl implements _InstituteModel {
       {this.id,
       required this.name,
       required this.address,
+      required final List<String> phoneNumbers,
       @JsonKey(name: 'profile_image') required this.profileUrl,
       required final List<String> publicAssessmentRefs,
       required final List<String> editors})
-      : _publicAssessmentRefs = publicAssessmentRefs,
+      : _phoneNumbers = phoneNumbers,
+        _publicAssessmentRefs = publicAssessmentRefs,
         _editors = editors;
 
   factory _$InstituteModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -193,6 +208,14 @@ class _$InstituteModelImpl implements _InstituteModel {
   final String name;
   @override
   final String address;
+  final List<String> _phoneNumbers;
+  @override
+  List<String> get phoneNumbers {
+    if (_phoneNumbers is EqualUnmodifiableListView) return _phoneNumbers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_phoneNumbers);
+  }
+
 // ignore: invalid_annotation_target
   @override
   @JsonKey(name: 'profile_image')
@@ -216,7 +239,7 @@ class _$InstituteModelImpl implements _InstituteModel {
 
   @override
   String toString() {
-    return 'InstituteModel(id: $id, name: $name, address: $address, profileUrl: $profileUrl, publicAssessmentRefs: $publicAssessmentRefs, editors: $editors)';
+    return 'InstituteModel(id: $id, name: $name, address: $address, phoneNumbers: $phoneNumbers, profileUrl: $profileUrl, publicAssessmentRefs: $publicAssessmentRefs, editors: $editors)';
   }
 
   @override
@@ -227,6 +250,8 @@ class _$InstituteModelImpl implements _InstituteModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.address, address) || other.address == address) &&
+            const DeepCollectionEquality()
+                .equals(other._phoneNumbers, _phoneNumbers) &&
             (identical(other.profileUrl, profileUrl) ||
                 other.profileUrl == profileUrl) &&
             const DeepCollectionEquality()
@@ -241,6 +266,7 @@ class _$InstituteModelImpl implements _InstituteModel {
       id,
       name,
       address,
+      const DeepCollectionEquality().hash(_phoneNumbers),
       profileUrl,
       const DeepCollectionEquality().hash(_publicAssessmentRefs),
       const DeepCollectionEquality().hash(_editors));
@@ -267,6 +293,7 @@ abstract class _InstituteModel implements InstituteModel {
       {final String? id,
       required final String name,
       required final String address,
+      required final List<String> phoneNumbers,
       @JsonKey(name: 'profile_image') required final String profileUrl,
       required final List<String> publicAssessmentRefs,
       required final List<String> editors}) = _$InstituteModelImpl;
@@ -279,7 +306,9 @@ abstract class _InstituteModel implements InstituteModel {
   @override
   String get name;
   @override
-  String get address; // ignore: invalid_annotation_target
+  String get address;
+  @override
+  List<String> get phoneNumbers; // ignore: invalid_annotation_target
   @override
   @JsonKey(name: 'profile_image')
   String get profileUrl;

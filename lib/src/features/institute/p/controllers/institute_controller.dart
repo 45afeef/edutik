@@ -1,5 +1,8 @@
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 
+import '../../../../../utils/routing/approute.dart';
 import '../../../assessment/do/assessment.dart';
 import '../../../assessment/p/controllers/assessment_controller.dart';
 import '../../../homepage/do/content.dart';
@@ -36,5 +39,22 @@ class InstituteController extends GetxController {
       institute.value.id!,
       UserType.institute,
     );
+  }
+
+  void handleProfileSharing() {
+    Share.share(
+      '''Visit this profile of *${institute.value.name} in Edukit*
+
+
+here is the link
+https://edutik.web.app${AppRoute.institutePage.replaceFirst(':instituteId', '${institute.value.id}')}
+
+You can attempt free public exams here.
+''',
+    );
+
+    Clipboard.setData(ClipboardData(
+        text: 'Check out this institute: ${institute.value.name}'));
+    Get.snackbar('Share', 'Institute link copied to clipboard');
   }
 }

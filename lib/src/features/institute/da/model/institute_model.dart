@@ -11,6 +11,7 @@ class InstituteModel extends Institute with _$InstituteModel {
     String? id,
     required String name,
     required String address,
+    required List<String> phoneNumbers,
     // ignore: invalid_annotation_target
     @JsonKey(name: 'profile_image') required String profileUrl,
     required List<String> publicAssessmentRefs,
