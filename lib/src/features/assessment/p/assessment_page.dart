@@ -67,7 +67,7 @@ class AssessmentPage extends GetWidget<AssessmentController> {
               if (snapshot.hasError) {
                 return Card(
                   child: Text(
-                    '${'error_loading_assessment'.tr}.${snapshot.error}',
+                    '${'msg_error_loading_assessment'.tr}.${snapshot.error}',
                   ),
                 );
               }
@@ -93,7 +93,7 @@ class AssessmentPage extends GetWidget<AssessmentController> {
                     )
                   : Column(
                       children: controller.assessment.value.items.isEmpty
-                          ? []
+                          ? [Center(child: Text('lbl_no_questions_found'.tr))]
                           : [
                               LinearProgressIndicator(
                                 value: (controller.currentQuestionIndex.value +

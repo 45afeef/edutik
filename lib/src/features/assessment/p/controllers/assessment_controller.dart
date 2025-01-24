@@ -7,6 +7,7 @@ import '../../../../../utils/date_time_utils.dart';
 import '../../../homepage/do/content.dart';
 import '../../do/assessment.dart';
 import '../../do/assessment_item.dart';
+import '../../do/closed_ended/mcq.dart';
 import '../../do/repositories/assessment_repository.dart';
 
 /// Controller for managing assessments in the application.
@@ -48,6 +49,25 @@ class AssessmentController extends GetxController {
   /// Gets the time spent on the current question in a readable format
   String get timeSpentOnCurrentQuestion =>
       _getTimeSpentOnQuestion(currentQuestionIndex.value);
+
+  /// Calculates the total marks scored by the student
+  /// TODO - Need to calculate the mark based on maximum marks allowed per assessmentItem.
+  /// now assuming this valuation is done as how kerala psc validates the marks.
+  /// +1 marks for every correct answer
+  /// -(1/3) marks for every wrong answer
+  /// +0 marks for every skipped questions.
+  double calculateTotalMarks() {
+    int totalMarks = 0;
+    for (var response in assessmentResult.value.studentResponse.values) {
+      if (response.studentAnswer == response.currectAnswer) {
+        totalMarks += 3; // Assuming each question has 1 mark
+      } else {
+        totalMarks -= 1;
+      }
+    }
+
+    return double.parse((totalMarks / 3).toStringAsFixed(2));
+  }
 
   /// Fetches all available assessments from the repository
   Future<List<Assessment>> fetchAllAssessments(
@@ -102,8 +122,14 @@ class AssessmentController extends GetxController {
 
   /// Handles the student's response to a question
   void handleStudentResponse(dynamic response, BuildContext context) {
-    assessmentResult.value.studentResponse[currentQuestionIndex.value]!
-        .updateResponse(response.toString());
+    AssessmentItemResponse itemResponse =
+        assessmentResult.value.studentResponse[currentQuestionIndex.value]!;
+    itemResponse.updateResponse(response.toString());
+
+    AssessmentItem item = assessment.value.items[currentQuestionIndex.value];
+    if (item is MCQ) {
+      itemResponse.addCurrectAnswer(item.answer);
+    }
 
     // Display a snackbar with the selected answer
     Get.closeAllSnackbars();

@@ -43,7 +43,7 @@ class InstituteController extends GetxController {
 
   void handleProfileSharing() {
     Share.share(
-      '''Visit this profile of *${institute.value.name} in Edukit*
+      '''Visit this profile of *${institute.value.name}* in Edukit
 
 
 here is the link

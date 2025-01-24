@@ -19,12 +19,16 @@ class AssessmentItemResponse {
     this.currectAnswer,
   });
 
+  void addCurrectAnswer(String answer) {
+    currectAnswer = answer;
+  }
+
   void incrementTimeTaken(int increment) {
     timeTakenInMillisecond += increment;
   }
 
   void updateResponse(String response) {
-    studentAnswer = response.toString();
+    studentAnswer = response;
   }
 }
 

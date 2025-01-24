@@ -54,7 +54,7 @@ class ProfileController extends GetxController {
 
   void handleProfileSharing(String? profileId) {
     Share.share(
-      '''Visit this profile of *${userProfile.value.displayName} in Edukit*
+      '''Visit this profile of *${userProfile.value.displayName}* in Edukit
 
 here is the link
 https://edutik.web.app${AppRoute.publicProfilePage.replaceFirst(':uid', profileId ?? auth.currentUser!.uid)}

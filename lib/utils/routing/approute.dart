@@ -82,7 +82,10 @@ class AppRoute {
     GetPage(
       name: institutePage,
       page: () => const Institutepage(),
-      binding: InstituteBinding(),
+      bindings: [
+        InstituteBinding(),
+        AssessmentBinding(),
+      ],
     ),
   ];
 }

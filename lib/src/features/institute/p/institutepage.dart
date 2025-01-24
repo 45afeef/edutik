@@ -23,7 +23,7 @@ class Institutepage extends GetWidget<InstituteController> {
               if (snapshot.hasError) {
                 return Card(
                   child: Text(
-                    '${'error_loading_assessment'.tr} - ${snapshot.error}',
+                    '${'msg_error_loading_assessment'.tr} - ${snapshot.error}',
                   ),
                 );
               }
