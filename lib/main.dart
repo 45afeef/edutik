@@ -2,14 +2,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:get/get.dart';
 
 import 'firebase_options.dart';
 import 'utils/initial_bindings.dart';
 import 'utils/locale/locale.dart';
 import 'utils/routing/approute.dart';
-import 'utils/routing/url_strategy_native.dart'
-    if (dart.library.html) 'utils/routing/url_strategy_web.dart';
 import 'utils/shared_prefs.dart';
 import 'utils/theme/theme.dart';
 
@@ -30,9 +29,8 @@ void main() async {
     return true;
   };
 
+  usePathUrlStrategy();
   runApp(const MyApp());
-
-  urlConfig();
 }
 
 class MyApp extends StatelessWidget {
