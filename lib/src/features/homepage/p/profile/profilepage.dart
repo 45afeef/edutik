@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../../../../utils/routing/approute.dart';
 import '../../../../../utils/theme/theme_controller.dart';
 import '../../../authentication/auth_service.dart';
+import '../w/loading.dart';
 import 'p/profile_controller.dart';
 import 'w/profile_info.dart';
 import 'w/profile_uploads.dart';
@@ -22,7 +23,7 @@ class ProfilePage extends GetWidget<ProfileController> {
           return Center(child: Text('some error occoured'.tr));
         }
         if (!snapshot.hasData) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: CustomProgressIndicator());
         }
         final ThemeController themController = Get.put(ThemeController());
         final AuthService auth = AuthService();

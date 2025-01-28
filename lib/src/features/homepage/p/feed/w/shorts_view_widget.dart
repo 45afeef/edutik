@@ -5,6 +5,7 @@ import 'package:video_player/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../do/shorts_entity.dart';
+import '../../w/loading.dart';
 
 class ShortView extends StatefulWidget {
   final ShortsEntity data;
@@ -38,7 +39,7 @@ class _ShortViewState extends State<ShortView> {
                   ? AspectRatio(
                       aspectRatio: _videoPlayerController!.value.aspectRatio,
                       child: VideoPlayer(_videoPlayerController!))
-                  : const Center(child: CircularProgressIndicator()),
+                  : const Center(child: CustomProgressIndicator()),
         ),
         // Overlay to bypass vedio controlls
         Positioned(

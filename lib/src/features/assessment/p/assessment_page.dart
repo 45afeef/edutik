@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/routing/approute.dart';
+import '../../homepage/p/w/loading.dart';
 import '../do/assessment.dart';
 import '../do/assessment_item.dart';
 import '../do/closed_ended/flashcard.dart';
@@ -72,7 +73,7 @@ class AssessmentPage extends GetWidget<AssessmentController> {
                 );
               }
               if (!snapshot.hasData) {
-                return const CircularProgressIndicator();
+                return const CustomProgressIndicator();
               }
 
               return Obx(() => !controller.isExamStarted

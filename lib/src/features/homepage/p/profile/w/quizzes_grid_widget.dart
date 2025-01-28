@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../../../../utils/routing/approute.dart';
+import '../../w/loading.dart';
 import '../p/profile_controller.dart';
 
 class QuizzesGrid extends GetWidget<ProfileController> {
@@ -70,7 +71,7 @@ class QuizzesGrid extends GetWidget<ProfileController> {
             );
           }
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CustomProgressIndicator(),
           );
         });
   }

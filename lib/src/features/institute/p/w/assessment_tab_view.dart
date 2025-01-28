@@ -5,6 +5,7 @@ import '../../../../../utils/routing/approute.dart';
 import '../../../assessment/do/assessment.dart';
 import '../../../authentication/auth_service.dart';
 import '../../../homepage/p/w/empty_item.dart';
+import '../../../homepage/p/w/loading.dart';
 import '../../do/entity/institute.dart';
 import '../controllers/institute_controller.dart';
 
@@ -25,7 +26,7 @@ class AssessmentTabBarView extends GetWidget<InstituteController> {
             );
           }
           if (!snapshot.hasData) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CustomProgressIndicator());
           }
 
           List<Assessment> allAssessments = snapshot.data!;

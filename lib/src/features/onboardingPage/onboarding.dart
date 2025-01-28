@@ -6,24 +6,22 @@ import 'package:get/get.dart';
 import '../../../utils/shared_prefs.dart';
 
 class OnboardingPage extends StatefulWidget {
+  final String completionPage;
+
   const OnboardingPage({
     super.key,
     this.completionPage = '/signup',
   });
 
-  final String completionPage;
-
+ 
   @override
   OnboardingPageState createState() => OnboardingPageState();
 }
 
 class OnboardingPageState extends State<OnboardingPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+  
   final PageController _pageController = PageController();
+
   int _currentPage = 0;
   bool _fade = true;
 
@@ -148,5 +146,10 @@ class OnboardingPageState extends State<OnboardingPage> {
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 }

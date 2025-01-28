@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../homepage/p/w/empty_item.dart';
+import '../../homepage/p/w/loading.dart';
 import '../../homepage/p/w/upcomming_feature.dart';
 import '../do/entity/institute.dart';
 import 'controllers/institute_controller.dart';
@@ -28,7 +29,7 @@ class Institutepage extends GetWidget<InstituteController> {
                 );
               }
               if (!snapshot.hasData) {
-                return const CircularProgressIndicator();
+                return const CustomProgressIndicator();
               }
 
               Institute instituteData = snapshot.data!;
