@@ -6,6 +6,6 @@ class CustomProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Lottie.asset('assets/lottie/breathing.json');
+    return Lottie.asset('assets/lottie/loading.json');
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class EmptyItem extends StatelessWidget {
   final String itemName;
@@ -9,8 +10,7 @@ class EmptyItem extends StatelessWidget {
     super.key,
     this.itemName = 'item',
     this.message = 'Oops! Looks like there are no items here.',
-    this.imageUrl =
-        'https://img.icons8.com/?size=256w&id=myNNj6E9OAZ7&format=png',
+    this.imageUrl = 'assets/lottie/empty.json',
   });
 
   @override
@@ -19,7 +19,7 @@ class EmptyItem extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.network(
+          Lottie.asset(
             imageUrl,
             height: 200.0, // Adjust the height as needed
             fit: BoxFit.cover,
