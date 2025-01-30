@@ -12,4 +12,11 @@ class Resource {
   });
 }
 
-enum ResourceType { video, pdf, link, plainText, richText }
+enum ResourceType {
+  audio,
+  video,
+  pdf,
+  link,
+  plainText,
+  richText,
+}

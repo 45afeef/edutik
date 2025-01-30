@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../../homepage/p/profile/da/user_profile_model.dart';
+import '../../../homepage/p/profile/da/user_profile_model.dart';
 import '../../do/entities/batch.dart';
 import 'course_model.dart';
 import 'syllabus/resource_model.dart';

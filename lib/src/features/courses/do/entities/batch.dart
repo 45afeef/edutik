@@ -1,4 +1,4 @@
-import '../../../../../homepage/p/profile/do/entity/user_profile.dart';
+import '../../../homepage/p/profile/do/entity/user_profile.dart';
 import 'course.dart';
 import 'syllabus/resource.dart';
 
