@@ -1,5 +1,6 @@
 import '../../../../../../utils/database/database_service.dart';
 import '../../../../../../utils/database/firestore_service.dart';
+import '../../../do/content.dart';
 import '../do/repository/profile_repo.dart';
 import 'user_profile_model.dart';
 
@@ -11,24 +12,10 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   UserProfileRepositoryImpl(this.databaseService);
 
   @override
-  Future<void> deleteProfile(String uid) {
-    // TODO: implement deleteProfile
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<UserProfileModel> fetchProfile(String uid) async {
-    Map<String, dynamic> data = await databaseService.getData(
-        collection: _tableOrCollectionName, documentId: uid);
-
-    return UserProfileModel.fromJson(data);
-  }
-
-  @override
-  Future<void> saveProfile(UserProfileModel profile) async {
+  Future<void> create(UserProfileModel profile) async {
     if (databaseService is FirebaseService) {
       try {
-        await fetchProfile(profile.uid!);
+        await readOne(profile.uid!);
       } on DatabaseException {
         // DatabaseException occurs when there is no document found with the id provided.
         // Which means that this is the first time user loggingIn - (in simple words - he just signedup right now)
@@ -49,8 +36,29 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   }
 
   @override
-  Future<void> updateProfile(String uid, UserProfileModel profile) {
-    // TODO: implement saveProfile
+  Future<void> delete(String ownerId) {
+    // TODO: implement delete
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<UserProfileModel>> readAll(String ownerId,
+      {UserType? ownerType}) {
+    // TODO: implement readAll
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<UserProfileModel> readOne(String userId, {UserType? ownerType}) async {
+    Map<String, dynamic> data = await databaseService.getData(
+        collection: _tableOrCollectionName, documentId: userId);
+
+    return UserProfileModel.fromJson(data);
+  }
+
+  @override
+  Future<void> update(String userId, UserProfileModel profile) {
+    // TODO: implement update
     throw UnimplementedError();
   }
 }

@@ -82,7 +82,7 @@ class AuthService {
   void _createOrUpdateUserProfile(UserCredential cred) {
     final UserProfileRepository userProfileRepo =
         Get.find<UserProfileRepository>();
-    userProfileRepo.saveProfile(
+    userProfileRepo.create(
       UserProfileModel(
         uid: cred.user!.uid,
         displayName: cred.user!.displayName ?? 'no name',

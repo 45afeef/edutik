@@ -85,7 +85,7 @@ class AssessmentController extends GetxController {
 
     // If not in the cache, make the network request
     List<Assessment> response =
-        await _repo.getAllAssessments(ownerId, ownerType);
+        await _repo.readAll(ownerId, ownerType: ownerType);
 
     // Convert to a map where the key is the id field of each assessment from list
     assessmentCache = {for (var obj in response) obj.id!: obj};
@@ -103,7 +103,7 @@ class AssessmentController extends GetxController {
     }
 
     // If not in the cache, make the network request
-    Assessment response = await _repo.getAssessment(assessmentId);
+    Assessment response = await _repo.readOne(assessmentId);
 
     // Update the cache with the new response
     assessmentCache[assessmentId] = response;

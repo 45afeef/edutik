@@ -13,7 +13,7 @@ class FeedController extends GetxController {
   final RxList<ShortsEntity> shortsList = <ShortsEntity>[].obs;
 
   void loadFeed() async {
-    var fetchedShorts = await shortsRepository.fetchAllShorts();
+    var fetchedShorts = await shortsRepository.readAll('user ID');
     // Logic to load feed items
     shortsList.assignAll(fetchedShorts);
   }

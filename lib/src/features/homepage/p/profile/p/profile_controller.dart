@@ -40,7 +40,7 @@ class ProfileController extends GetxController {
     }
 
     // If not in the cache, make the network request
-    UserProfile response = await _repo.fetchProfile(profileId);
+    UserProfile response = await _repo.readOne(profileId);
 
     // response.uid = '';
     // Update the cache with the new response

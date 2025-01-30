@@ -1,4 +1,5 @@
 import '../../../../../utils/database/database_service.dart';
+import '../../do/content.dart';
 import '../../do/repo/shorts_repo.dart';
 import '../shorts_model.dart';
 
@@ -10,13 +11,24 @@ class ShortsRepositoryImpl implements ShortsRepository {
   ShortsRepositoryImpl(this.databaseService);
 
   @override
-  Future<void> deleteShorts(String shortsId) async {
-    await databaseService.deleteData(
-        collection: _tableOrCollectionName, documentId: shortsId);
+  Future<void> create(ShortsModel model) async {
+    await databaseService.addData(
+      collection: _tableOrCollectionName,
+      data: model.toJson(),
+    );
   }
 
   @override
-  Future<List<ShortsModel>> fetchAllShorts() async {
+  Future<void> delete(String modelId) async {
+    await databaseService.deleteData(
+        collection: _tableOrCollectionName, documentId: modelId);
+  }
+
+  @override
+  Future<List<ShortsModel>> readAll(
+    String ownerId, {
+    UserType? ownerType,
+  }) async {
     List<Map<String, dynamic>> data =
         await databaseService.getAllData(collection: _tableOrCollectionName);
 
@@ -24,27 +36,22 @@ class ShortsRepositoryImpl implements ShortsRepository {
   }
 
   @override
-  Future<ShortsModel> fetchShorts(String shortsId) async {
+  Future<ShortsModel> readOne(
+    String modelId, {
+    UserType? ownerType,
+  }) async {
     Map<String, dynamic> data = await databaseService.getData(
-        collection: _tableOrCollectionName, documentId: shortsId);
+        collection: _tableOrCollectionName, documentId: modelId);
 
     return ShortsModel.fromJson(data);
   }
 
   @override
-  Future<void> saveShorts(ShortsModel shorts) async {
-    await databaseService.addData(
-      collection: _tableOrCollectionName,
-      data: shorts.toJson(),
-    );
-  }
-
-  @override
-  Future<void> updateShorts(String shortsId, ShortsModel shorts) async {
+  Future<void> update(String modelId, ShortsModel model) async {
     await databaseService.updateData(
       collection: _tableOrCollectionName,
-      documentId: shortsId,
-      data: shorts.toJson(),
+      documentId: modelId,
+      data: model.toJson(),
     );
   }
 }

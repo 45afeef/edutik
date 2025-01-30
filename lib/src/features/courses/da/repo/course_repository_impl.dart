@@ -17,19 +17,22 @@ class CourseRepositoryImpl implements CourseRepository {
   // If sanctioned, move all cache logic in various controllers to respective repositories.
 
   @override
-  Future<void> create(CourseModel resource) {
+  Future<void> create(CourseModel model) {
     // TODO: implement create
     throw UnimplementedError();
   }
 
   @override
-  Future<void> delete(String resourceId) {
+  Future<void> delete(String modelId) {
     // TODO: implement delete
     throw UnimplementedError();
   }
 
   @override
-  Future<List<CourseModel>> readAll(String ownerId, UserType? ownerType) async {
+  Future<List<CourseModel>> readAll(
+    String ownerId, {
+    UserType? ownerType,
+  }) async {
     var input = await databaseService.getAllData(
       collection: _tableOrCollectionName,
     );
@@ -40,13 +43,16 @@ class CourseRepositoryImpl implements CourseRepository {
   }
 
   @override
-  Future<CourseModel> readOne(String resourceId, UserType? ownerType) {
+  Future<CourseModel> readOne(
+    String modelId, {
+    UserType? ownerType,
+  }) {
     // TODO: implement readOne
     throw UnimplementedError();
   }
 
   @override
-  Future<void> update(String resourceId, CourseModel resource) {
+  Future<void> update(String modelId, CourseModel model) {
     // TODO: implement update
     throw UnimplementedError();
   }

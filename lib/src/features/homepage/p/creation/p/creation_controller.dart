@@ -43,7 +43,7 @@ class ShortsCreationController extends GetxController {
     );
 
     // Save the shorts
-    return shortsRepository.saveShorts(shorts);
+    return shortsRepository.create(shorts);
   }
 
   void updateTitleDescriptionVideourlAndType(

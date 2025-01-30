@@ -102,7 +102,7 @@ class AssessmentDraftController extends GetxController {
             ? 'institutes/$ownerId'
             : 'users/${_auth.currentUser!.uid}');
 
-    await repo.saveAssessment(assessmentModel);
+    await repo.create(assessmentModel);
 
     // Delete the Assessment details from the local draft (db)
     deleteAssessmentDataFromDraftTable();

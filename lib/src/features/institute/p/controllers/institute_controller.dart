@@ -25,7 +25,7 @@ class InstituteController extends GetxController {
     }
 
     // If not in the cache, make the network request
-    Institute response = await _repo.getInstitute(instituteId);
+    Institute response = await _repo.readOne(instituteId);
 
     // Update the cache with the new response
     instituteCache[instituteId] = response;

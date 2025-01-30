@@ -16,13 +16,27 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
   // If sanctioned, move all cache logic in various controllers to respective repositories.
 
   @override
-  Future<List<AssessmentModel>> getAllAssessments(
-    String ownerId,
-    UserType ownerType,
-  ) async {
+  Future<void> create(AssessmentModel model) {
+    final data = model.toJson();
+
+    return databaseService.addData(
+      collection: _tableOrCollectionName,
+      data: data,
+    );
+  }
+
+  @override
+  Future<void> delete(String modelId) {
+    // TODO: implement delete
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<AssessmentModel>> readAll(String ownerId,
+      {UserType? ownerType}) async {
     var input = await databaseService.queryData(
       collection: _tableOrCollectionName,
-      query: {'ownerRef': '${ownerType.name}s/$ownerId'},
+      query: {'ownerRef': '${ownerType?.name}s/$ownerId'},
     );
 
     var output = input.map((e) => AssessmentModel.fromJson(e)).toList();
@@ -31,22 +45,18 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
   }
 
   @override
-  Future<AssessmentModel> getAssessment(String id) async {
+  Future<AssessmentModel> readOne(String modelId, {UserType? ownerType}) async {
     var input = await databaseService.getData(
       collection: _tableOrCollectionName,
-      documentId: id,
+      documentId: modelId,
     );
 
     return AssessmentModel.fromJson(input);
   }
 
   @override
-  Future<void> saveAssessment(AssessmentModel assessmentModel) {
-    final data = assessmentModel.toJson();
-
-    return databaseService.addData(
-      collection: _tableOrCollectionName,
-      data: data,
-    );
+  Future<void> update(String modelId, AssessmentModel model) {
+    // TODO: implement update
+    throw UnimplementedError();
   }
 }

@@ -26,7 +26,7 @@ class CourseController extends GetxController {
     }
 
     // If not in the cache, make the network request
-    List<Course> response = await _repo.readAll(ownerId, ownerType);
+    List<Course> response = await _repo.readAll(ownerId, ownerType: ownerType);
 
     // Convert to a map where the key is the id field of each course from list
     coursesCache = {for (var obj in response) obj.id!: obj};
