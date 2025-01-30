@@ -29,9 +29,14 @@ class CourseRepositoryImpl implements CourseRepository {
   }
 
   @override
-  Future<List<CourseModel>> readAll(String ownerId, UserType? ownerType) {
-    // TODO: implement readAll
-    throw UnimplementedError();
+  Future<List<CourseModel>> readAll(String ownerId, UserType? ownerType) async {
+    var input = await databaseService.getAllData(
+      collection: _tableOrCollectionName,
+    );
+
+    var output = input.map((e) => CourseModel.fromJson(e)).toList();
+
+    return output;
   }
 
   @override

@@ -8,6 +8,7 @@ import '../../homepage/p/w/upcomming_feature.dart';
 import '../do/entity/institute.dart';
 import 'controllers/institute_controller.dart';
 import 'w/assessment_tab_view.dart';
+import 'w/courses_tab_view.dart';
 
 class Institutepage extends GetWidget<InstituteController> {
   const Institutepage({super.key});
@@ -88,7 +89,7 @@ class Institutepage extends GetWidget<InstituteController> {
                         child: TabBarView(
                           children: [
                             AssessmentTabBarView(instituteData),
-                            const UpcomingFeature(featureName: 'Courses'),
+                            CoursesTabBarView(instituteData),
                             const UpcomingFeature(featureName: 'Batches'),
                           ],
                         ),

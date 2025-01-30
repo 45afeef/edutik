@@ -5,6 +5,8 @@ import 'package:share_plus/share_plus.dart';
 import '../../../../../utils/routing/approute.dart';
 import '../../../assessment/do/assessment.dart';
 import '../../../assessment/p/controllers/assessment_controller.dart';
+import '../../../courses/controllers/course_controller.dart';
+import '../../../courses/do/entities/course.dart';
 import '../../../homepage/do/content.dart';
 import '../../do/entity/institute.dart';
 import '../../do/repo/institute_repo.dart';
@@ -36,6 +38,13 @@ class InstituteController extends GetxController {
 
   Future<List<Assessment>> fetchInstitutesAssessments() async {
     return Get.find<AssessmentController>().fetchAllAssessments(
+      institute.value.id!,
+      UserType.institute,
+    );
+  }
+
+  Future<List<Course>> fetchInstitutesCourses() {
+    return Get.find<CourseController>().fetchAllCourses(
       institute.value.id!,
       UserType.institute,
     );

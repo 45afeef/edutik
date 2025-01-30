@@ -6,6 +6,7 @@ import '../../src/features/assessment/p/assessment_page.dart';
 import '../../src/features/assessment/p/result/p/result_page.dart';
 import '../../src/features/authentication/auth_middleware.dart';
 import '../../src/features/authentication/signinpage.dart';
+import '../../src/features/courses/controllers/course_binding.dart';
 import '../../src/features/homepage/a/home_binding.dart';
 import '../../src/features/homepage/p/creation/a/creation_binding.dart';
 import '../../src/features/homepage/p/creation/creationpage.dart';
@@ -85,6 +86,7 @@ class AppRoute {
       bindings: [
         InstituteBinding(),
         AssessmentBinding(),
+        CourseBinding(),
       ],
     ),
   ];
