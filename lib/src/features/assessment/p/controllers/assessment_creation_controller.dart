@@ -93,11 +93,11 @@ class AssessmentDraftController extends GetxController {
             );
           })
         ],
-        creatorName: 'users/${_auth.currentUser!.displayName!}',
+        creatorName: '${_auth.currentUser?.displayName!}',
         creatorRef: 'users/${_auth.currentUser!.uid}',
         ownerName: ownerName != null
             ? 'institutes/$ownerName'
-            : 'users/${_auth.currentUser!.displayName!}',
+            : '${_auth.currentUser?.displayName!}',
         ownerRef: ownerId != null
             ? 'institutes/$ownerId'
             : 'users/${_auth.currentUser!.uid}');
