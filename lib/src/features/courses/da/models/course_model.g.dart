@@ -8,6 +8,7 @@ part of 'course_model.dart';
 
 _$CourseModelImpl _$$CourseModelImplFromJson(Map<String, dynamic> json) =>
     _$CourseModelImpl(
+      id: json['id'] as String?,
       name: json['name'] as String,
       price: PriceModel.fromJson(json['price'] as Map<String, dynamic>),
       syllabus:
@@ -18,6 +19,7 @@ _$CourseModelImpl _$$CourseModelImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$CourseModelImplToJson(_$CourseModelImpl instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'price': instance.price,
       'syllabus': instance.syllabus,

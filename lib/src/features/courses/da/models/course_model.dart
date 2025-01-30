@@ -10,6 +10,7 @@ part 'course_model.g.dart';
 @freezed
 class CourseModel extends Course with _$CourseModel {
   factory CourseModel({
+    String? id,
     required String name,
     required PriceModel price,
     required SyllabusModel syllabus,

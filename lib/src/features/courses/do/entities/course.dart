@@ -2,6 +2,7 @@ import 'price.dart';
 import 'syllabus/syllubus.dart';
 
 class Course {
+  final String? id;
   final String name;
   final Price price;
   final Syllabus syllabus;
@@ -11,6 +12,7 @@ class Course {
   // final List<Resource> meterials;
 
   Course({
+    this.id,
     required this.name,
     required this.price,
     required this.syllabus,

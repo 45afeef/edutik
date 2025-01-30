@@ -23,6 +23,7 @@ Map<String, dynamic> _$$ResourceModelImplToJson(_$ResourceModelImpl instance) =>
     };
 
 const _$ResourceTypeEnumMap = {
+  ResourceType.audio: 'audio',
   ResourceType.video: 'video',
   ResourceType.pdf: 'pdf',
   ResourceType.link: 'link',
