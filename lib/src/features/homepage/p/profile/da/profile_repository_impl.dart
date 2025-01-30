@@ -33,6 +33,9 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
         // DatabaseException occurs when there is no document found with the id provided.
         // Which means that this is the first time user loggingIn - (in simple words - he just signedup right now)
         // Indicates that user have no document in the user collection
+
+        // This is a wierd way!
+        // We are really expecting and exception.
         return (databaseService as FirebaseService).setData(
           collection: _tableOrCollectionName,
           documentId: profile.uid!,

@@ -5,7 +5,7 @@ import '../models/course_model.dart';
 
 const String _tableOrCollectionName = 'courses';
 
-class CourseRepositoryImpl extends CourseRepository {
+class CourseRepositoryImpl implements CourseRepository {
   final DatabaseService databaseService;
 
   CourseRepositoryImpl(this.databaseService);
@@ -17,32 +17,32 @@ class CourseRepositoryImpl extends CourseRepository {
   // If sanctioned, move all cache logic in various controllers to respective repositories.
 
   @override
-  Future<void> createCourse(CourseModel courseModel) {
-    // TODO: implement createCourse
+  Future<void> create(CourseModel resource) {
+    // TODO: implement create
     throw UnimplementedError();
   }
 
   @override
-  Future<void> deleteCourse(String id) {
-    // TODO: implement deleteCourse
+  Future<void> delete(String resourceId) {
+    // TODO: implement delete
     throw UnimplementedError();
   }
 
   @override
-  Future<List<CourseModel>> fetchAllCourse(String ownerId, UserType ownerType) {
-    // TODO: implement fetchAllCourse
+  Future<List<CourseModel>> readAll(String ownerId, UserType? ownerType) {
+    // TODO: implement readAll
     throw UnimplementedError();
   }
 
   @override
-  Future<CourseModel> fetchCourse(String id) {
-    // TODO: implement fetchCourse
+  Future<CourseModel> readOne(String resourceId, UserType? ownerType) {
+    // TODO: implement readOne
     throw UnimplementedError();
   }
 
   @override
-  Future<void> updateCourse(String id, CourseModel shorts) {
-    // TODO: implement updateCourse
+  Future<void> update(String resourceId, CourseModel resource) {
+    // TODO: implement update
     throw UnimplementedError();
   }
 }
