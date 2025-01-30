@@ -3,6 +3,8 @@ import '../../../homepage/do/content.dart';
 import '../../do/repositories/assessment_repository.dart';
 import '../models/assessment_model.dart';
 
+const String _tableOrCollectionName = 'assessments';
+
 class AssessmentRepositoryImpl implements AssessmentRepository {
   final DatabaseService databaseService;
 
@@ -19,7 +21,7 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
     UserType ownerType,
   ) async {
     var input = await databaseService.queryData(
-      collection: 'assessments',
+      collection: _tableOrCollectionName,
       query: {'ownerRef': '${ownerType.name}s/$ownerId'},
     );
 
@@ -31,7 +33,7 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
   @override
   Future<AssessmentModel> getAssessment(String id) async {
     var input = await databaseService.getData(
-      collection: 'assessments',
+      collection: _tableOrCollectionName,
       documentId: id,
     );
 
@@ -43,7 +45,7 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
     final data = assessmentModel.toJson();
 
     return databaseService.addData(
-      collection: 'assessments',
+      collection: _tableOrCollectionName,
       data: data,
     );
   }
