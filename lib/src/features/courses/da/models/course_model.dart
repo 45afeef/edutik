@@ -15,6 +15,7 @@ class CourseModel extends Course with _$CourseModel {
     required PriceModel price,
     required SyllabusModel syllabus,
     required List<String> videos,
+    required String bannerImageUri,
   }) = _CourseModel;
 
   factory CourseModel.fromJson(Map<String, dynamic> json) =>

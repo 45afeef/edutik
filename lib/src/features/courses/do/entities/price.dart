@@ -3,7 +3,7 @@ class Price {
   final double amount;
 
   Price(
-    this.currency,
-    this.amount,
-  );
+    this.amount, {
+    this.currency = '₹',
+  });
 }

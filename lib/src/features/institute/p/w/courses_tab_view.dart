@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../utils/routing/approute.dart';
 import '../../../authentication/auth_service.dart';
 import '../../../courses/do/entities/course.dart';
+import '../../../courses/p/w/course_card.dart';
 import '../../../homepage/p/w/empty_item.dart';
 import '../../../homepage/p/w/loading.dart';
 import '../../do/entity/institute.dart';
@@ -39,22 +39,11 @@ class CoursesTabBarView extends GetWidget<InstituteController> {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: allCourses.length,
                   itemBuilder: (BuildContext context, int index) {
-                    final assessment = allCourses[index];
+                    final course = allCourses[index];
 
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                        child: ListTile(
-                          leading: Text('${index + 1}'),
-                          title: const Text('Public Assessment'),
-                          onTap: () {
-                            Get.toNamed(
-                              AppRoute.assessmentPage
-                                  .replaceFirst(':id', '${assessment.id}'),
-                            );
-                          },
-                        ),
-                      ),
+                      child: CourseCard(course),
                     );
                   },
                 );
@@ -62,15 +51,9 @@ class CoursesTabBarView extends GetWidget<InstituteController> {
       ),
       floatingActionButton: _isAdmin()
           ? FloatingActionButton(
-              onPressed: () => Get.toNamed(
-                AppRoute.assessmentCreationPage,
-                arguments: {
-                  'ownerId': institute.id,
-                  'ownerName': institute.name
-                },
-              ),
+              onPressed: () => throw UnimplementedError(),
               child: Tooltip(
-                message: 'msg_create_new_assessment'.tr,
+                message: 'msg_create_new_course'.tr,
                 child: const Icon(Icons.add),
               ),
             )

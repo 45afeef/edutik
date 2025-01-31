@@ -6,8 +6,9 @@ class Course {
   final String name;
   final Price price;
   final Syllabus syllabus;
-  // References or foreign keys
-  final List<String> videos;
+  final List<String> videos; // References or foreign keys
+  final String bannerImageUri;
+
   // final List<Assessment> assessments;
   // final List<Resource> meterials;
 
@@ -17,6 +18,7 @@ class Course {
     required this.price,
     required this.syllabus,
     required this.videos,
+    required this.bannerImageUri,
     // required this.assessments,
     // required this.meterials,
     // required super.creatorName,

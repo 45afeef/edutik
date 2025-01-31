@@ -15,6 +15,7 @@ _$CourseModelImpl _$$CourseModelImplFromJson(Map<String, dynamic> json) =>
           SyllabusModel.fromJson(json['syllabus'] as Map<String, dynamic>),
       videos:
           (json['videos'] as List<dynamic>).map((e) => e as String).toList(),
+      bannerImageUri: json['bannerImageUri'] as String,
     );
 
 Map<String, dynamic> _$$CourseModelImplToJson(_$CourseModelImpl instance) =>
@@ -24,4 +25,5 @@ Map<String, dynamic> _$$CourseModelImplToJson(_$CourseModelImpl instance) =>
       'price': instance.price,
       'syllabus': instance.syllabus,
       'videos': instance.videos,
+      'bannerImageUri': instance.bannerImageUri,
     };
