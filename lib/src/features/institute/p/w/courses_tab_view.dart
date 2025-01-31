@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../utils/routing/approute.dart';
 import '../../../authentication/auth_service.dart';
 import '../../../courses/do/entities/course.dart';
 import '../../../courses/p/w/course_card.dart';
@@ -51,7 +52,9 @@ class CoursesTabBarView extends GetWidget<InstituteController> {
       ),
       floatingActionButton: _isAdmin()
           ? FloatingActionButton(
-              onPressed: () => throw UnimplementedError(),
+              onPressed: () {
+                Get.toNamed(AppRoute.courseCreationPage);
+              },
               child: Tooltip(
                 message: 'msg_create_new_course'.tr,
                 child: const Icon(Icons.add),

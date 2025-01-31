@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import '../../homepage/do/content.dart';
+import '../da/models/course_model.dart';
 import '../do/entities/course.dart';
 import '../do/repo/course_repo.dart';
 
@@ -32,5 +33,10 @@ class CourseController extends GetxController {
     coursesCache = {for (var obj in response) obj.id!: obj};
 
     return response;
+  }
+
+  Future<void> saveCourse(CourseModel course) async {
+    // You can add extra validation and logic here before saving the data into database
+    _repo.create(course);
   }
 }

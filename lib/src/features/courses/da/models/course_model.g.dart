@@ -21,7 +21,7 @@ Map<String, dynamic> _$$CourseModelImplToJson(_$CourseModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'price': instance.price,
-      'syllabus': instance.syllabus,
+      'price': instance.price.toJson(),
+      'syllabus': instance.syllabus?.toJson(),
       'bannerImageUri': instance.bannerImageUri,
     };

@@ -6,7 +6,8 @@ import '../../src/features/assessment/p/assessment_page.dart';
 import '../../src/features/assessment/p/result/p/result_page.dart';
 import '../../src/features/authentication/auth_middleware.dart';
 import '../../src/features/authentication/signinpage.dart';
-import '../../src/features/courses/controllers/course_binding.dart';
+import '../../src/features/courses/a/course_binding.dart';
+import '../../src/features/courses/p/course_creation_page.dart';
 import '../../src/features/homepage/a/home_binding.dart';
 import '../../src/features/homepage/p/creation/a/creation_binding.dart';
 import '../../src/features/homepage/p/creation/creationpage.dart';
@@ -33,7 +34,10 @@ class AppRoute {
 
   static const String resultPage = '/result';
   static const String assessmentPage = '/assessment/:id';
+
+  // Creation Pages
   static const String assessmentCreationPage = '/create/assessment';
+  static const String courseCreationPage = '/create/course';
 
   // INSTITUTE specific routes
   static const String institutePage = '/institute/:instituteId';
@@ -65,6 +69,10 @@ class AppRoute {
         GetPage(
           name: assessmentCreationPage,
           page: () => AssessmentCreationPage(),
+        ),
+        GetPage(
+          name: courseCreationPage,
+          page: () => CourseCreationPage(),
         ),
         GetPage(
           name: resultPage,

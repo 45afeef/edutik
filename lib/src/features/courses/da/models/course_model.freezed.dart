@@ -195,7 +195,7 @@ class _$CourseModelImpl implements _CourseModel {
       {this.id,
       required this.name,
       required this.price,
-      required this.syllabus,
+      this.syllabus,
       required this.bannerImageUri});
 
   factory _$CourseModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -257,7 +257,7 @@ abstract class _CourseModel implements CourseModel {
       {final String? id,
       required final String name,
       required final PriceModel price,
-      required final SyllabusModel? syllabus,
+      final SyllabusModel? syllabus,
       required final String bannerImageUri}) = _$CourseModelImpl;
 
   factory _CourseModel.fromJson(Map<String, dynamic> json) =

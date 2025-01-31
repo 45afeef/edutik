@@ -17,9 +17,11 @@ class CourseRepositoryImpl implements CourseRepository {
   // If sanctioned, move all cache logic in various controllers to respective repositories.
 
   @override
-  Future<void> create(CourseModel model) {
-    // TODO: implement create
-    throw UnimplementedError();
+  Future<void> create(CourseModel model) async {
+    await databaseService.addData(
+      collection: _tableOrCollectionName,
+      data: model.toJson(),
+    );
   }
 
   @override
