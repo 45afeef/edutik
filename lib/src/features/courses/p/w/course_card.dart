@@ -49,6 +49,11 @@ class CourseCard extends StatelessWidget {
             left: 10,
             child: Text(
               course.name,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           // Price at Bottom Right
@@ -63,6 +68,7 @@ class CourseCard extends StatelessWidget {
               ),
               child: Text(
                 '${course.price.currency} ${course.price.amount.toStringAsFixed(2)}',
+                style: const TextStyle(color: Colors.white),
               ),
             ),
           ),
