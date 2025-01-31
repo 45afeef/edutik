@@ -5,8 +5,7 @@ class Course {
   final String? id;
   final String name;
   final Price price;
-  final Syllabus syllabus;
-  final List<String> videos; // References or foreign keys
+  final Syllabus? syllabus;
   final String bannerImageUri;
 
   // final List<Assessment> assessments;
@@ -16,8 +15,7 @@ class Course {
     this.id,
     required this.name,
     required this.price,
-    required this.syllabus,
-    required this.videos,
+    this.syllabus,
     required this.bannerImageUri,
     // required this.assessments,
     // required this.meterials,

@@ -23,8 +23,7 @@ mixin _$CourseModel {
   String? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   PriceModel get price => throw _privateConstructorUsedError;
-  SyllabusModel get syllabus => throw _privateConstructorUsedError;
-  List<String> get videos => throw _privateConstructorUsedError;
+  SyllabusModel? get syllabus => throw _privateConstructorUsedError;
   String get bannerImageUri => throw _privateConstructorUsedError;
 
   /// Serializes this CourseModel to a JSON map.
@@ -47,12 +46,11 @@ abstract class $CourseModelCopyWith<$Res> {
       {String? id,
       String name,
       PriceModel price,
-      SyllabusModel syllabus,
-      List<String> videos,
+      SyllabusModel? syllabus,
       String bannerImageUri});
 
   $PriceModelCopyWith<$Res> get price;
-  $SyllabusModelCopyWith<$Res> get syllabus;
+  $SyllabusModelCopyWith<$Res>? get syllabus;
 }
 
 /// @nodoc
@@ -73,8 +71,7 @@ class _$CourseModelCopyWithImpl<$Res, $Val extends CourseModel>
     Object? id = freezed,
     Object? name = null,
     Object? price = null,
-    Object? syllabus = null,
-    Object? videos = null,
+    Object? syllabus = freezed,
     Object? bannerImageUri = null,
   }) {
     return _then(_value.copyWith(
@@ -90,14 +87,10 @@ class _$CourseModelCopyWithImpl<$Res, $Val extends CourseModel>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as PriceModel,
-      syllabus: null == syllabus
+      syllabus: freezed == syllabus
           ? _value.syllabus
           : syllabus // ignore: cast_nullable_to_non_nullable
-              as SyllabusModel,
-      videos: null == videos
-          ? _value.videos
-          : videos // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as SyllabusModel?,
       bannerImageUri: null == bannerImageUri
           ? _value.bannerImageUri
           : bannerImageUri // ignore: cast_nullable_to_non_nullable
@@ -119,8 +112,12 @@ class _$CourseModelCopyWithImpl<$Res, $Val extends CourseModel>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $SyllabusModelCopyWith<$Res> get syllabus {
-    return $SyllabusModelCopyWith<$Res>(_value.syllabus, (value) {
+  $SyllabusModelCopyWith<$Res>? get syllabus {
+    if (_value.syllabus == null) {
+      return null;
+    }
+
+    return $SyllabusModelCopyWith<$Res>(_value.syllabus!, (value) {
       return _then(_value.copyWith(syllabus: value) as $Val);
     });
   }
@@ -138,14 +135,13 @@ abstract class _$$CourseModelImplCopyWith<$Res>
       {String? id,
       String name,
       PriceModel price,
-      SyllabusModel syllabus,
-      List<String> videos,
+      SyllabusModel? syllabus,
       String bannerImageUri});
 
   @override
   $PriceModelCopyWith<$Res> get price;
   @override
-  $SyllabusModelCopyWith<$Res> get syllabus;
+  $SyllabusModelCopyWith<$Res>? get syllabus;
 }
 
 /// @nodoc
@@ -164,8 +160,7 @@ class __$$CourseModelImplCopyWithImpl<$Res>
     Object? id = freezed,
     Object? name = null,
     Object? price = null,
-    Object? syllabus = null,
-    Object? videos = null,
+    Object? syllabus = freezed,
     Object? bannerImageUri = null,
   }) {
     return _then(_$CourseModelImpl(
@@ -181,14 +176,10 @@ class __$$CourseModelImplCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as PriceModel,
-      syllabus: null == syllabus
+      syllabus: freezed == syllabus
           ? _value.syllabus
           : syllabus // ignore: cast_nullable_to_non_nullable
-              as SyllabusModel,
-      videos: null == videos
-          ? _value._videos
-          : videos // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as SyllabusModel?,
       bannerImageUri: null == bannerImageUri
           ? _value.bannerImageUri
           : bannerImageUri // ignore: cast_nullable_to_non_nullable
@@ -205,9 +196,7 @@ class _$CourseModelImpl implements _CourseModel {
       required this.name,
       required this.price,
       required this.syllabus,
-      required final List<String> videos,
-      required this.bannerImageUri})
-      : _videos = videos;
+      required this.bannerImageUri});
 
   factory _$CourseModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$CourseModelImplFromJson(json);
@@ -219,21 +208,13 @@ class _$CourseModelImpl implements _CourseModel {
   @override
   final PriceModel price;
   @override
-  final SyllabusModel syllabus;
-  final List<String> _videos;
-  @override
-  List<String> get videos {
-    if (_videos is EqualUnmodifiableListView) return _videos;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_videos);
-  }
-
+  final SyllabusModel? syllabus;
   @override
   final String bannerImageUri;
 
   @override
   String toString() {
-    return 'CourseModel(id: $id, name: $name, price: $price, syllabus: $syllabus, videos: $videos, bannerImageUri: $bannerImageUri)';
+    return 'CourseModel(id: $id, name: $name, price: $price, syllabus: $syllabus, bannerImageUri: $bannerImageUri)';
   }
 
   @override
@@ -246,15 +227,14 @@ class _$CourseModelImpl implements _CourseModel {
             (identical(other.price, price) || other.price == price) &&
             (identical(other.syllabus, syllabus) ||
                 other.syllabus == syllabus) &&
-            const DeepCollectionEquality().equals(other._videos, _videos) &&
             (identical(other.bannerImageUri, bannerImageUri) ||
                 other.bannerImageUri == bannerImageUri));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, price, syllabus,
-      const DeepCollectionEquality().hash(_videos), bannerImageUri);
+  int get hashCode =>
+      Object.hash(runtimeType, id, name, price, syllabus, bannerImageUri);
 
   /// Create a copy of CourseModel
   /// with the given fields replaced by the non-null parameter values.
@@ -277,8 +257,7 @@ abstract class _CourseModel implements CourseModel {
       {final String? id,
       required final String name,
       required final PriceModel price,
-      required final SyllabusModel syllabus,
-      required final List<String> videos,
+      required final SyllabusModel? syllabus,
       required final String bannerImageUri}) = _$CourseModelImpl;
 
   factory _CourseModel.fromJson(Map<String, dynamic> json) =
@@ -291,9 +270,7 @@ abstract class _CourseModel implements CourseModel {
   @override
   PriceModel get price;
   @override
-  SyllabusModel get syllabus;
-  @override
-  List<String> get videos;
+  SyllabusModel? get syllabus;
   @override
   String get bannerImageUri;
 

@@ -11,10 +11,9 @@ _$CourseModelImpl _$$CourseModelImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String?,
       name: json['name'] as String,
       price: PriceModel.fromJson(json['price'] as Map<String, dynamic>),
-      syllabus:
-          SyllabusModel.fromJson(json['syllabus'] as Map<String, dynamic>),
-      videos:
-          (json['videos'] as List<dynamic>).map((e) => e as String).toList(),
+      syllabus: json['syllabus'] == null
+          ? null
+          : SyllabusModel.fromJson(json['syllabus'] as Map<String, dynamic>),
       bannerImageUri: json['bannerImageUri'] as String,
     );
 
@@ -24,6 +23,5 @@ Map<String, dynamic> _$$CourseModelImplToJson(_$CourseModelImpl instance) =>
       'name': instance.name,
       'price': instance.price,
       'syllabus': instance.syllabus,
-      'videos': instance.videos,
       'bannerImageUri': instance.bannerImageUri,
     };

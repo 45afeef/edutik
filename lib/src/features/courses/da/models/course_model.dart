@@ -13,8 +13,7 @@ class CourseModel extends Course with _$CourseModel {
     String? id,
     required String name,
     required PriceModel price,
-    required SyllabusModel syllabus,
-    required List<String> videos,
+    required SyllabusModel? syllabus,
     required String bannerImageUri,
   }) = _CourseModel;
 
