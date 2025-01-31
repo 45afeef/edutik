@@ -59,7 +59,7 @@ class CourseCard extends StatelessWidget {
           // Price at Bottom Right
           Positioned(
             bottom: 10,
-            left: 10,
+            right: 10,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
@@ -75,12 +75,12 @@ class CourseCard extends StatelessWidget {
           // Button at Bottom Left
           Positioned(
             bottom: 10,
-            right: 10,
+            left: 10,
             child: ElevatedButton(
               onPressed: () {
                 // Add your button action here
               },
-              child: Text('enroll_Now'.tr),
+              child: Text('lbl_enroll_now'.tr),
             ),
           ),
         ],

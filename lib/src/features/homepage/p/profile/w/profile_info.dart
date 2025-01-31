@@ -38,20 +38,25 @@ class ProfileInfo extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         if (user.accessInstitutes != null && user.accessInstitutes!.isNotEmpty)
-          Row(
-            children: user.accessInstitutes!.map(
-              (instituteId) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextButton(
-                      onPressed: () => Get.toNamed(
-                            AppRoute.institutePage
-                                .replaceFirst(':instituteId', instituteId),
-                          ),
-                      child: Text(instituteId)),
+          SizedBox(
+            height: 40.0, // Set your desired height here
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: user.accessInstitutes?.length,
+              itemBuilder: (BuildContext context, int index) {
+                final instituteId = user.accessInstitutes![index];
+                return TextButton(
+                  child: Row(children: [
+                    const Icon(Icons.account_balance_rounded),
+                    Text('${index + 1}'),
+                  ]),
+                  onPressed: () => Get.toNamed(
+                    AppRoute.institutePage
+                        .replaceFirst(':instituteId', instituteId),
+                  ),
                 );
               },
-            ).toList(),
+            ),
           ),
         const Divider(),
         ListTile(

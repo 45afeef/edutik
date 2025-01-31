@@ -37,7 +37,8 @@ class CoursesTabBarView extends GetWidget<InstituteController> {
               ? EmptyItem(itemName: 'courses'.tr)
               : ListView.builder(
                   shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
+padding: const EdgeInsets.only(bottom: 150),
                   itemCount: allCourses.length,
                   itemBuilder: (BuildContext context, int index) {
                     final course = allCourses[index];

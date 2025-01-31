@@ -18,7 +18,8 @@ class AppTranslations extends Translations {
           'lbl_submit': 'Submit',
           'msg_are_you_sure_to_logout': 'Are you sure to logout?',
           'msg_please_enter_a_': 'Please enter a ',
-          'msg_attempt_for_free': 'Attempt for free'
+          'msg_attempt_for_free': 'Attempt for free',
+          'lbl_enroll_now': 'Enroll Now',
         },
         'hi_IN': {
           'hello': 'नमस्ते',
