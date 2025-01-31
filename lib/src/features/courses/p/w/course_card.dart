@@ -1,86 +1,80 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../do/entities/course.dart';
 
 class CourseCard extends StatelessWidget {
   final Course course;
 
-  const CourseCard(
-    this.course, {
-    super.key,
-  });
+  const CourseCard(this.course, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 4.0,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
+        borderRadius: BorderRadius.circular(10.0),
       ),
-      clipBehavior: Clip.antiAlias,
       child: Stack(
         children: [
           // Background Image
-          Positioned.fill(
-            child: Image.network(
-              course.bannerImageUri,
-              fit: BoxFit.cover,
-            ),
+          Image.network(
+            course.bannerImageUri,
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: 200,
           ),
           // Gradient Overlay
           Positioned.fill(
             child: Container(
+              // width: double.infinity,
+              // height: 200,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                   colors: [
-                    Colors.black.withOpacity(0.6),
+                    Colors.black.withOpacity(0.7),
                     Colors.transparent,
+                    Colors.black.withOpacity(0.6),
                   ],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
+                  stops: const [0.0, 0.5, 1.0],
                 ),
               ),
             ),
           ),
-          // Course Details
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Course Name
-                Text(
-                  course.name,
-                  style: const TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                const Spacer(),
-                // Price at Lower Right
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Text(
-                    '${course.price.currency} ${course.price.amount.toStringAsFixed(2)}',
-                    style: const TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                // Button to Show Batches at Bottom Left
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      throw UnimplementedError();
-                    },
-                    child: const Text('Show Batches'),
-                  ),
-                ),
-              ],
+          // Course Name at Top Left
+          Positioned(
+            top: 10,
+            left: 10,
+            child: Text(
+              course.name,
+            ),
+          ),
+          // Price at Bottom Right
+          Positioned(
+            bottom: 10,
+            left: 10,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.6),
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: Text(
+                '${course.price.currency} ${course.price.amount.toStringAsFixed(2)}',
+              ),
+            ),
+          ),
+          // Button at Bottom Left
+          Positioned(
+            bottom: 10,
+            right: 10,
+            child: ElevatedButton(
+              onPressed: () {
+                // Add your button action here
+              },
+              child: Text('enroll_Now'.tr),
             ),
           ),
         ],
