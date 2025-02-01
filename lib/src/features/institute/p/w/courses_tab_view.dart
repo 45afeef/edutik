@@ -38,14 +38,17 @@ class CoursesTabBarView extends GetWidget<InstituteController> {
               : ListView.builder(
                   shrinkWrap: true,
                   physics: const BouncingScrollPhysics(),
-padding: const EdgeInsets.only(bottom: 150),
+                  padding: const EdgeInsets.only(bottom: 150),
                   itemCount: allCourses.length,
                   itemBuilder: (BuildContext context, int index) {
                     final course = allCourses[index];
 
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: CourseCard(course),
+                      child: CourseCard(
+                        course,
+                        onPressed: () {},
+                      ),
                     );
                   },
                 );

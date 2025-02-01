@@ -5,8 +5,13 @@ import '../../do/entities/course.dart';
 
 class CourseCard extends StatelessWidget {
   final Course course;
+  final VoidCallback? onPressed;
 
-  const CourseCard(this.course, {super.key});
+  const CourseCard(
+    this.course, {
+    required this.onPressed,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -77,9 +82,7 @@ class CourseCard extends StatelessWidget {
             bottom: 10,
             left: 10,
             child: ElevatedButton(
-              onPressed: () {
-                // Add your button action here
-              },
+              onPressed: onPressed,
               child: Text('lbl_enroll_now'.tr),
             ),
           ),
