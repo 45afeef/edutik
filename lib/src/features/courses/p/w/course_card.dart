@@ -83,7 +83,7 @@ class CourseCard extends StatelessWidget {
             left: 10,
             child: ElevatedButton(
               onPressed: onPressed,
-              child: Text('lbl_enroll_now'.tr),
+              child: Text('lbl_batches'.tr),
             ),
           ),
         ],

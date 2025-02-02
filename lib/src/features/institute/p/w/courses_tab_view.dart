@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 
 import '../../../../../utils/routing/approute.dart';
 import '../../../authentication/auth_service.dart';
+import '../../../courses/do/entities/batch.dart';
 import '../../../courses/do/entities/course.dart';
+import '../../../courses/p/w/batch_list.dart';
 import '../../../courses/p/w/course_card.dart';
 import '../../../homepage/p/w/empty_item.dart';
 import '../../../homepage/p/w/loading.dart';
@@ -47,7 +49,24 @@ class CoursesTabBarView extends GetWidget<InstituteController> {
                       padding: const EdgeInsets.all(8.0),
                       child: CourseCard(
                         course,
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                content: BatchList(batches: [
+                                  BatchEntity(
+                                    course: course,
+                                    startDate: 987654321,
+                                    endDate: 1617184800,
+                                    students: [],
+                                    teachers: [],
+                                  ),
+                                ]),
+                              );
+                            },
+                          );
+                        },
                       ),
                     );
                   },

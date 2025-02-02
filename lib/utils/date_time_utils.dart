@@ -17,6 +17,14 @@ extension DateTimeExtension on DateTime {
 }
 
 extension TimeDeltaString on int {
+  String toReadableTime({String pattern = 'yyyy-MM-dd HH:mm:ss'}) {
+    int timestamp = this; // timestamp in seconds
+    DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    String formattedDate = DateFormat(pattern).format(date);
+
+    return formattedDate;
+  }
+
   String toReadableTimeDelta({String pattern = 'h:m:s'}) {
     int totalSeconds = this ~/ 1000;
     int totalMinutes = totalSeconds ~/ 60;
