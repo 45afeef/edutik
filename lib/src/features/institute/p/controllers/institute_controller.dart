@@ -19,6 +19,8 @@ class InstituteController extends GetxController {
   Rx<Institute> institute = Institute.empty().obs;
   Map<String, Institute> instituteCache = <String, Institute>{};
 
+  final CourseController _courseController = Get.find<CourseController>();
+
   Future<Institute> fetchInstitute(String instituteId) async {
     // Check if the institute is already in the cache
     if (instituteCache.containsKey(instituteId)) {
@@ -45,7 +47,7 @@ class InstituteController extends GetxController {
   }
 
   Future<List<Course>> fetchInstitutesCourses() {
-    return Get.find<CourseController>().fetchAllCourses(
+    return _courseController.fetchAllCourses(
       institute.value.id!,
       UserType.institute,
     );
@@ -69,6 +71,6 @@ You can attempt free public exams here.
   }
 
   Future<void> saveInstitutesCourse(CourseModel model) {
-    return Get.find<CourseController>().saveCourse(model);
+    return _courseController.saveCourse(model);
   }
 }

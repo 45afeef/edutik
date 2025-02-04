@@ -25,7 +25,8 @@ class CoursesTabBarView extends GetWidget<InstituteController> {
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Center(
-              child: Text('some_error_occoured_during_data_fetch'.tr),
+              child: Text(
+                  '${'some_error_occoured_during_data_fetch'.tr} ${snapshot.error}'),
             );
           }
 

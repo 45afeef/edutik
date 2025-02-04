@@ -29,7 +29,6 @@ class SupabaseService implements DatabaseService {
     final response = await _client.from(collection).select();
 
     return response;
-    // return List<Map<String, dynamic>>.from(response);
   }
 
   @override

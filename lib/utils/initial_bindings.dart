@@ -27,9 +27,9 @@ class InitialBindings extends Bindings {
 
     Get.put<DatabaseService>(
         // UnComment only one Class. Because the DatabaseService only accepts One argument.
-        // DummyService() // Comment or Uncomment if you want to toggle the use DummyDataBase Service
-        FirebaseService() // Comment or Uncomment if you want to toggle the use FirebaseFirestore
-        // SupabaseService() // Comment or Uncomment if you want to toggle the use  SupabaseService
+        // DummyService() // Comment or Uncomment if you want to toggle the use of DummyDataBase Service
+        FirebaseService() // Comment or Uncomment if you want to toggle the use of FirebaseFirestore
+        // SupabaseService() // Comment or Uncomment if you want to toggle the use of SupabaseService
         );
 
     // Initialize the repositories

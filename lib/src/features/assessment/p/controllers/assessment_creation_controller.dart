@@ -12,7 +12,7 @@ import '../../do/closed_ended/mcq.dart';
 import '../../do/repositories/assessment_repository.dart';
 
 class AssessmentDraftController extends GetxController {
-  final SqLiteService _databaseService = SqLiteService();
+  final SqLiteService _localDb = SqLiteService();
   final AuthService _auth = AuthService();
 
   final TextEditingController assessmentNameController =
@@ -31,7 +31,7 @@ class AssessmentDraftController extends GetxController {
         data['option${i + 1}'] = item.options[i];
       }
 
-      await _databaseService.addData(collection: 'mcq', data: data);
+      await _localDb.addData(collection: 'mcq', data: data);
     }
 
     _loadQuestions();
@@ -57,7 +57,7 @@ class AssessmentDraftController extends GetxController {
   }
 
   void deleteAssessmentDataFromDraftTable() {
-    _databaseService.deleteAllData(collection: 'mcq');
+    _localDb.deleteAllData(collection: 'mcq');
   }
 
   @override
@@ -113,7 +113,7 @@ class AssessmentDraftController extends GetxController {
   }
 
   Future<void> updateQuestion(Map<String, dynamic> question) async {
-    await _databaseService.updateData(
+    await _localDb.updateData(
       collection: 'mcq',
       documentId: question['id'].toString(),
       data: question,
@@ -122,7 +122,7 @@ class AssessmentDraftController extends GetxController {
   }
 
   Future<void> _loadQuestions() async {
-    final data = await _databaseService.getAllData(collection: 'mcq');
+    final data = await _localDb.getAllData(collection: 'mcq');
 
     questions.assignAll(data);
   }
