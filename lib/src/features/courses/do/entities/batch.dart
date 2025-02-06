@@ -1,9 +1,9 @@
 import '../../../homepage/p/profile/do/entity/user_profile.dart';
-import 'course.dart';
 import 'syllabus/resource.dart';
 
 class BatchEntity {
-  final Course course;
+  final String courseId;
+  final String name;
   final int startDate;
   final int endDate;
   // References or foreign keys
@@ -27,7 +27,8 @@ class BatchEntity {
   final List<Resource>? meterials;
 
   BatchEntity({
-    required this.course,
+    required this.courseId,
+    required this.name,
     required this.startDate,
     required this.endDate,
     required this.students,

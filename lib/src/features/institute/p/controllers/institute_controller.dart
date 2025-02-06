@@ -6,6 +6,7 @@ import '../../../../../utils/routing/approute.dart';
 import '../../../assessment/do/assessment.dart';
 import '../../../assessment/p/controllers/assessment_controller.dart';
 import '../../../courses/controllers/course_controller.dart';
+import '../../../courses/da/models/batch_model.dart';
 import '../../../courses/da/models/course_model.dart';
 import '../../../courses/do/entities/batch.dart';
 import '../../../courses/do/entities/course.dart';
@@ -73,6 +74,10 @@ You can attempt free public exams here.
     Clipboard.setData(ClipboardData(
         text: 'Check out this institute: ${institute.value.name}'));
     Get.snackbar('Share', 'Institute link copied to clipboard');
+  }
+
+  Future<void> saveCourseBatch(BatchModel model) {
+    return _courseController.saveBatch(model);
   }
 
   Future<void> saveInstitutesCourse(CourseModel model) {

@@ -19,9 +19,15 @@ class BatchRepositoryImpl implements BatchRepository {
   // If sanctioned, move all cache logic in various controllers to respective repositories.
 
   @override
-  Future<void> create(BatchModel model) {
-    // TODO: implement create
-    throw UnimplementedError();
+  Future<void> create(BatchModel model) async {
+    var dataSourcePath = databaseService is FirebaseService
+        ? '$kCourseTableName/${model.courseId}/$_tableOrCollectionName'
+        : _tableOrCollectionName;
+
+    return await databaseService.addData(
+      collection: dataSourcePath,
+      data: model.toJson(),
+    );
   }
 
   @override

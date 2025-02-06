@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../../../utils/routing/approute.dart';
 import '../../../authentication/auth_service.dart';
+import '../../../courses/da/models/batch_model.dart';
 import '../../../courses/do/entities/batch.dart';
 import '../../../courses/do/entities/course.dart';
 import '../../../courses/p/w/batch_list.dart';
@@ -77,7 +78,76 @@ class CoursesTabBarView extends GetWidget<InstituteController> {
     return institute.editors.contains(auth.currentUser?.uid);
   }
 
-  void _showBatchCreationDialog(BuildContext context) {}
+  void _showBatchCreationDialog(BuildContext context, String courseId) {
+    final TextEditingController nameController = TextEditingController();
+    final TextEditingController startDateController = TextEditingController();
+    final TextEditingController endDateController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('create_batch'.tr),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: nameController,
+                decoration: InputDecoration(labelText: 'batch_name'.tr),
+                keyboardType: TextInputType.name,
+              ),
+              TextField(
+                controller: startDateController,
+                decoration: InputDecoration(labelText: 'start_date'.tr),
+                keyboardType: TextInputType.datetime,
+              ),
+              TextField(
+                controller: endDateController,
+                decoration: InputDecoration(labelText: 'end_date'.tr),
+                keyboardType: TextInputType.datetime,
+              ),
+              // Add additional input fields for students, teachers, mentors, events, and achievements if needed.
+            ],
+          ),
+          actions: [
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Create'),
+              onPressed: () {
+                // Add logic to create a BatchEntity instance
+                // and process input values.
+
+                final String batchName = nameController.text;
+                final int startDate =
+                    int.tryParse(startDateController.text) ?? 0;
+                final int endDate = int.tryParse(endDateController.text) ?? 0;
+
+                final BatchModel newBatch = BatchModel(
+                  courseId: courseId,
+                  name: batchName,
+                  startDate: startDate,
+                  endDate: endDate,
+                  students: [],
+                  teachers: [],
+                );
+
+                // Handle the newBatch instance (e.g., save to database, update UI)
+
+                controller.saveCourseBatch(newBatch);
+
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   void _showBatchList(BuildContext context, String courseId) {
     showDialog(
@@ -100,7 +170,7 @@ class CoursesTabBarView extends GetWidget<InstituteController> {
           ),
           actions: [
             TextButton(
-              onPressed: () => _showBatchCreationDialog(context),
+              onPressed: () => _showBatchCreationDialog(context, courseId),
               child: Text('lbl_create_batch'.tr),
             )
           ],

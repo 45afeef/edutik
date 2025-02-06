@@ -11,7 +11,8 @@ part 'batch_model.g.dart';
 @freezed
 class BatchModel extends BatchEntity with _$BatchModel {
   factory BatchModel({
-    required CourseModel course,
+    required String courseId,
+    required String name,
     required int startDate,
     required int endDate,
     required List<UserProfileModel> students,

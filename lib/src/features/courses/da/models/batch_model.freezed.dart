@@ -20,7 +20,8 @@ BatchModel _$BatchModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$BatchModel {
-  CourseModel get course => throw _privateConstructorUsedError;
+  String get courseId => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   int get startDate => throw _privateConstructorUsedError;
   int get endDate => throw _privateConstructorUsedError;
   List<UserProfileModel> get students => throw _privateConstructorUsedError;
@@ -48,7 +49,8 @@ abstract class $BatchModelCopyWith<$Res> {
       _$BatchModelCopyWithImpl<$Res, BatchModel>;
   @useResult
   $Res call(
-      {CourseModel course,
+      {String courseId,
+      String name,
       int startDate,
       int endDate,
       List<UserProfileModel> students,
@@ -58,8 +60,6 @@ abstract class $BatchModelCopyWith<$Res> {
       List<dynamic>? achivements,
       List<String>? assessments,
       List<ResourceModel>? meterials});
-
-  $CourseModelCopyWith<$Res> get course;
 }
 
 /// @nodoc
@@ -77,7 +77,8 @@ class _$BatchModelCopyWithImpl<$Res, $Val extends BatchModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? course = null,
+    Object? courseId = null,
+    Object? name = null,
     Object? startDate = null,
     Object? endDate = null,
     Object? students = null,
@@ -89,10 +90,14 @@ class _$BatchModelCopyWithImpl<$Res, $Val extends BatchModel>
     Object? meterials = freezed,
   }) {
     return _then(_value.copyWith(
-      course: null == course
-          ? _value.course
-          : course // ignore: cast_nullable_to_non_nullable
-              as CourseModel,
+      courseId: null == courseId
+          ? _value.courseId
+          : courseId // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
       startDate: null == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
@@ -131,16 +136,6 @@ class _$BatchModelCopyWithImpl<$Res, $Val extends BatchModel>
               as List<ResourceModel>?,
     ) as $Val);
   }
-
-  /// Create a copy of BatchModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $CourseModelCopyWith<$Res> get course {
-    return $CourseModelCopyWith<$Res>(_value.course, (value) {
-      return _then(_value.copyWith(course: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -152,7 +147,8 @@ abstract class _$$BatchModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {CourseModel course,
+      {String courseId,
+      String name,
       int startDate,
       int endDate,
       List<UserProfileModel> students,
@@ -162,9 +158,6 @@ abstract class _$$BatchModelImplCopyWith<$Res>
       List<dynamic>? achivements,
       List<String>? assessments,
       List<ResourceModel>? meterials});
-
-  @override
-  $CourseModelCopyWith<$Res> get course;
 }
 
 /// @nodoc
@@ -180,7 +173,8 @@ class __$$BatchModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? course = null,
+    Object? courseId = null,
+    Object? name = null,
     Object? startDate = null,
     Object? endDate = null,
     Object? students = null,
@@ -192,10 +186,14 @@ class __$$BatchModelImplCopyWithImpl<$Res>
     Object? meterials = freezed,
   }) {
     return _then(_$BatchModelImpl(
-      course: null == course
-          ? _value.course
-          : course // ignore: cast_nullable_to_non_nullable
-              as CourseModel,
+      courseId: null == courseId
+          ? _value.courseId
+          : courseId // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
       startDate: null == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
@@ -240,7 +238,8 @@ class __$$BatchModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$BatchModelImpl implements _BatchModel {
   _$BatchModelImpl(
-      {required this.course,
+      {required this.courseId,
+      required this.name,
       required this.startDate,
       required this.endDate,
       required final List<UserProfileModel> students,
@@ -262,7 +261,9 @@ class _$BatchModelImpl implements _BatchModel {
       _$$BatchModelImplFromJson(json);
 
   @override
-  final CourseModel course;
+  final String courseId;
+  @override
+  final String name;
   @override
   final int startDate;
   @override
@@ -335,7 +336,7 @@ class _$BatchModelImpl implements _BatchModel {
 
   @override
   String toString() {
-    return 'BatchModel(course: $course, startDate: $startDate, endDate: $endDate, students: $students, teachers: $teachers, mentors: $mentors, events: $events, achivements: $achivements, assessments: $assessments, meterials: $meterials)';
+    return 'BatchModel(courseId: $courseId, name: $name, startDate: $startDate, endDate: $endDate, students: $students, teachers: $teachers, mentors: $mentors, events: $events, achivements: $achivements, assessments: $assessments, meterials: $meterials)';
   }
 
   @override
@@ -343,7 +344,9 @@ class _$BatchModelImpl implements _BatchModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$BatchModelImpl &&
-            (identical(other.course, course) || other.course == course) &&
+            (identical(other.courseId, courseId) ||
+                other.courseId == courseId) &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.startDate, startDate) ||
                 other.startDate == startDate) &&
             (identical(other.endDate, endDate) || other.endDate == endDate) &&
@@ -363,7 +366,8 @@ class _$BatchModelImpl implements _BatchModel {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      course,
+      courseId,
+      name,
       startDate,
       endDate,
       const DeepCollectionEquality().hash(_students),
@@ -392,7 +396,8 @@ class _$BatchModelImpl implements _BatchModel {
 
 abstract class _BatchModel implements BatchModel {
   factory _BatchModel(
-      {required final CourseModel course,
+      {required final String courseId,
+      required final String name,
       required final int startDate,
       required final int endDate,
       required final List<UserProfileModel> students,
@@ -407,7 +412,9 @@ abstract class _BatchModel implements BatchModel {
       _$BatchModelImpl.fromJson;
 
   @override
-  CourseModel get course;
+  String get courseId;
+  @override
+  String get name;
   @override
   int get startDate;
   @override
