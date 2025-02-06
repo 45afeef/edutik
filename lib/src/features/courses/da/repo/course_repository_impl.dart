@@ -3,6 +3,7 @@ import '../../../homepage/do/content.dart';
 import '../../do/repo/course_repo.dart';
 import '../models/course_model.dart';
 
+const String kCourseTableName = _tableOrCollectionName;
 const String _tableOrCollectionName = 'courses';
 
 class CourseRepositoryImpl implements CourseRepository {

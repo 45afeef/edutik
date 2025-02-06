@@ -1,7 +1,10 @@
 import 'package:get/get.dart';
 
+import '../../../../utils/database/database_service.dart';
 import '../../homepage/do/content.dart';
 import '../da/models/course_model.dart';
+import '../da/repo/batch_repository_impl.dart';
+import '../do/entities/batch.dart';
 import '../do/entities/course.dart';
 import '../do/repo/course_repo.dart';
 
@@ -33,6 +36,17 @@ class CourseController extends GetxController {
     coursesCache = {for (var obj in response) obj.id!: obj};
 
     return response;
+  }
+
+  Future<List<BatchEntity>> fetchBatches(String courseId) async {
+    // In Firestore batchs are stored as a sub directory(collection) inside each course document
+    // and the BatchRepositoryImpl should only be acceced inside the Course Controller,
+    // that's why I'm not injected inside the Initial bindings.
+    var batchRepo = BatchRepositoryImpl(Get.find<DatabaseService>());
+
+    // TODO Build query depending up
+
+    return batchRepo.readAll(courseId);
   }
 
   Future<void> saveCourse(CourseModel course) async {

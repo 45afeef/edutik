@@ -7,6 +7,7 @@ import '../../../assessment/do/assessment.dart';
 import '../../../assessment/p/controllers/assessment_controller.dart';
 import '../../../courses/controllers/course_controller.dart';
 import '../../../courses/da/models/course_model.dart';
+import '../../../courses/do/entities/batch.dart';
 import '../../../courses/do/entities/course.dart';
 import '../../../homepage/do/content.dart';
 import '../../do/entity/institute.dart';
@@ -20,6 +21,10 @@ class InstituteController extends GetxController {
   Map<String, Institute> instituteCache = <String, Institute>{};
 
   final CourseController _courseController = Get.find<CourseController>();
+
+  Future<List<BatchEntity>> fetchCourseBatches(String courseId) {
+    return _courseController.fetchBatches(courseId);
+  }
 
   Future<Institute> fetchInstitute(String instituteId) async {
     // Check if the institute is already in the cache

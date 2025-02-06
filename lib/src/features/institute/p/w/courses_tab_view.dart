@@ -55,15 +55,22 @@ class CoursesTabBarView extends GetWidget<InstituteController> {
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                content: BatchList(batches: [
-                                  BatchEntity(
-                                    course: course,
-                                    startDate: 987654321,
-                                    endDate: 1617184800,
-                                    students: [],
-                                    teachers: [],
-                                  ),
-                                ]),
+                                content: FutureBuilder(
+                                  future:
+                                      controller.fetchCourseBatches(course.id!),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasError) {
+                                      return Text(
+                                          '${'error_on_loading'.tr} ${snapshot.error}');
+                                    }
+
+                                    if (snapshot.hasData) {
+                                      final batches = snapshot.data ?? [];
+                                      return BatchList(batches: batches);
+                                    }
+                                    return const CircularProgressIndicator();
+                                  },
+                                ),
                               );
                             },
                           );
