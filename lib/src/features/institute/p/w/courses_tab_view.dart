@@ -50,9 +50,7 @@ class CoursesTabBarView extends GetWidget<InstituteController> {
                       padding: const EdgeInsets.all(8.0),
                       child: CourseCard(
                         course,
-                        onPressed: () {
-                          _showBatchList(context, course.id!);
-                        },
+                        onPressed: () => _showBatchList(context, course.id!),
                       ),
                     );
                   },
