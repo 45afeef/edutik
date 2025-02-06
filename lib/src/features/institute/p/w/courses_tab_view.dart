@@ -51,29 +51,7 @@ class CoursesTabBarView extends GetWidget<InstituteController> {
                       child: CourseCard(
                         course,
                         onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                content: FutureBuilder(
-                                  future:
-                                      controller.fetchCourseBatches(course.id!),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasError) {
-                                      return Text(
-                                          '${'error_on_loading'.tr} ${snapshot.error}');
-                                    }
-
-                                    if (snapshot.hasData) {
-                                      final batches = snapshot.data ?? [];
-                                      return BatchList(batches: batches);
-                                    }
-                                    return const CircularProgressIndicator();
-                                  },
-                                ),
-                              );
-                            },
-                          );
+                          _showBatchList(context, course.id!);
                         },
                       ),
                     );
@@ -99,5 +77,37 @@ class CoursesTabBarView extends GetWidget<InstituteController> {
     final AuthService auth = AuthService();
 
     return institute.editors.contains(auth.currentUser?.uid);
+  }
+
+  void _showBatchCreationDialog(BuildContext context) {}
+
+  void _showBatchList(BuildContext context, String courseId) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: FutureBuilder<List<BatchEntity>>(
+            future: controller.fetchCourseBatches(courseId),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Text('${'error_on_loading'.tr} ${snapshot.error}');
+              }
+
+              if (snapshot.hasData) {
+                final batches = snapshot.data ?? [];
+                return BatchList(batches: batches);
+              }
+              return const CircularProgressIndicator();
+            },
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => _showBatchCreationDialog(context),
+              child: Text('lbl_create_batch'.tr),
+            )
+          ],
+        );
+      },
+    );
   }
 }
