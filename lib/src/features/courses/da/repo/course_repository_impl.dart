@@ -55,7 +55,7 @@ class CourseRepositoryImpl implements CourseRepository {
   }
 
   @override
-  Future<void> update(String modelId, CourseModel model) {
+  Future<void> update(String modelId, json) {
     // TODO: implement update
     throw UnimplementedError();
   }

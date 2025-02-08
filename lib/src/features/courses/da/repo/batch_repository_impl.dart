@@ -60,7 +60,7 @@ class BatchRepositoryImpl implements BatchRepository {
   }
 
   @override
-  Future<void> update(String modelId, BatchModel model) {
+  Future<void> update(String modelId, json) {
     // TODO: implement update
     throw UnimplementedError();
   }

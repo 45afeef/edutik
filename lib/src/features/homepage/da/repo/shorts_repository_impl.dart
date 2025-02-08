@@ -47,11 +47,11 @@ class ShortsRepositoryImpl implements ShortsRepository {
   }
 
   @override
-  Future<void> update(String modelId, ShortsModel model) async {
+  Future<void> update(String modelId, json) async {
     await databaseService.updateData(
       collection: _tableOrCollectionName,
       documentId: modelId,
-      data: model.toJson(),
+      data: json,
     );
   }
 }

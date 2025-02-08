@@ -55,7 +55,7 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
   }
 
   @override
-  Future<void> update(String modelId, AssessmentModel model) {
+  Future<void> update(String modelId, json) {
     // TODO: implement update
     throw UnimplementedError();
   }

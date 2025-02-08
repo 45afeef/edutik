@@ -57,7 +57,7 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   }
 
   @override
-  Future<void> update(String userId, UserProfileModel profile) {
+  Future<void> update(String userId, profile) {
     // TODO: implement update
     throw UnimplementedError();
   }
