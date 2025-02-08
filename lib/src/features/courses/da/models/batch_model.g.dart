@@ -30,6 +30,7 @@ _$BatchModelImpl _$$BatchModelImplFromJson(Map<String, dynamic> json) =>
       meterials: (json['meterials'] as List<dynamic>?)
           ?.map((e) => ResourceModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      status: $enumDecode(_$BatchStatusEnumMap, json['status']),
     );
 
 Map<String, dynamic> _$$BatchModelImplToJson(_$BatchModelImpl instance) =>
@@ -46,4 +47,10 @@ Map<String, dynamic> _$$BatchModelImplToJson(_$BatchModelImpl instance) =>
       'achivements': instance.achivements,
       'assessments': instance.assessments,
       'meterials': instance.meterials,
+      'status': _$BatchStatusEnumMap[instance.status]!,
     };
+
+const _$BatchStatusEnumMap = {
+  BatchStatus.active: 'active',
+  BatchStatus.archived: 'archived',
+};

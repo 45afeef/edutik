@@ -32,6 +32,7 @@ mixin _$BatchModel {
   List<dynamic>? get achivements => throw _privateConstructorUsedError;
   List<String>? get assessments => throw _privateConstructorUsedError;
   List<ResourceModel>? get meterials => throw _privateConstructorUsedError;
+  BatchStatus get status => throw _privateConstructorUsedError;
 
   /// Serializes this BatchModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -61,7 +62,8 @@ abstract class $BatchModelCopyWith<$Res> {
       List<dynamic>? events,
       List<dynamic>? achivements,
       List<String>? assessments,
-      List<ResourceModel>? meterials});
+      List<ResourceModel>? meterials,
+      BatchStatus status});
 }
 
 /// @nodoc
@@ -91,6 +93,7 @@ class _$BatchModelCopyWithImpl<$Res, $Val extends BatchModel>
     Object? achivements = freezed,
     Object? assessments = freezed,
     Object? meterials = freezed,
+    Object? status = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -141,6 +144,10 @@ class _$BatchModelCopyWithImpl<$Res, $Val extends BatchModel>
           ? _value.meterials
           : meterials // ignore: cast_nullable_to_non_nullable
               as List<ResourceModel>?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as BatchStatus,
     ) as $Val);
   }
 }
@@ -165,7 +172,8 @@ abstract class _$$BatchModelImplCopyWith<$Res>
       List<dynamic>? events,
       List<dynamic>? achivements,
       List<String>? assessments,
-      List<ResourceModel>? meterials});
+      List<ResourceModel>? meterials,
+      BatchStatus status});
 }
 
 /// @nodoc
@@ -193,6 +201,7 @@ class __$$BatchModelImplCopyWithImpl<$Res>
     Object? achivements = freezed,
     Object? assessments = freezed,
     Object? meterials = freezed,
+    Object? status = null,
   }) {
     return _then(_$BatchModelImpl(
       id: freezed == id
@@ -243,6 +252,10 @@ class __$$BatchModelImplCopyWithImpl<$Res>
           ? _value._meterials
           : meterials // ignore: cast_nullable_to_non_nullable
               as List<ResourceModel>?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as BatchStatus,
     ));
   }
 }
@@ -262,7 +275,8 @@ class _$BatchModelImpl implements _BatchModel {
       final List<dynamic>? events,
       final List<dynamic>? achivements,
       final List<String>? assessments,
-      final List<ResourceModel>? meterials})
+      final List<ResourceModel>? meterials,
+      required this.status})
       : _students = students,
         _teachers = teachers,
         _mentors = mentors,
@@ -351,8 +365,11 @@ class _$BatchModelImpl implements _BatchModel {
   }
 
   @override
+  final BatchStatus status;
+
+  @override
   String toString() {
-    return 'BatchModel(id: $id, courseId: $courseId, name: $name, startDate: $startDate, endDate: $endDate, students: $students, teachers: $teachers, mentors: $mentors, events: $events, achivements: $achivements, assessments: $assessments, meterials: $meterials)';
+    return 'BatchModel(id: $id, courseId: $courseId, name: $name, startDate: $startDate, endDate: $endDate, students: $students, teachers: $teachers, mentors: $mentors, events: $events, achivements: $achivements, assessments: $assessments, meterials: $meterials, status: $status)';
   }
 
   @override
@@ -376,7 +393,8 @@ class _$BatchModelImpl implements _BatchModel {
             const DeepCollectionEquality()
                 .equals(other._assessments, _assessments) &&
             const DeepCollectionEquality()
-                .equals(other._meterials, _meterials));
+                .equals(other._meterials, _meterials) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -394,7 +412,8 @@ class _$BatchModelImpl implements _BatchModel {
       const DeepCollectionEquality().hash(_events),
       const DeepCollectionEquality().hash(_achivements),
       const DeepCollectionEquality().hash(_assessments),
-      const DeepCollectionEquality().hash(_meterials));
+      const DeepCollectionEquality().hash(_meterials),
+      status);
 
   /// Create a copy of BatchModel
   /// with the given fields replaced by the non-null parameter values.
@@ -425,7 +444,8 @@ abstract class _BatchModel implements BatchModel {
       final List<dynamic>? events,
       final List<dynamic>? achivements,
       final List<String>? assessments,
-      final List<ResourceModel>? meterials}) = _$BatchModelImpl;
+      final List<ResourceModel>? meterials,
+      required final BatchStatus status}) = _$BatchModelImpl;
 
   factory _BatchModel.fromJson(Map<String, dynamic> json) =
       _$BatchModelImpl.fromJson;
@@ -454,6 +474,8 @@ abstract class _BatchModel implements BatchModel {
   List<String>? get assessments;
   @override
   List<ResourceModel>? get meterials;
+  @override
+  BatchStatus get status;
 
   /// Create a copy of BatchModel
   /// with the given fields replaced by the non-null parameter values.

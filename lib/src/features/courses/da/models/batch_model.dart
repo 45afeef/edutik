@@ -22,8 +22,31 @@ class BatchModel extends BatchEntity with _$BatchModel {
     List<dynamic>? achivements,
     List<String>? assessments,
     List<ResourceModel>? meterials,
+    required BatchStatus status,
   }) = _BatchModel;
 
   factory BatchModel.fromJson(Map<String, dynamic> json) =>
       _$BatchModelFromJson(json);
+}
+
+// Add a custom converter for BatchStatus
+class BatchStatusConverter implements JsonConverter<BatchStatus, String> {
+  const BatchStatusConverter();
+
+  @override
+  BatchStatus fromJson(String json) {
+    switch (json) {
+      case 'active':
+        return BatchStatus.active;
+      case 'archived':
+        return BatchStatus.archived;
+      default:
+        throw ArgumentError('Unknown BatchStatus: $json');
+    }
+  }
+
+  @override
+  String toJson(BatchStatus status) {
+    return status.toString().split('.').last;
+  }
 }

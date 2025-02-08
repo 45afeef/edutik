@@ -156,6 +156,7 @@ class CoursesTabBarView extends GetWidget<InstituteController> {
                   endDate: endDate,
                   students: [],
                   teachers: [],
+                  status: BatchStatus.active,
                 );
 
                 // Handle the newBatch instance (e.g., save to database, update UI)
@@ -178,84 +179,106 @@ class CoursesTabBarView extends GetWidget<InstituteController> {
         TextEditingController(text: batch.startDate.toString());
     final TextEditingController endDateController =
         TextEditingController(text: batch.endDate.toString());
+    bool isArchived = batch.status.name == 'archived';
 
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('edit_batch'.tr),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: nameController,
-                decoration: InputDecoration(labelText: 'batch_name'.tr),
-                keyboardType: TextInputType.name,
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Text('edit_batch'.tr),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    controller: nameController,
+                    decoration: InputDecoration(labelText: 'batch_name'.tr),
+                    keyboardType: TextInputType.name,
+                  ),
+                  TextField(
+                    controller: startDateController,
+                    decoration: InputDecoration(labelText: 'start_date'.tr),
+                    keyboardType: TextInputType.datetime,
+                  ),
+                  TextField(
+                    controller: endDateController,
+                    decoration: InputDecoration(labelText: 'end_date'.tr),
+                    keyboardType: TextInputType.datetime,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('status'.tr),
+                      Switch(
+                        value: isArchived,
+                        onChanged: (value) {
+                          setState(() {
+                            isArchived = value;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              TextField(
-                controller: startDateController,
-                decoration: InputDecoration(labelText: 'start_date'.tr),
-                keyboardType: TextInputType.datetime,
-              ),
-              TextField(
-                controller: endDateController,
-                decoration: InputDecoration(labelText: 'end_date'.tr),
-                keyboardType: TextInputType.datetime,
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              child: const Text('Cancel'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: const Text('Save'),
-              onPressed: () {
-                Map<String, dynamic> updatedData = {};
-                updatedData['courseId'] = batch.courseId;
+              actions: [
+                TextButton(
+                  child: const Text('Cancel'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: const Text('Save'),
+                  onPressed: () {
+                    Map<String, dynamic> updatedData = {};
+                    updatedData['courseId'] = batch.courseId;
 
-                // Add logic to update the BatchEntity instance and process input values with validation
-                if (nameController.text.isEmpty ||
-                    startDateController.text.isEmpty ||
-                    endDateController.text.isEmpty) {
-                  // Show error if any field is empty
-                  Get.snackbar(
-                    'Error',
-                    'Please fill all fields',
-                    snackPosition: SnackPosition.TOP,
-                  );
-                  return;
-                } else {
-                  updatedData['name'] = nameController.text;
-                }
+                    // Add logic to update the BatchEntity instance and process input values with validation
+                    if (nameController.text.isEmpty ||
+                        startDateController.text.isEmpty ||
+                        endDateController.text.isEmpty) {
+                      // Show error if any field is empty
+                      Get.snackbar(
+                        'Error',
+                        'Please fill all fields',
+                        snackPosition: SnackPosition.TOP,
+                      );
+                      return;
+                    } else {
+                      updatedData['name'] = nameController.text;
+                    }
 
-                final int startDate =
-                    int.tryParse(startDateController.text) ?? 0;
-                final int endDate = int.tryParse(endDateController.text) ?? 0;
+                    final int startDate =
+                        int.tryParse(startDateController.text) ?? 0;
+                    final int endDate =
+                        int.tryParse(endDateController.text) ?? 0;
 
-                if (startDate <= 0 || endDate <= 0) {
-                  // Show error if dates are invalid
-                  Get.snackbar(
-                    'Error',
-                    'Please enter valid dates',
-                    snackPosition: SnackPosition.TOP,
-                  );
-                  return;
-                } else {
-                  updatedData['startDate'] = startDate;
-                  updatedData['endDate'] = endDate;
-                }
+                    if (startDate <= 0 || endDate <= 0) {
+                      // Show error if dates are invalid
+                      Get.snackbar(
+                        'Error',
+                        'Please enter valid dates',
+                        snackPosition: SnackPosition.TOP,
+                      );
+                      return;
+                    } else {
+                      updatedData['startDate'] = startDate;
+                      updatedData['endDate'] = endDate;
+                    }
 
-                // Handle the updatedBatch data (e.g., save to database, update UI)
-                controller.updateCourseBatch(batch.id!, updatedData);
+                    updatedData['status'] = isArchived ? 'archived' : 'active';
 
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+                    // Handle the updatedBatch data (e.g., save to database, update UI)
+                    controller.updateCourseBatch(batch.id!, updatedData);
+
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
         );
       },
     );

@@ -14,6 +14,7 @@ class BatchEntity {
   final List<UserProfile>? mentors;
   final List<dynamic>? events;
   final List<dynamic>? achivements;
+  final BatchStatus status;
 
   /// {assessments} is the extension of assessments field of the course ,
   /// which means that, special assessments specific to this batch will be stored here,
@@ -40,5 +41,8 @@ class BatchEntity {
     this.achivements,
     this.assessments,
     this.meterials,
+    required this.status,
   });
 }
+
+enum BatchStatus { active, archived }
