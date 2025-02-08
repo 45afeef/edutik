@@ -310,10 +310,11 @@ class CoursesTabBarView extends GetWidget<InstituteController> {
             },
           ),
           actions: [
-            TextButton(
-              onPressed: () => _showBatchCreationDialog(context, courseId),
-              child: Text('lbl_create_batch'.tr),
-            )
+            if (_isAdmin())
+              TextButton(
+                onPressed: () => _showBatchCreationDialog(context, courseId),
+                child: Text('lbl_create_batch'.tr),
+              )
           ],
         );
       },
