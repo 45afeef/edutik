@@ -2,6 +2,7 @@ import '../../../homepage/p/profile/do/entity/user_profile.dart';
 import 'syllabus/resource.dart';
 
 class BatchEntity {
+  final String? id;
   final String courseId;
   final String name;
   final int startDate;
@@ -27,6 +28,7 @@ class BatchEntity {
   final List<Resource>? meterials;
 
   BatchEntity({
+    this.id,
     required this.courseId,
     required this.name,
     required this.startDate,

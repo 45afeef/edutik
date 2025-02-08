@@ -8,6 +8,7 @@ part of 'batch_model.dart';
 
 _$BatchModelImpl _$$BatchModelImplFromJson(Map<String, dynamic> json) =>
     _$BatchModelImpl(
+      id: json['id'] as String?,
       courseId: json['courseId'] as String,
       name: json['name'] as String,
       startDate: (json['startDate'] as num).toInt(),
@@ -33,6 +34,7 @@ _$BatchModelImpl _$$BatchModelImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$BatchModelImplToJson(_$BatchModelImpl instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'courseId': instance.courseId,
       'name': instance.name,
       'startDate': instance.startDate,

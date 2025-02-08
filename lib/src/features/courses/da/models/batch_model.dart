@@ -2,7 +2,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../homepage/p/profile/da/user_profile_model.dart';
 import '../../do/entities/batch.dart';
-import 'course_model.dart';
 import 'syllabus/resource_model.dart';
 
 part 'batch_model.freezed.dart';
@@ -11,6 +10,7 @@ part 'batch_model.g.dart';
 @freezed
 class BatchModel extends BatchEntity with _$BatchModel {
   factory BatchModel({
+    String? id,
     required String courseId,
     required String name,
     required int startDate,
