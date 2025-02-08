@@ -83,4 +83,8 @@ You can attempt free public exams here.
   Future<void> saveInstitutesCourse(CourseModel model) {
     return _courseController.saveCourse(model);
   }
+
+  void updateCourseBatch(String batchId, Map<String, dynamic> updatedData) {
+    _courseController.updateBatch(batchId, updatedData);
+  }
 }

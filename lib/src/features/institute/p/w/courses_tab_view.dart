@@ -119,13 +119,35 @@ class CoursesTabBarView extends GetWidget<InstituteController> {
             TextButton(
               child: const Text('Create'),
               onPressed: () {
-                // Add logic to create a BatchEntity instance
-                // and process input values.
+                // Add logic to create a BatchEntity instance and process input values with validation
+
+                if (nameController.text.isEmpty ||
+                    startDateController.text.isEmpty ||
+                    endDateController.text.isEmpty) {
+                  // Show error if any field is empty
+                  Get.snackbar(
+                    'error'.tr,
+                    'please_fill_all_fields'.tr,
+                    snackPosition: SnackPosition.TOP,
+                  );
+                  return;
+                }
 
                 final String batchName = nameController.text;
                 final int startDate =
                     int.tryParse(startDateController.text) ?? 0;
                 final int endDate = int.tryParse(endDateController.text) ?? 0;
+
+                if (startDate <= 0 || endDate <= 0) {
+                  // Show error if dates are invalid
+                  // TODO - Make use of DatePicker
+                  Get.snackbar(
+                    'error'.tr,
+                    'please_enter_valid_dates'.tr,
+                    snackPosition: SnackPosition.TOP,
+                  );
+                  return;
+                }
 
                 final BatchModel newBatch = BatchModel(
                   courseId: courseId,
@@ -139,6 +161,96 @@ class CoursesTabBarView extends GetWidget<InstituteController> {
                 // Handle the newBatch instance (e.g., save to database, update UI)
 
                 controller.saveCourseBatch(newBatch);
+
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showBatchEditDialog(BuildContext context, BatchEntity batch) {
+    final TextEditingController nameController =
+        TextEditingController(text: batch.name);
+    final TextEditingController startDateController =
+        TextEditingController(text: batch.startDate.toString());
+    final TextEditingController endDateController =
+        TextEditingController(text: batch.endDate.toString());
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('edit_batch'.tr),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: nameController,
+                decoration: InputDecoration(labelText: 'batch_name'.tr),
+                keyboardType: TextInputType.name,
+              ),
+              TextField(
+                controller: startDateController,
+                decoration: InputDecoration(labelText: 'start_date'.tr),
+                keyboardType: TextInputType.datetime,
+              ),
+              TextField(
+                controller: endDateController,
+                decoration: InputDecoration(labelText: 'end_date'.tr),
+                keyboardType: TextInputType.datetime,
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Save'),
+              onPressed: () {
+                Map<String, dynamic> updatedData = {};
+                updatedData['courseId'] = batch.courseId;
+
+                // Add logic to update the BatchEntity instance and process input values with validation
+                if (nameController.text.isEmpty ||
+                    startDateController.text.isEmpty ||
+                    endDateController.text.isEmpty) {
+                  // Show error if any field is empty
+                  Get.snackbar(
+                    'Error',
+                    'Please fill all fields',
+                    snackPosition: SnackPosition.TOP,
+                  );
+                  return;
+                } else {
+                  updatedData['name'] = nameController.text;
+                }
+
+                final int startDate =
+                    int.tryParse(startDateController.text) ?? 0;
+                final int endDate = int.tryParse(endDateController.text) ?? 0;
+
+                if (startDate <= 0 || endDate <= 0) {
+                  // Show error if dates are invalid
+                  Get.snackbar(
+                    'Error',
+                    'Please enter valid dates',
+                    snackPosition: SnackPosition.TOP,
+                  );
+                  return;
+                } else {
+                  updatedData['startDate'] = startDate;
+                  updatedData['endDate'] = endDate;
+                }
+
+                // Handle the updatedBatch data (e.g., save to database, update UI)
+                controller.updateCourseBatch(batch.id!, updatedData);
 
                 Navigator.of(context).pop();
               },
@@ -163,7 +275,13 @@ class CoursesTabBarView extends GetWidget<InstituteController> {
 
               if (snapshot.hasData) {
                 final batches = snapshot.data ?? [];
-                return BatchList(batches: batches);
+                return BatchList(
+                  batches: batches,
+                  isAdmin: _isAdmin(),
+                  onEdit: _isAdmin()
+                      ? (batch) => _showBatchEditDialog(context, batch)
+                      : null,
+                );
               }
               return const CircularProgressIndicator();
             },

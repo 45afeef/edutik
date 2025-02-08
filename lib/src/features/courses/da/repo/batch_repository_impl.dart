@@ -60,8 +60,21 @@ class BatchRepositoryImpl implements BatchRepository {
   }
 
   @override
-  Future<void> update(String modelId, json) {
-    // TODO: implement update
-    throw UnimplementedError();
+  Future<void> update(String modelId, json) async {
+    if (databaseService is! FirebaseService)
+      // TODO: implement update
+      throw UnimplementedError();
+
+    var courseId = json.remove('courseId');
+
+    var dataSourcePath = databaseService is FirebaseService
+        ? '$kCourseTableName/$courseId/$_tableOrCollectionName'
+        : _tableOrCollectionName;
+
+    return await databaseService.updateData(
+      collection: dataSourcePath,
+      documentId: modelId,
+      data: json,
+    );
   }
 }

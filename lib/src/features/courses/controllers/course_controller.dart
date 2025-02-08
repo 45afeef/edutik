@@ -57,4 +57,8 @@ class CourseController extends GetxController {
     // You can add extra validation and logic here before saving the data into database
     _repo.create(course);
   }
+
+  void updateBatch(String modelId, Map<String, dynamic> updatedData) {
+    _batchRepo.update(modelId, updatedData);
+  }
 }
