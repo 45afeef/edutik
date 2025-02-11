@@ -32,6 +32,7 @@ class ShortsCreationController extends GetxController {
     ShortsModel shorts = ShortsModel(
       creatorProfile:
           'currentUserProfile', // TODO - update the current user profile here.
+          // afeef
       creatorName:
           'currentUserName', // TODO - update the current user name here.
       description: description.value,

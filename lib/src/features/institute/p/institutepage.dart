@@ -21,7 +21,7 @@ class Institutepage extends GetWidget<InstituteController> {
     // Investigate whether this causes isssues in production.
     // The same issue is founded in various other pages that recive parameters through Get, and when hot reloads,
     // I'm postponed this now by thinking that this only affects at debugging and not in production.
-    // Any how I need a clear reason to this issue.
+    // Any now I need a clear reason to this issue.
     String instituteId = Get.parameters['instituteId']!;
     return Scaffold(
       body: SafeArea(
