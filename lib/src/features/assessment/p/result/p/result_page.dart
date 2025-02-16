@@ -61,8 +61,8 @@ class AssessmentResultPage extends StatelessWidget {
                                   textAlign: TextAlign.end,
                                   style: TextStyle(
                                       // TODO: Resove this bug, null check operator used on a null value
-                                      //  BUG: response.studentAnswer == null
-                                      //  FIX: response?.studentAnswer == null
+                                      // BUG: response.studentAnswer == null
+                                      // FIX: response?.studentAnswer == null
                                       // That is what i want to say
 
                                       color: response!.studentAnswer == null

@@ -14,4 +14,4 @@ class BatchRequestEntity {
   });
 }
 
-enum BatchRequestStatus { pending, accepted, rejected }
+enum BatchRequestStatus { pending, accepted, rejected, none }

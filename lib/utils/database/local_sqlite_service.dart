@@ -3,6 +3,16 @@ import 'package:sqflite/sqflite.dart';
 
 import 'database_service.dart';
 
+String _createBatchRequestTableScript = '''CREATE TABLE batch_request (
+    id INTEGER PRIMARY KEY,
+    courseId TEXT NOT NULL,
+    batchId TEXT NOT NULL,
+    studentId TEXT NOT NULL,
+    status TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+''';
+
 String _createMcqTableScript = '''CREATE TABLE mcq (
     id INTEGER PRIMARY KEY,
     -- type TEXT NOT NULL CHECK (type IN ('mcq')),
@@ -79,10 +89,19 @@ class SqLiteService implements DatabaseService {
   }
 
   @override
-  Future<List<Map<String, dynamic>>> queryData(
-      {required String collection, required Map<String, dynamic> query}) {
-    // TODO: implement queryData
-    throw UnimplementedError();
+  Future<List<Map<String, dynamic>>> queryData({
+    required String collection,
+    required Map<String, dynamic> query,
+  }) async {
+    final db = await database;
+    String whereClause = query.keys.map((key) => '$key = ?').join(' AND ');
+    List<dynamic> whereArgs = query.values.toList();
+
+    return await db.query(
+      collection,
+      where: whereClause,
+      whereArgs: whereArgs,
+    );
   }
 
   @override
@@ -103,6 +122,7 @@ class SqLiteService implements DatabaseService {
       onCreate: (db, version) async {
         // Create the questions table
         await db.execute(_createMcqTableScript);
+        await db.execute(_createBatchRequestTableScript);
       },
     );
   }

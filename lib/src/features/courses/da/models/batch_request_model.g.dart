@@ -9,7 +9,7 @@ part of 'batch_request_model.dart';
 _$BatchRequestModelImpl _$$BatchRequestModelImplFromJson(
         Map<String, dynamic> json) =>
     _$BatchRequestModelImpl(
-      id: json['id'] as String?,
+      id: json['id']?.toString(),
       courseId: json['courseId'] as String,
       batchId: json['batchId'] as String,
       studentId: json['studentId'] as String,
@@ -30,4 +30,5 @@ const _$BatchRequestStatusEnumMap = {
   BatchRequestStatus.pending: 'pending',
   BatchRequestStatus.accepted: 'accepted',
   BatchRequestStatus.rejected: 'rejected',
+  BatchRequestStatus.none: 'none',
 };

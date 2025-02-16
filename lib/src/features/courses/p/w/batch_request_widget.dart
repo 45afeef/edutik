@@ -44,17 +44,61 @@ class BatchRequestWidget extends StatelessWidget {
       );
     }
 
-    return ElevatedButton(
-      onPressed: () {
-        final request = BatchRequestModel(
-          courseId: courseId,
-          batchId: batchId,
-          studentId: AuthService().currentUser!.uid,
-          status: BatchRequestStatus.pending,
+    return FutureBuilder<BatchRequestModel?>(
+      future: controller.getRequestStatus(
+          courseId, batchId, AuthService().currentUser!.uid),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        }
+
+        final request = snapshot.data;
+
+        if (request == null) {
+          return ElevatedButton(
+            onPressed: () {
+              final newRequest = BatchRequestModel(
+                courseId: courseId,
+                batchId: batchId,
+                studentId: AuthService().currentUser!.uid,
+                status: BatchRequestStatus.pending,
+              );
+              controller.sendRequest(newRequest);
+            },
+            child: const Text('Send Request'),
+          );
+        }
+
+        return ElevatedButton(
+          onPressed: request.status == BatchRequestStatus.rejected ||
+                  request.status == BatchRequestStatus.none
+              ? () {
+                  final newRequest = BatchRequestModel(
+                    courseId: courseId,
+                    batchId: batchId,
+                    studentId: AuthService().currentUser!.uid,
+                    status: BatchRequestStatus.pending,
+                  );
+                  controller.sendRequest(newRequest);
+                }
+              : null,
+          child: Text(
+            () {
+              switch (request.status) {
+                case BatchRequestStatus.pending:
+                  return 'Request Pending';
+                case BatchRequestStatus.accepted:
+                  return 'Request Accepted';
+                case BatchRequestStatus.rejected:
+                  return 'Resend Request';
+                case BatchRequestStatus.none:
+                default:
+                  return 'Send Request';
+              }
+            }(),
+          ),
         );
-        controller.sendRequest(request);
       },
-      child: const Text('Send Request'),
     );
   }
 }

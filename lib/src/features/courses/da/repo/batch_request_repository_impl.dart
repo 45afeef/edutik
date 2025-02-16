@@ -9,6 +9,11 @@ import 'course_repository_impl.dart';
 const String _tableOrCollectionName = 'batch_requests';
 
 class BatchRequestRepositoryImpl implements BatchRequestRepository {
+  /// TODO - Read this thread and implement the logic to read from local database first
+  /// Use usecases to implement the logic
+  /// Even if you are using Firestore, you can still implement the logic to read from local database first
+  /// Even we are using Repository pattern, we where not able to switch between multiple data sources.
+  /// https://blog.stackademic.com/building-clean-architecture-in-flutter-with-repository-pattern-2af302fc22f2
   final DatabaseService databaseService;
 
   BatchRequestRepositoryImpl(this.databaseService);

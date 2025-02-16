@@ -38,7 +38,7 @@ class BatchList extends StatelessWidget {
                       controller: Get.find<BatchRequestController>(),
                       courseId: batch.courseId,
                       batchId: batch.id!,
-                      isAdmin: !isAdmin,
+                      isAdmin: isAdmin,
                       onEdit: onEdit != null ? () => onEdit!(batch) : null,
                       startDate: DateTime.fromMillisecondsSinceEpoch(
                           batch.startDate * 1000),
