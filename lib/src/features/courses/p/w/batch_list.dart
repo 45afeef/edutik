@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../utils/date_time_utils.dart';
-import '../../controllers/batch_request_controller.dart';
-import '../../do/entities/batch.dart';
+import '/src/features/courses/controllers/batch_request_controller.dart';
+import '/src/features/courses/do/entities/batch.dart';
+import '/src/features/courses/p/batch_request_management_screen.dart';
+import '/utils/date_time_utils.dart';
 import 'batch_request_widget.dart';
 
 class BatchList extends StatelessWidget {
@@ -45,7 +46,24 @@ class BatchList extends StatelessWidget {
                     ),
                   ],
                 ),
-                trailing: null,
+                trailing: isAdmin
+                    ? IconButton(
+                        icon: const Icon(Icons.manage_accounts),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  BatchRequestManagementScreen(
+                                controller: Get.find<BatchRequestController>(),
+                                courseId: batch.courseId,
+                                batchId: batch.id!,
+                              ),
+                            ),
+                          );
+                        },
+                      )
+                    : null,
               ),
             )
             .toList(),

@@ -1,9 +1,10 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '/src/features/courses/da/repo/batch_request_repository_impl.dart';
 import 'database_service.dart';
 
-String _createBatchRequestTableScript = '''CREATE TABLE batch_request (
+String _createBatchRequestTableScript = '''CREATE TABLE $kBatchRequestsTableName
     id INTEGER PRIMARY KEY,
     courseId TEXT NOT NULL,
     batchId TEXT NOT NULL,

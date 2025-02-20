@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 
 import '../../../../utils/database/local_sqlite_service.dart';
 import '../da/models/batch_request_model.dart';
+import '../da/repo/batch_request_repository_impl.dart';
+import '../do/entities/batch_request.dart';
 import '../do/repo/batch_request_repo.dart';
 
 class BatchRequestController extends ChangeNotifier {
@@ -11,22 +13,36 @@ class BatchRequestController extends ChangeNotifier {
 
   BatchRequestController();
 
-  Future<void> acceptRequest(String requestId, String batchId) async {
-    await repository
-        .update(requestId, {'status': 'accepted', 'batchId': batchId});
+  Future<void> approveRequest(
+      String requestId, String batchId, String courseId) async {
+    await repository.update(requestId, {
+      'status': 'accepted',
+      'batchId': batchId,
+      'courseId': courseId,
+    });
     notifyListeners();
   }
 
-  Future<List<BatchRequestModel>> getRequests(String batchId) async {
-    throw UnimplementedError();
+  Future<List<BatchRequestEntity>> getBatchRequests(
+    String courseId,
+    String batchId,
+  ) async {
+    final remoteRequests = await repository.readAll('$courseId/$batchId');
+    return remoteRequests;
   }
 
-  Future<BatchRequestModel?> getRequestStatus(
+  /// This method will return the request status of a student for a particular batch
+  /// If the request is not found in the local database, it will check the remote database
+  Future<BatchRequestEntity?> getRequestStatus(
       String courseId, String batchId, String studentId) async {
     // Check local database first
     var localRequests = await _localDb.queryData(
-      collection: 'batch_request',
-      query: {"courseId": courseId, "batchId": batchId, "studentId": studentId},
+      collection: kBatchRequestsTableName,
+      query: {
+        "courseId": courseId,
+        "batchId": batchId,
+        "studentId": studentId,
+      },
     );
 
     var localRequestModels = localRequests.map((e) {
@@ -39,7 +55,8 @@ class BatchRequestController extends ChangeNotifier {
     if (localRequest != null) {
       return localRequest;
     }
-    return null;
+    throw Exception(
+        'Request not found in local database, remote is not implemented yet');
 
     // If not found in local database, check remote database
 
@@ -50,9 +67,13 @@ class BatchRequestController extends ChangeNotifier {
     //     request.courseId == courseId && request.studentId == studentId);
   }
 
-  Future<void> rejectRequest(String requestId, String batchId) async {
-    await repository
-        .update(requestId, {'status': 'rejected', 'batchId': batchId});
+  Future<void> rejectRequest(
+      String requestId, String batchId, String courseId) async {
+    await repository.update(requestId, {
+      'status': 'rejected',
+      'batchId': batchId,
+      'courseId': courseId,
+    });
     notifyListeners();
   }
 
@@ -62,7 +83,7 @@ class BatchRequestController extends ChangeNotifier {
 
     // Save request in local database
     await _localDb.addData(
-      collection: 'batch_request',
+      collection: kBatchRequestsTableName,
       data: request.toJson(),
     );
 

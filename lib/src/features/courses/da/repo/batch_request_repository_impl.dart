@@ -6,6 +6,7 @@ import '../models/batch_request_model.dart';
 import 'batch_repository_impl.dart';
 import 'course_repository_impl.dart';
 
+const String kBatchRequestsTableName = _tableOrCollectionName;
 const String _tableOrCollectionName = 'batch_requests';
 
 class BatchRequestRepositoryImpl implements BatchRequestRepository {
@@ -74,10 +75,10 @@ class BatchRequestRepositoryImpl implements BatchRequestRepository {
       // TODO: implement update
       throw UnimplementedError();
 
-    var courseId = json.remove('courseId');
-    var batchId = json.remove('batchId');
+    dynamic courseId = json.remove('courseId');
+    dynamic batchId = json.remove('batchId');
 
-    var dataSourcePath = databaseService is FirebaseService
+    String dataSourcePath = databaseService is FirebaseService
         ? '$kCourseTableName/$courseId/$kBatchTableName/$batchId/$_tableOrCollectionName'
         : _tableOrCollectionName;
 

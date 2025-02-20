@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../authentication/auth_service.dart';
-import '../../controllers/batch_request_controller.dart';
-import '../../da/models/batch_request_model.dart';
-import '../../do/entities/batch_request.dart';
+import '/src/features/authentication/auth_service.dart';
+import '/src/features/courses/controllers/batch_request_controller.dart';
+import '/src/features/courses/da/models/batch_request_model.dart';
+import '/src/features/courses/do/entities/batch_request.dart';
 
 class BatchRequestWidget extends StatelessWidget {
   final BatchRequestController controller;
@@ -44,7 +44,7 @@ class BatchRequestWidget extends StatelessWidget {
       );
     }
 
-    return FutureBuilder<BatchRequestModel?>(
+    return FutureBuilder<BatchRequestEntity?>(
       future: controller.getRequestStatus(
           courseId, batchId, AuthService().currentUser!.uid),
       builder: (context, snapshot) {
