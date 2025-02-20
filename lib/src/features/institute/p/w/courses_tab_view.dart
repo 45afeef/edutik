@@ -7,7 +7,7 @@ import '../../../courses/da/models/batch_model.dart';
 import '../../../courses/do/entities/batch.dart';
 import '../../../courses/do/entities/course.dart';
 import '../../../courses/p/w/batch_list.dart';
-import '../../../courses/p/w/course_card.dart';
+import '../../../courses/p/w/course_list.dart';
 import '../../../homepage/p/w/empty_item.dart';
 import '../../../homepage/p/w/loading.dart';
 import '../../do/entity/institute.dart';
@@ -39,22 +39,10 @@ class CoursesTabBarView extends GetWidget<InstituteController> {
 
           return allCourses.isEmpty
               ? EmptyItem(itemName: 'courses'.tr)
-              : ListView.builder(
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.only(bottom: 150),
-                  itemCount: allCourses.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final course = allCourses[index];
-
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CourseCard(
-                        course,
-                        onPressed: () => _showBatchList(context, course.id!),
-                      ),
-                    );
-                  },
+              : CourseList(
+                  courses: allCourses,
+                  onCoursePressed: (course) =>
+                      _showBatchList(context, course.id!),
                 );
         },
       ),
