@@ -1,7 +1,8 @@
+import '/src/features/homepage/do/content.dart';
 import 'price.dart';
 import 'syllabus/syllubus.dart';
 
-class Course {
+class Course extends Content {
   final String? id;
   final String name;
   final Price price;
@@ -17,6 +18,10 @@ class Course {
     required this.price,
     this.syllabus,
     required this.bannerImageUri,
+    required super.creatorName,
+    required super.creatorRef,
+    required super.ownerName,
+    required super.ownerRef,
     // required this.assessments,
     // required this.meterials,
     // required super.creatorName,

@@ -15,6 +15,12 @@ _$CourseModelImpl _$$CourseModelImplFromJson(Map<String, dynamic> json) =>
           ? null
           : SyllabusModel.fromJson(json['syllabus'] as Map<String, dynamic>),
       bannerImageUri: json['bannerImageUri'] as String,
+      creatorName: json['creatorName'] as String,
+      creatorRef: json['creatorRef'] as String,
+      ownerName: json['ownerName'] as String,
+      ownerRef: json['ownerRef'] as String,
+      creatorType: $enumDecode(_$UserTypeEnumMap, json['creatorType']),
+      ownerType: $enumDecode(_$UserTypeEnumMap, json['ownerType']),
     );
 
 Map<String, dynamic> _$$CourseModelImplToJson(_$CourseModelImpl instance) =>
@@ -24,4 +30,15 @@ Map<String, dynamic> _$$CourseModelImplToJson(_$CourseModelImpl instance) =>
       'price': instance.price.toJson(),
       'syllabus': instance.syllabus?.toJson(),
       'bannerImageUri': instance.bannerImageUri,
+      'creatorName': instance.creatorName,
+      'creatorRef': instance.creatorRef,
+      'ownerName': instance.ownerName,
+      'ownerRef': instance.ownerRef,
+      'creatorType': _$UserTypeEnumMap[instance.creatorType]!,
+      'ownerType': _$UserTypeEnumMap[instance.ownerType]!,
     };
+
+const _$UserTypeEnumMap = {
+  UserType.institute: 'institute',
+  UserType.user: 'user',
+};

@@ -25,6 +25,12 @@ mixin _$CourseModel {
   PriceModel get price => throw _privateConstructorUsedError;
   SyllabusModel? get syllabus => throw _privateConstructorUsedError;
   String get bannerImageUri => throw _privateConstructorUsedError;
+  String get creatorName => throw _privateConstructorUsedError;
+  String get creatorRef => throw _privateConstructorUsedError;
+  String get ownerName => throw _privateConstructorUsedError;
+  String get ownerRef => throw _privateConstructorUsedError;
+  UserType get creatorType => throw _privateConstructorUsedError;
+  UserType get ownerType => throw _privateConstructorUsedError;
 
   /// Serializes this CourseModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,7 +53,13 @@ abstract class $CourseModelCopyWith<$Res> {
       String name,
       PriceModel price,
       SyllabusModel? syllabus,
-      String bannerImageUri});
+      String bannerImageUri,
+      String creatorName,
+      String creatorRef,
+      String ownerName,
+      String ownerRef,
+      UserType creatorType,
+      UserType ownerType});
 
   $PriceModelCopyWith<$Res> get price;
   $SyllabusModelCopyWith<$Res>? get syllabus;
@@ -73,6 +85,12 @@ class _$CourseModelCopyWithImpl<$Res, $Val extends CourseModel>
     Object? price = null,
     Object? syllabus = freezed,
     Object? bannerImageUri = null,
+    Object? creatorName = null,
+    Object? creatorRef = null,
+    Object? ownerName = null,
+    Object? ownerRef = null,
+    Object? creatorType = null,
+    Object? ownerType = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -95,6 +113,30 @@ class _$CourseModelCopyWithImpl<$Res, $Val extends CourseModel>
           ? _value.bannerImageUri
           : bannerImageUri // ignore: cast_nullable_to_non_nullable
               as String,
+      creatorName: null == creatorName
+          ? _value.creatorName
+          : creatorName // ignore: cast_nullable_to_non_nullable
+              as String,
+      creatorRef: null == creatorRef
+          ? _value.creatorRef
+          : creatorRef // ignore: cast_nullable_to_non_nullable
+              as String,
+      ownerName: null == ownerName
+          ? _value.ownerName
+          : ownerName // ignore: cast_nullable_to_non_nullable
+              as String,
+      ownerRef: null == ownerRef
+          ? _value.ownerRef
+          : ownerRef // ignore: cast_nullable_to_non_nullable
+              as String,
+      creatorType: null == creatorType
+          ? _value.creatorType
+          : creatorType // ignore: cast_nullable_to_non_nullable
+              as UserType,
+      ownerType: null == ownerType
+          ? _value.ownerType
+          : ownerType // ignore: cast_nullable_to_non_nullable
+              as UserType,
     ) as $Val);
   }
 
@@ -136,7 +178,13 @@ abstract class _$$CourseModelImplCopyWith<$Res>
       String name,
       PriceModel price,
       SyllabusModel? syllabus,
-      String bannerImageUri});
+      String bannerImageUri,
+      String creatorName,
+      String creatorRef,
+      String ownerName,
+      String ownerRef,
+      UserType creatorType,
+      UserType ownerType});
 
   @override
   $PriceModelCopyWith<$Res> get price;
@@ -162,6 +210,12 @@ class __$$CourseModelImplCopyWithImpl<$Res>
     Object? price = null,
     Object? syllabus = freezed,
     Object? bannerImageUri = null,
+    Object? creatorName = null,
+    Object? creatorRef = null,
+    Object? ownerName = null,
+    Object? ownerRef = null,
+    Object? creatorType = null,
+    Object? ownerType = null,
   }) {
     return _then(_$CourseModelImpl(
       id: freezed == id
@@ -184,6 +238,30 @@ class __$$CourseModelImplCopyWithImpl<$Res>
           ? _value.bannerImageUri
           : bannerImageUri // ignore: cast_nullable_to_non_nullable
               as String,
+      creatorName: null == creatorName
+          ? _value.creatorName
+          : creatorName // ignore: cast_nullable_to_non_nullable
+              as String,
+      creatorRef: null == creatorRef
+          ? _value.creatorRef
+          : creatorRef // ignore: cast_nullable_to_non_nullable
+              as String,
+      ownerName: null == ownerName
+          ? _value.ownerName
+          : ownerName // ignore: cast_nullable_to_non_nullable
+              as String,
+      ownerRef: null == ownerRef
+          ? _value.ownerRef
+          : ownerRef // ignore: cast_nullable_to_non_nullable
+              as String,
+      creatorType: null == creatorType
+          ? _value.creatorType
+          : creatorType // ignore: cast_nullable_to_non_nullable
+              as UserType,
+      ownerType: null == ownerType
+          ? _value.ownerType
+          : ownerType // ignore: cast_nullable_to_non_nullable
+              as UserType,
     ));
   }
 }
@@ -196,7 +274,13 @@ class _$CourseModelImpl implements _CourseModel {
       required this.name,
       required this.price,
       this.syllabus,
-      required this.bannerImageUri});
+      required this.bannerImageUri,
+      required this.creatorName,
+      required this.creatorRef,
+      required this.ownerName,
+      required this.ownerRef,
+      required this.creatorType,
+      required this.ownerType});
 
   factory _$CourseModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$CourseModelImplFromJson(json);
@@ -211,10 +295,22 @@ class _$CourseModelImpl implements _CourseModel {
   final SyllabusModel? syllabus;
   @override
   final String bannerImageUri;
+  @override
+  final String creatorName;
+  @override
+  final String creatorRef;
+  @override
+  final String ownerName;
+  @override
+  final String ownerRef;
+  @override
+  final UserType creatorType;
+  @override
+  final UserType ownerType;
 
   @override
   String toString() {
-    return 'CourseModel(id: $id, name: $name, price: $price, syllabus: $syllabus, bannerImageUri: $bannerImageUri)';
+    return 'CourseModel(id: $id, name: $name, price: $price, syllabus: $syllabus, bannerImageUri: $bannerImageUri, creatorName: $creatorName, creatorRef: $creatorRef, ownerName: $ownerName, ownerRef: $ownerRef, creatorType: $creatorType, ownerType: $ownerType)';
   }
 
   @override
@@ -228,13 +324,36 @@ class _$CourseModelImpl implements _CourseModel {
             (identical(other.syllabus, syllabus) ||
                 other.syllabus == syllabus) &&
             (identical(other.bannerImageUri, bannerImageUri) ||
-                other.bannerImageUri == bannerImageUri));
+                other.bannerImageUri == bannerImageUri) &&
+            (identical(other.creatorName, creatorName) ||
+                other.creatorName == creatorName) &&
+            (identical(other.creatorRef, creatorRef) ||
+                other.creatorRef == creatorRef) &&
+            (identical(other.ownerName, ownerName) ||
+                other.ownerName == ownerName) &&
+            (identical(other.ownerRef, ownerRef) ||
+                other.ownerRef == ownerRef) &&
+            (identical(other.creatorType, creatorType) ||
+                other.creatorType == creatorType) &&
+            (identical(other.ownerType, ownerType) ||
+                other.ownerType == ownerType));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, price, syllabus, bannerImageUri);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      price,
+      syllabus,
+      bannerImageUri,
+      creatorName,
+      creatorRef,
+      ownerName,
+      ownerRef,
+      creatorType,
+      ownerType);
 
   /// Create a copy of CourseModel
   /// with the given fields replaced by the non-null parameter values.
@@ -258,7 +377,13 @@ abstract class _CourseModel implements CourseModel {
       required final String name,
       required final PriceModel price,
       final SyllabusModel? syllabus,
-      required final String bannerImageUri}) = _$CourseModelImpl;
+      required final String bannerImageUri,
+      required final String creatorName,
+      required final String creatorRef,
+      required final String ownerName,
+      required final String ownerRef,
+      required final UserType creatorType,
+      required final UserType ownerType}) = _$CourseModelImpl;
 
   factory _CourseModel.fromJson(Map<String, dynamic> json) =
       _$CourseModelImpl.fromJson;
@@ -273,6 +398,18 @@ abstract class _CourseModel implements CourseModel {
   SyllabusModel? get syllabus;
   @override
   String get bannerImageUri;
+  @override
+  String get creatorName;
+  @override
+  String get creatorRef;
+  @override
+  String get ownerName;
+  @override
+  String get ownerRef;
+  @override
+  UserType get creatorType;
+  @override
+  UserType get ownerType;
 
   /// Create a copy of CourseModel
   /// with the given fields replaced by the non-null parameter values.

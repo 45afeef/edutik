@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../authentication/auth_service.dart';
+import '../../homepage/do/content.dart';
 import '../../institute/p/controllers/institute_controller.dart';
 import '../da/models/course_model.dart';
 import '../da/models/price_model.dart';
@@ -11,6 +13,9 @@ class CourseCreationPage extends StatelessWidget {
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _bannerImageUriController =
       TextEditingController();
+  final AuthService _authService = AuthService();
+  final InstituteController _instituteController =
+      Get.find<InstituteController>();
 
   CourseCreationPage({super.key});
 
@@ -65,20 +70,27 @@ class CourseCreationPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState?.validate() ?? false) {
+                    final currentUser = _authService.currentUser;
+                    final institute = _instituteController.institute.value;
+
                     // Create a new course instance
                     final courseModel = CourseModel(
                       name: _nameController.text,
                       price: PriceModel(
-                          amount: double.parse(_priceController.text),
-                          currency: '₹'),
+                        amount: double.parse(_priceController.text),
+                        currency: '₹',
+                      ),
                       bannerImageUri: _bannerImageUriController.text,
+                      creatorName: currentUser?.displayName ?? 'Unknown',
+                      creatorRef: currentUser?.uid ?? '',
+                      creatorType: UserType.user,
+                      ownerName: institute.name,
+                      ownerRef: institute.id!,
+                      ownerType: UserType.institute,
                     );
 
-                    // TODO - return the created model to the parent Page and handle the rest there, not here
                     // Handle the created course (e.g., save to a database or navigate)
-                    Get.find<InstituteController>()
-                        .saveInstitutesCourse(courseModel);
-                    //  or navigate)
+                    _instituteController.saveInstitutesCourse(courseModel);
                     Get.back(result: courseModel);
                   }
                 },

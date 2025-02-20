@@ -33,9 +33,10 @@ AssessmentModel _$AssessmentFromJson(Map<String, dynamic> json) =>
           case 'true_or_false':
             item = _$McqFromJson(e);
           case 'one_word_question':
-          default:
             item = _$OneWordQuestionFromJson(e);
           // TODO - Add more cases
+          default:
+            throw Exception('Unknown assessment item type');
         }
 
         return item;
