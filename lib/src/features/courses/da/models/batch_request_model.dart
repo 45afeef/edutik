@@ -5,13 +5,13 @@ import '../../do/entities/batch_request.dart';
 part 'batch_request_model.freezed.dart';
 part 'batch_request_model.g.dart';
 
-@freezed
+@unfreezed
 class BatchRequestModel extends BatchRequestEntity with _$BatchRequestModel {
   factory BatchRequestModel({
-    String? id,
-    required String courseId,
-    required String batchId,
-    required String studentId,
+    final String? id,
+    required final String courseId,
+    required final String batchId,
+    required final String studentId,
     required BatchRequestStatus status,
   }) = _BatchRequestModel;
 

@@ -3,7 +3,7 @@ class BatchRequestEntity {
   final String courseId;
   final String batchId;
   final String studentId;
-  final BatchRequestStatus status;
+  BatchRequestStatus status;
 
   BatchRequestEntity({
     this.id,

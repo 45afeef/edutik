@@ -8,7 +8,7 @@ import '../../do/entities/batch_request.dart';
 /// This widget fetches the batch requests using the provided [BatchRequestController]
 /// and displays them in a list. Each request can be approved or rejected using the
 /// respective buttons.
-class BatchRequestManagementWidget extends StatelessWidget {
+class BatchRequestManagementWidget extends StatefulWidget {
   /// The controller used to manage batch requests.
   final BatchRequestController controller;
 
@@ -29,9 +29,18 @@ class BatchRequestManagementWidget extends StatelessWidget {
   });
 
   @override
+  State<BatchRequestManagementWidget> createState() =>
+      _BatchRequestManagementWidgetState();
+}
+
+class _BatchRequestManagementWidgetState
+    extends State<BatchRequestManagementWidget> {
+  late Future<List<BatchRequestEntity>> _batchRequestsFuture;
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<BatchRequestEntity>>(
-      future: controller.getBatchRequests(courseId, batchId),
+      future: _batchRequestsFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
@@ -54,35 +63,38 @@ class BatchRequestManagementWidget extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.check),
-                    color: request.status == BatchRequestStatus.accepted
-                        ? Colors.green
-                        : null,
-                    onPressed: () async {
-                      await controller.approveRequest(
-                        request.id!,
-                        batchId,
-                        request.courseId,
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Request approved')),
-                      );
-                    },
-                  ),
+                      icon: const Icon(Icons.check),
+                      color: request.status == BatchRequestStatus.accepted
+                          ? Colors.green
+                          : null,
+                      onPressed: () async {
+                        if (request.status != BatchRequestStatus.accepted) {
+                          await widget.controller.approveRequest(
+                            request.id!,
+                            widget.batchId,
+                            request.courseId,
+                          );
+                          setState(() {
+                            request.status = BatchRequestStatus.accepted;
+                          });
+                        }
+                      }),
                   IconButton(
                     icon: const Icon(Icons.close),
                     color: request.status == BatchRequestStatus.rejected
                         ? Colors.red
                         : null,
                     onPressed: () async {
-                      await controller.rejectRequest(
-                        request.id!,
-                        batchId,
-                        request.courseId,
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Request rejected')),
-                      );
+                      if (request.status != BatchRequestStatus.rejected) {
+                        await widget.controller.rejectRequest(
+                          request.id!,
+                          widget.batchId,
+                          request.courseId,
+                        );
+                        setState(() {
+                          request.status = BatchRequestStatus.rejected;
+                        });
+                      }
                     },
                   ),
                 ],
@@ -92,5 +104,19 @@ class BatchRequestManagementWidget extends StatelessWidget {
         );
       },
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _batchRequestsFuture =
+        widget.controller.getBatchRequests(widget.courseId, widget.batchId);
+  }
+
+  Future<void> _refreshRequests() async {
+    setState(() {
+      _batchRequestsFuture =
+          widget.controller.getBatchRequests(widget.courseId, widget.batchId);
+    });
   }
 }

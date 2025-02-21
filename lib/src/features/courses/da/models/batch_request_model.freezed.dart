@@ -25,6 +25,7 @@ mixin _$BatchRequestModel {
   String get batchId => throw _privateConstructorUsedError;
   String get studentId => throw _privateConstructorUsedError;
   BatchRequestStatus get status => throw _privateConstructorUsedError;
+  set status(BatchRequestStatus value) => throw _privateConstructorUsedError;
 
   /// Serializes this BatchRequestModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -178,31 +179,12 @@ class _$BatchRequestModelImpl implements _BatchRequestModel {
   @override
   final String studentId;
   @override
-  final BatchRequestStatus status;
+  BatchRequestStatus status;
 
   @override
   String toString() {
     return 'BatchRequestModel(id: $id, courseId: $courseId, batchId: $batchId, studentId: $studentId, status: $status)';
   }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$BatchRequestModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.courseId, courseId) ||
-                other.courseId == courseId) &&
-            (identical(other.batchId, batchId) || other.batchId == batchId) &&
-            (identical(other.studentId, studentId) ||
-                other.studentId == studentId) &&
-            (identical(other.status, status) || other.status == status));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, courseId, batchId, studentId, status);
 
   /// Create a copy of BatchRequestModel
   /// with the given fields replaced by the non-null parameter values.
@@ -227,7 +209,7 @@ abstract class _BatchRequestModel implements BatchRequestModel {
       required final String courseId,
       required final String batchId,
       required final String studentId,
-      required final BatchRequestStatus status}) = _$BatchRequestModelImpl;
+      required BatchRequestStatus status}) = _$BatchRequestModelImpl;
 
   factory _BatchRequestModel.fromJson(Map<String, dynamic> json) =
       _$BatchRequestModelImpl.fromJson;
@@ -242,6 +224,7 @@ abstract class _BatchRequestModel implements BatchRequestModel {
   String get studentId;
   @override
   BatchRequestStatus get status;
+  set status(BatchRequestStatus value);
 
   /// Create a copy of BatchRequestModel
   /// with the given fields replaced by the non-null parameter values.
