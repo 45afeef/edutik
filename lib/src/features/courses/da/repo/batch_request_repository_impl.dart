@@ -66,6 +66,23 @@ class BatchRequestRepositoryImpl implements BatchRequestRepository {
   }
 
   @override
+  Future<List<BatchRequestModel>> readPendingRequests(
+      String courseId, String batchId) async {
+    var dataSourcePath = databaseService is FirebaseService
+        ? '$kCourseTableName/$courseId/$kBatchTableName/$batchId/$_tableOrCollectionName'
+        : _tableOrCollectionName;
+
+    var input = await databaseService.getAllData(
+      collection: dataSourcePath,
+      query: {'status': 'pending'},
+    );
+
+    var output = input.map((e) => BatchRequestModel.fromJson(e)).toList();
+
+    return output;
+  }
+
+  @override
   Future<void> update(String modelId, json) async {
     // Adding assertions to validate the parameters
     assert(json.containsKey('courseId'), 'couserId is required');

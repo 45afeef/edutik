@@ -109,14 +109,18 @@ class _BatchRequestManagementWidgetState
   @override
   void initState() {
     super.initState();
-    _batchRequestsFuture =
-        widget.controller.getBatchRequests(widget.courseId, widget.batchId);
+    _batchRequestsFuture = widget.controller.getPendingBatchRequests(
+      widget.courseId,
+      widget.batchId,
+    );
   }
 
   Future<void> _refreshRequests() async {
     setState(() {
-      _batchRequestsFuture =
-          widget.controller.getBatchRequests(widget.courseId, widget.batchId);
+      _batchRequestsFuture = widget.controller.getPendingBatchRequests(
+        widget.courseId,
+        widget.batchId,
+      );
     });
   }
 }

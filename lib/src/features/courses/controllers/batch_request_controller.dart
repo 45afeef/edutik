@@ -31,6 +31,15 @@ class BatchRequestController extends ChangeNotifier {
     return remoteRequests;
   }
 
+  Future<List<BatchRequestEntity>> getPendingBatchRequests(
+    String courseId,
+    String batchId,
+  ) async {
+    final remoteRequests =
+        await repository.readPendingRequests(courseId, batchId);
+    return remoteRequests;
+  }
+
   /// This method will return the request status of a student for a particular batch
   /// If the request is not found in the local database, it will check the remote database
   Future<BatchRequestEntity?> getRequestStatus(
