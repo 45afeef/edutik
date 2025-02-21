@@ -36,6 +36,7 @@ class BatchRequestManagementWidget extends StatefulWidget {
 class _BatchRequestManagementWidgetState
     extends State<BatchRequestManagementWidget> {
   late Future<List<BatchRequestEntity>> _batchRequestsFuture;
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -52,55 +53,72 @@ class _BatchRequestManagementWidgetState
           return const Text('No requests found');
         }
 
-        return ListView.builder(
-          itemCount: requests.length,
-          itemBuilder: (context, index) {
-            final request = requests[index];
-            return ListTile(
-              title: Text(request.studentId),
-              subtitle: Text(request.status.name.toString()),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                      icon: const Icon(Icons.check),
-                      color: request.status == BatchRequestStatus.accepted
-                          ? Colors.green
-                          : null,
-                      onPressed: () async {
-                        if (request.status != BatchRequestStatus.accepted) {
-                          await widget.controller.approveRequest(
-                            request.id!,
-                            widget.batchId,
-                            request.courseId,
-                          );
-                          setState(() {
-                            request.status = BatchRequestStatus.accepted;
-                          });
-                        }
-                      }),
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    color: request.status == BatchRequestStatus.rejected
-                        ? Colors.red
-                        : null,
-                    onPressed: () async {
-                      if (request.status != BatchRequestStatus.rejected) {
-                        await widget.controller.rejectRequest(
-                          request.id!,
-                          widget.batchId,
-                          request.courseId,
-                        );
-                        setState(() {
-                          request.status = BatchRequestStatus.rejected;
-                        });
-                      }
-                    },
+        return Stack(
+          children: [
+            ListView.builder(
+              itemCount: requests.length,
+              itemBuilder: (context, index) {
+                final request = requests[index];
+                return ListTile(
+                  title: Text(request.studentId),
+                  subtitle: Text(request.status.name.toString()),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.check),
+                        color: request.status == BatchRequestStatus.accepted
+                            ? Colors.green
+                            : null,
+                        onPressed: () async {
+                          if (request.status != BatchRequestStatus.accepted) {
+                            setState(() {
+                              _isLoading = true;
+                            });
+                            await widget.controller.approveRequest(
+                              request.id!,
+                              widget.batchId,
+                              request.courseId,
+                            );
+                            setState(() {
+                              request.status = BatchRequestStatus.accepted;
+                              _isLoading = false;
+                            });
+                          }
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.close),
+                        color: request.status == BatchRequestStatus.rejected
+                            ? Colors.red
+                            : null,
+                        onPressed: () async {
+                          if (request.status != BatchRequestStatus.rejected) {
+                            setState(() {
+                              _isLoading = true;
+                            });
+                            await widget.controller.rejectRequest(
+                              request.id!,
+                              widget.batchId,
+                              request.courseId,
+                            );
+                            setState(() {
+                              request.status = BatchRequestStatus.rejected;
+                              _isLoading = false;
+                            });
+                          }
+                        },
+                      ),
+                    ],
                   ),
-                ],
+                );
+              },
+            ),
+            if (_isLoading)
+              const Center(
+                child: CircularProgressIndicator(),
               ),
-            );
-          },
+          ],
         );
       },
     );
