@@ -22,8 +22,10 @@ class DummyService extends DatabaseService {
   }
 
   @override
-  Future<List<Map<String, dynamic>>> getAllData(
-      {required String collection}) async {
+  Future<List<Map<String, dynamic>>> getAllData({
+    required String collection,
+    Map<String, dynamic>? query,
+  }) async {
     switch (collection) {
       case 'shorts':
         return [
@@ -127,17 +129,18 @@ class DummyService extends DatabaseService {
   }
 
   @override
+  Future<List<Map<String, dynamic>>> queryData(
+      {required String collection, required Map<String, dynamic> query}) {
+    // TODO: implement queryData
+    throw UnimplementedError();
+  }
+
+  @override
   Future<void> updateData(
       {required String collection,
       required String documentId,
       required Map<String, dynamic> data}) {
     // TODO: implement updateData
-    throw UnimplementedError();
-  }
-  
-  @override
-  Future<List<Map<String, dynamic>>> queryData({required String collection, required Map<String, dynamic> query}) {
-    // TODO: implement queryData
     throw UnimplementedError();
   }
 }

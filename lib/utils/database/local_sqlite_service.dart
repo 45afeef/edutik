@@ -75,6 +75,7 @@ class SqLiteService implements DatabaseService {
   @override
   Future<List<Map<String, dynamic>>> getAllData({
     required String collection,
+    Map<String, dynamic>? query,
   }) async {
     final db = await database;
     return await db.query(collection);

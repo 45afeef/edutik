@@ -24,8 +24,17 @@ class FirebaseService implements DatabaseService {
   @override
   Future<List<Map<String, dynamic>>> getAllData({
     required String collection,
+    Map<String, dynamic>? query,
   }) async {
-    QuerySnapshot querySnapshot = await _firestore.collection(collection).get();
+    Query queryRef = _firestore.collection(collection);
+
+    if (query != null) {
+      query.forEach((key, value) {
+        queryRef = queryRef.where(key, isEqualTo: value);
+      });
+    }
+
+    QuerySnapshot querySnapshot = await queryRef.get();
 
     List<Map<String, dynamic>> output = [];
     for (var doc in querySnapshot.docs) {
@@ -35,10 +44,7 @@ class FirebaseService implements DatabaseService {
         // recording the resource identifier along with the result
         // This is because the resource identifier is stored separate in Firebase from data.
         data['id'] = doc.id;
-
         output.add(data);
-      } else {
-        continue;
       }
     }
     return output;

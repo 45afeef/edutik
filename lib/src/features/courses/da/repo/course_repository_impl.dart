@@ -36,8 +36,14 @@ class CourseRepositoryImpl implements CourseRepository {
     String ownerId, {
     UserType? ownerType,
   }) async {
+    var query = {
+      'ownerRef': ownerId,
+      if (ownerType != null) 'ownerType': ownerType.name.toString(),
+    };
+
     var input = await databaseService.getAllData(
       collection: _tableOrCollectionName,
+      query: query,
     );
 
     var output = input.map((e) => CourseModel.fromJson(e)).toList();

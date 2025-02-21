@@ -20,6 +20,7 @@ abstract class DatabaseService {
 
   Future<List<Map<String, dynamic>>> getAllData({
     required String collection,
+    Map<String, dynamic>? query,
   });
 
   Future<Map<String, dynamic>> getData({
