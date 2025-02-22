@@ -24,7 +24,10 @@ mixin _$BatchRequestModel {
   String get courseId => throw _privateConstructorUsedError;
   String get batchId => throw _privateConstructorUsedError;
   String get studentId => throw _privateConstructorUsedError;
-  BatchRequestStatus get status => throw _privateConstructorUsedError;
+  String? get studentName =>
+      throw _privateConstructorUsedError; // Added studentName
+  BatchRequestStatus get status =>
+      throw _privateConstructorUsedError; // Added studentName
   set status(BatchRequestStatus value) => throw _privateConstructorUsedError;
 
   /// Serializes this BatchRequestModel to a JSON map.
@@ -48,6 +51,7 @@ abstract class $BatchRequestModelCopyWith<$Res> {
       String courseId,
       String batchId,
       String studentId,
+      String? studentName,
       BatchRequestStatus status});
 }
 
@@ -70,6 +74,7 @@ class _$BatchRequestModelCopyWithImpl<$Res, $Val extends BatchRequestModel>
     Object? courseId = null,
     Object? batchId = null,
     Object? studentId = null,
+    Object? studentName = freezed,
     Object? status = null,
   }) {
     return _then(_value.copyWith(
@@ -89,6 +94,10 @@ class _$BatchRequestModelCopyWithImpl<$Res, $Val extends BatchRequestModel>
           ? _value.studentId
           : studentId // ignore: cast_nullable_to_non_nullable
               as String,
+      studentName: freezed == studentName
+          ? _value.studentName
+          : studentName // ignore: cast_nullable_to_non_nullable
+              as String?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -110,6 +119,7 @@ abstract class _$$BatchRequestModelImplCopyWith<$Res>
       String courseId,
       String batchId,
       String studentId,
+      String? studentName,
       BatchRequestStatus status});
 }
 
@@ -130,6 +140,7 @@ class __$$BatchRequestModelImplCopyWithImpl<$Res>
     Object? courseId = null,
     Object? batchId = null,
     Object? studentId = null,
+    Object? studentName = freezed,
     Object? status = null,
   }) {
     return _then(_$BatchRequestModelImpl(
@@ -149,6 +160,10 @@ class __$$BatchRequestModelImplCopyWithImpl<$Res>
           ? _value.studentId
           : studentId // ignore: cast_nullable_to_non_nullable
               as String,
+      studentName: freezed == studentName
+          ? _value.studentName
+          : studentName // ignore: cast_nullable_to_non_nullable
+              as String?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -165,6 +180,7 @@ class _$BatchRequestModelImpl implements _BatchRequestModel {
       required this.courseId,
       required this.batchId,
       required this.studentId,
+      this.studentName,
       required this.status});
 
   factory _$BatchRequestModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -179,11 +195,14 @@ class _$BatchRequestModelImpl implements _BatchRequestModel {
   @override
   final String studentId;
   @override
+  final String? studentName;
+// Added studentName
+  @override
   BatchRequestStatus status;
 
   @override
   String toString() {
-    return 'BatchRequestModel(id: $id, courseId: $courseId, batchId: $batchId, studentId: $studentId, status: $status)';
+    return 'BatchRequestModel(id: $id, courseId: $courseId, batchId: $batchId, studentId: $studentId, studentName: $studentName, status: $status)';
   }
 
   /// Create a copy of BatchRequestModel
@@ -209,6 +228,7 @@ abstract class _BatchRequestModel implements BatchRequestModel {
       required final String courseId,
       required final String batchId,
       required final String studentId,
+      final String? studentName,
       required BatchRequestStatus status}) = _$BatchRequestModelImpl;
 
   factory _BatchRequestModel.fromJson(Map<String, dynamic> json) =
@@ -223,7 +243,9 @@ abstract class _BatchRequestModel implements BatchRequestModel {
   @override
   String get studentId;
   @override
-  BatchRequestStatus get status;
+  String? get studentName; // Added studentName
+  @override
+  BatchRequestStatus get status; // Added studentName
   set status(BatchRequestStatus value);
 
   /// Create a copy of BatchRequestModel

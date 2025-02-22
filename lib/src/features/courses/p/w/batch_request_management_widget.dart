@@ -60,7 +60,8 @@ class _BatchRequestManagementWidgetState
               itemBuilder: (context, index) {
                 final request = requests[index];
                 return ListTile(
-                  title: Text(request.studentId),
+                  title: Text(request.studentName ??
+                      request.studentId), // Display studentName if available
                   subtitle: Text(request.status.name.toString()),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,

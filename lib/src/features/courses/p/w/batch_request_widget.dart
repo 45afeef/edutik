@@ -73,6 +73,9 @@ class _BatchRequestWidgetState extends State<BatchRequestWidget> {
                       courseId: widget.courseId,
                       batchId: widget.batchId,
                       studentId: AuthService().currentUser!.uid,
+                      studentName: AuthService()
+                          .currentUser!
+                          .displayName, // Added studentName
                       status: BatchRequestStatus.pending,
                     );
                     await widget.controller.sendRequest(newRequest);
@@ -99,6 +102,9 @@ class _BatchRequestWidgetState extends State<BatchRequestWidget> {
                         courseId: widget.courseId,
                         batchId: widget.batchId,
                         studentId: AuthService().currentUser!.uid,
+                        studentName: AuthService()
+                            .currentUser!
+                            .displayName, // Added studentName
                         status: BatchRequestStatus.pending,
                       );
                       await widget.controller.sendRequest(newRequest);

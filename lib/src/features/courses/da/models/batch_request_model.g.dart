@@ -9,10 +9,11 @@ part of 'batch_request_model.dart';
 _$BatchRequestModelImpl _$$BatchRequestModelImplFromJson(
         Map<String, dynamic> json) =>
     _$BatchRequestModelImpl(
-      id: json['id']?.toString(),
+      id: json['id'] as String?,
       courseId: json['courseId'] as String,
       batchId: json['batchId'] as String,
       studentId: json['studentId'] as String,
+      studentName: json['studentName'] as String?,
       status: $enumDecode(_$BatchRequestStatusEnumMap, json['status']),
     );
 
@@ -23,6 +24,7 @@ Map<String, dynamic> _$$BatchRequestModelImplToJson(
       'courseId': instance.courseId,
       'batchId': instance.batchId,
       'studentId': instance.studentId,
+      'studentName': instance.studentName,
       'status': _$BatchRequestStatusEnumMap[instance.status]!,
     };
 

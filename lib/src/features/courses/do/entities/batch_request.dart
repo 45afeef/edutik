@@ -3,6 +3,7 @@ class BatchRequestEntity {
   final String courseId;
   final String batchId;
   final String studentId;
+  final String? studentName; // Added studentName
   BatchRequestStatus status;
 
   BatchRequestEntity({
@@ -10,6 +11,9 @@ class BatchRequestEntity {
     required this.courseId,
     required this.batchId,
     required this.studentId,
+    // This will help to reduce the number of queries to get the student name
+    // Helps in reducing the cost 
+    this.studentName, // Added studentName
     required this.status,
   });
 }

@@ -12,6 +12,7 @@ class BatchRequestModel extends BatchRequestEntity with _$BatchRequestModel {
     required final String courseId,
     required final String batchId,
     required final String studentId,
+    final String? studentName, // Added studentName
     required BatchRequestStatus status,
   }) = _BatchRequestModel;
 
