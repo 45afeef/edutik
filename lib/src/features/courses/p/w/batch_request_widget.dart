@@ -6,7 +6,7 @@ import '/src/features/courses/controllers/batch_request_controller.dart';
 import '/src/features/courses/da/models/batch_request_model.dart';
 import '/src/features/courses/do/entities/batch_request.dart';
 
-class BatchRequestWidget extends StatelessWidget {
+class BatchRequestWidget extends StatefulWidget {
   final BatchRequestController controller;
   final String courseId;
   final String batchId;
@@ -25,15 +25,22 @@ class BatchRequestWidget extends StatelessWidget {
   });
 
   @override
+  _BatchRequestWidgetState createState() => _BatchRequestWidgetState();
+}
+
+class _BatchRequestWidgetState extends State<BatchRequestWidget> {
+  bool _isLoading = false;
+
+  @override
   Widget build(BuildContext context) {
-    if (isAdmin) {
+    if (widget.isAdmin) {
       return ElevatedButton(
-        onPressed: () => onEdit!(),
+        onPressed: () => widget.onEdit!(),
         child: Text('edit'.tr),
       );
     }
 
-    if (startDate.isBefore(DateTime.now())) {
+    if (widget.startDate.isBefore(DateTime.now())) {
       return Text('expired'.tr);
     }
 
@@ -45,8 +52,8 @@ class BatchRequestWidget extends StatelessWidget {
     }
 
     return FutureBuilder<BatchRequestEntity?>(
-      future: controller.getRequestStatus(
-          courseId, batchId, AuthService().currentUser!.uid),
+      future: widget.controller.getRequestStatus(
+          widget.courseId, widget.batchId, AuthService().currentUser!.uid),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
@@ -56,47 +63,67 @@ class BatchRequestWidget extends StatelessWidget {
 
         if (request == null) {
           return ElevatedButton(
-            onPressed: () {
-              final newRequest = BatchRequestModel(
-                courseId: courseId,
-                batchId: batchId,
-                studentId: AuthService().currentUser!.uid,
-                status: BatchRequestStatus.pending,
-              );
-              controller.sendRequest(newRequest);
-            },
-            child: const Text('Send Request'),
+            onPressed: _isLoading
+                ? null
+                : () async {
+                    setState(() {
+                      _isLoading = true;
+                    });
+                    final newRequest = BatchRequestModel(
+                      courseId: widget.courseId,
+                      batchId: widget.batchId,
+                      studentId: AuthService().currentUser!.uid,
+                      status: BatchRequestStatus.pending,
+                    );
+                    await widget.controller.sendRequest(newRequest);
+                    setState(() {
+                      _isLoading = false;
+                    });
+                  },
+            child: _isLoading
+                ? const CircularProgressIndicator()
+                : const Text('Send Request'),
           );
         }
 
         return ElevatedButton(
-          onPressed: request.status == BatchRequestStatus.rejected ||
-                  request.status == BatchRequestStatus.none
-              ? () {
-                  final newRequest = BatchRequestModel(
-                    courseId: courseId,
-                    batchId: batchId,
-                    studentId: AuthService().currentUser!.uid,
-                    status: BatchRequestStatus.pending,
-                  );
-                  controller.sendRequest(newRequest);
-                }
-              : null,
-          child: Text(
-            () {
-              switch (request.status) {
-                case BatchRequestStatus.pending:
-                  return 'Request Pending';
-                case BatchRequestStatus.accepted:
-                  return 'Request Accepted';
-                case BatchRequestStatus.rejected:
-                  return 'Resend Request';
-                case BatchRequestStatus.none:
-                default:
-                  return 'Send Request';
-              }
-            }(),
-          ),
+          onPressed: _isLoading
+              ? null
+              : request.status == BatchRequestStatus.rejected ||
+                      request.status == BatchRequestStatus.none
+                  ? () async {
+                      setState(() {
+                        _isLoading = true;
+                      });
+                      final newRequest = BatchRequestModel(
+                        courseId: widget.courseId,
+                        batchId: widget.batchId,
+                        studentId: AuthService().currentUser!.uid,
+                        status: BatchRequestStatus.pending,
+                      );
+                      await widget.controller.sendRequest(newRequest);
+                      setState(() {
+                        _isLoading = false;
+                      });
+                    }
+                  : null,
+          child: _isLoading
+              ? const CircularProgressIndicator()
+              : Text(
+                  () {
+                    switch (request.status) {
+                      case BatchRequestStatus.pending:
+                        return 'Request Pending';
+                      case BatchRequestStatus.accepted:
+                        return 'Request Accepted';
+                      case BatchRequestStatus.rejected:
+                        return 'Resend Request';
+                      case BatchRequestStatus.none:
+                      default:
+                        return 'Send Request';
+                    }
+                  }(),
+                ),
         );
       },
     );
