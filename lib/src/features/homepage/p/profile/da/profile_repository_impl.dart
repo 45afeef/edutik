@@ -33,11 +33,17 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
       }
     } else {
       // For other database services, check if the profile exists
-      throw UnimplementedError('Database service not implemented');
+      try {
+        await readOne(profile.uid!);
+        await update(profile.uid!, profile.toJson());
+      } catch (e) {
+        await databaseService.addData(
+          collection: _tableOrCollectionName,
+          data: profile.toJson(),
+        );
+      }
+      throw UnimplementedError('Database service not implemented fully');
     }
-
-    return databaseService.addData(
-        collection: _tableOrCollectionName, data: profile.toJson());
   }
 
   /// Deletes a user profile from the database.
