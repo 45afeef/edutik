@@ -22,7 +22,8 @@ class BatchRequestWidget extends StatefulWidget {
     required this.isAdmin,
     required this.startDate,
     required this.onEdit,
-  });
+  }) : assert(!isAdmin || onEdit != null,
+            'onEdit must be provided when isAdmin is true');
 
   @override
   _BatchRequestWidgetState createState() => _BatchRequestWidgetState();
