@@ -15,15 +15,13 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   Future<void> create(UserProfileModel profile) async {
     if (databaseService is FirebaseService) {
       try {
+        // Check if the profile already exists
         await readOne(profile.uid!);
+        // If it exists, update the profile
+        await update(profile.uid!, profile.toJson());
       } on DatabaseException {
-        // DatabaseException occurs when there is no document found with the id provided.
-        // Which means that this is the first time user loggingIn - (in simple words - he just signedup right now)
-        // Indicates that user have no document in the user collection
-
-        // This is a wierd way!
-        // We are really expecting and exception.
-        return (databaseService as FirebaseService).setData(
+        // If it does not exist, create a new profile
+        await (databaseService as FirebaseService).setData(
           collection: _tableOrCollectionName,
           documentId: profile.uid!,
           data: profile.toJson(),
@@ -57,8 +55,11 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
   }
 
   @override
-  Future<void> update(String userId, profile) {
-    // TODO: implement update
-    throw UnimplementedError();
+  Future<void> update(String userId, Map<String, dynamic> json) async {
+    await databaseService.updateData(
+      collection: _tableOrCollectionName,
+      documentId: userId,
+      data: json,
+    );
   }
 }
