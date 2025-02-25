@@ -6,11 +6,15 @@ import 'user_profile_model.dart';
 
 const String _tableOrCollectionName = 'users';
 
+/// Implementation of the [UserProfileRepository] interface
+/// for managing user profiles in the database.
 class UserProfileRepositoryImpl implements UserProfileRepository {
   final DatabaseService databaseService;
 
   UserProfileRepositoryImpl(this.databaseService);
 
+  /// Creates a new user profile in the database.
+  /// If the profile already exists, it updates the existing profile.
   @override
   Future<void> create(UserProfileModel profile) async {
     if (databaseService is FirebaseService) {
@@ -27,18 +31,23 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
           data: profile.toJson(),
         );
       }
+    } else {
+      // For other database services, check if the profile exists
+      throw UnimplementedError('Database service not implemented');
     }
 
     return databaseService.addData(
         collection: _tableOrCollectionName, data: profile.toJson());
   }
 
+  /// Deletes a user profile from the database.
   @override
   Future<void> delete(String ownerId) {
     // TODO: implement delete
     throw UnimplementedError();
   }
 
+  /// Reads all user profiles from the database.
   @override
   Future<List<UserProfileModel>> readAll(String ownerId,
       {UserType? ownerType}) {
@@ -46,6 +55,7 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
     throw UnimplementedError();
   }
 
+  /// Reads a single user profile from the database.
   @override
   Future<UserProfileModel> readOne(String userId, {UserType? ownerType}) async {
     Map<String, dynamic> data = await databaseService.getData(
@@ -54,6 +64,7 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
     return UserProfileModel.fromJson(data);
   }
 
+  /// Updates a user profile in the database.
   @override
   Future<void> update(String userId, Map<String, dynamic> json) async {
     await databaseService.updateData(

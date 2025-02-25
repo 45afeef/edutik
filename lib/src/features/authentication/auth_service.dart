@@ -9,6 +9,7 @@ import '../../../utils/routing/approute.dart';
 import '../homepage/p/profile/da/user_profile_model.dart';
 import '../homepage/p/profile/do/repository/profile_repo.dart';
 
+/// Service for handling authentication using Firebase.
 class AuthService {
   // Singleton instance
   static final AuthService _instance = AuthService._privateConstructor();
@@ -25,23 +26,26 @@ class AuthService {
   // Make this a private constructor
   AuthService._privateConstructor();
 
+  /// Gets the current authenticated user.
   User? get currentUser => _firebaseAuth.currentUser;
 
-  // fields in singleton class behaive like final fields, so I have converted this to getter
+  /// Checks if the user is authenticated.
   bool get isAuthenticated =>
       FirebaseAuth.instance.currentUser?.isAnonymous == false;
 
+  /// Checks if the user is currently logging in.
   bool get onLoggingIn => _loggingState.value;
 
+  /// Signs in the user using Google Sign-In.
   void signIn() {
     if (kIsWeb) {
       print('Running on the web');
       _signInWithGoogleInWeb().then((cred) {
         _loggingState.value = false;
-        // SUGGESION - use auth listner for auth state changes instead of hardcoded routing on auth state changes.
+        // Suggestion: use auth listener for auth state changes instead of hardcoded routing on auth state changes.
         Get.offAllNamed(AppRoute.home);
 
-        // create or update the userProfile
+        // Create or update the user profile
         _createOrUpdateUserProfile(cred);
       }).catchError((onError) {
         _loggingState.value = false;
@@ -51,10 +55,10 @@ class AuthService {
       _loggingState.value = true;
       _signInWithGoogleInAndroid().then((cred) {
         _loggingState.value = false;
-        // SUGGESION - use auth listner for auth state changes instead of hardcoded routing on auth state changes.
+        // Suggestion: use auth listener for auth state changes instead of hardcoded routing on auth state changes.
         Get.offAllNamed(AppRoute.home);
 
-        // create or update the userProfile
+        // Create or update the user profile
         _createOrUpdateUserProfile(cred);
       }).catchError((onError) {
         _loggingState.value = false;
@@ -72,13 +76,15 @@ class AuthService {
     }
   }
 
+  /// Signs out the current user.
   void signOut() {
     FirebaseAuth.instance.signOut().then((_) {
-      // TODO - This is not working well or not a good practice. Please make use of global stream listener to handle user auth state changes and navigation.
+      // TODO: This is not working well or not a good practice. Please make use of global stream listener to handle user auth state changes and navigation.
       Get.offAllNamed(AppRoute.home);
     });
   }
 
+  /// Creates or updates the user profile in the database.
   void _createOrUpdateUserProfile(UserCredential cred) {
     final UserProfileRepository userProfileRepo =
         Get.find<UserProfileRepository>();
@@ -92,6 +98,7 @@ class AuthService {
     );
   }
 
+  /// Signs in the user using Google Sign-In on Android.
   Future<UserCredential> _signInWithGoogleInAndroid() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -107,6 +114,7 @@ class AuthService {
     return await _firebaseAuth.signInWithCredential(credential);
   }
 
+  /// Signs in the user using Google Sign-In on the web.
   Future<UserCredential> _signInWithGoogleInWeb() async {
     // Create a new provider
     GoogleAuthProvider googleProvider = GoogleAuthProvider();
