@@ -37,18 +37,18 @@ class _BatchRequestWidgetState extends State<BatchRequestWidget> {
     if (widget.isAdmin) {
       return ElevatedButton(
         onPressed: () => widget.onEdit!(),
-        child: Text('edit'.tr),
+        child: Text('lbl_edit'.tr),
       );
     }
 
     if (widget.startDate.isBefore(DateTime.now())) {
-      return Text('expired'.tr);
+      return Text('msg_expired'.tr);
     }
 
     if (AuthService().currentUser == null) {
       return ElevatedButton(
         onPressed: () => Get.toNamed('/login'),
-        child: Text('login_to_request'.tr),
+        child: Text('lbl_login_to_request'.tr),
       );
     }
 
@@ -86,7 +86,7 @@ class _BatchRequestWidgetState extends State<BatchRequestWidget> {
                   },
             child: _isLoading
                 ? const CircularProgressIndicator()
-                : const Text('Send Request'),
+                : Text('lbl_send_request'.tr),
           );
         }
 
@@ -120,14 +120,14 @@ class _BatchRequestWidgetState extends State<BatchRequestWidget> {
                   () {
                     switch (request.status) {
                       case BatchRequestStatus.pending:
-                        return 'Request Pending';
+                        return 'msg_request_pending'.tr;
                       case BatchRequestStatus.accepted:
-                        return 'Request Accepted';
+                        return 'msg_request_accepted'.tr;
                       case BatchRequestStatus.rejected:
-                        return 'Resend Request';
+                        return 'lbl_resend_request'.tr;
                       case BatchRequestStatus.none:
                       default:
-                        return 'Send Request';
+                        return 'lbl_send_request'.tr;
                     }
                   }(),
                 ),

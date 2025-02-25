@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../controllers/batch_request_controller.dart';
 import '../../do/entities/batch_request.dart';
@@ -50,7 +51,7 @@ class _BatchRequestManagementWidgetState
         final requests = snapshot.data ?? [];
 
         if (requests.isEmpty) {
-          return const Text('No requests found');
+          return Text('msg_no_batch_requests'.tr);
         }
 
         return Stack(
