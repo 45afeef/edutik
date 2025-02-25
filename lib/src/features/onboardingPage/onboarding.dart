@@ -13,13 +13,11 @@ class OnboardingPage extends StatefulWidget {
     this.completionPage = '/signup',
   });
 
- 
   @override
   OnboardingPageState createState() => OnboardingPageState();
 }
 
 class OnboardingPageState extends State<OnboardingPage> {
-  
   final PageController _pageController = PageController();
 
   int _currentPage = 0;
@@ -35,19 +33,19 @@ class OnboardingPageState extends State<OnboardingPage> {
       'image': 'educator.svg',
       'title': 'Expert Creators',
       'content':
-          'Your teachers are not jsut Content Creators but experts and passionate mentors'
+          'Your teachers are not just Content Creators but experts and passionate mentors'
     },
     {
       'image': 'favourite_item.svg',
       'title': 'Earn while you learn',
       'content':
-          'Share your expertize, Offer Mentorship and Teach the World. We will pay for you'
+          'Share your expertise, Offer Mentorship and Teach the World. We will pay for you'
     },
     {
       'image': 'team_effort.svg',
       'title': 'Earn while you learn',
       'content':
-          'Share your expertize, Offer Mentorship and Teach the World. We will pay for you'
+          'Share your expertise, Offer Mentorship and Teach the World. We will pay for you'
     },
   ];
 
@@ -128,20 +126,22 @@ class OnboardingPageState extends State<OnboardingPage> {
           Positioned(
             bottom: 20,
             right: 20,
-            child: ElevatedButton(
-              onPressed: () {
-                if (_currentPage < onboardingData.length - 1) {
-                  _pageController.nextPage(
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeInOutCubic,
-                  );
-                } else {
-                  SharedPrefsUtil.setOnboardingShown(true);
-                  Get.offAllNamed(widget.completionPage);
-                }
-              },
-              child: const Text('Next'),
-            ),
+            child: _fade
+                ? ElevatedButton(
+                    onPressed: () {
+                      if (_currentPage < onboardingData.length - 1) {
+                        _pageController.nextPage(
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.easeInOutCubic,
+                        );
+                      } else {
+                        SharedPrefsUtil.setOnboardingShown(true);
+                        Get.offAllNamed(widget.completionPage);
+                      }
+                    },
+                    child: const Text('Next'),
+                  ).animate(delay: 1000.ms).fadeIn().slideY(begin: 1)
+                : const SizedBox(),
           ),
         ],
       ),
