@@ -29,7 +29,7 @@ class BatchRequestWidget extends StatefulWidget {
             'onEdit must be provided when isAdmin is true');
 
   @override
-  _BatchRequestWidgetState createState() => _BatchRequestWidgetState();
+  State<BatchRequestWidget> createState() => _BatchRequestWidgetState();
 }
 
 // State class for BatchRequestWidget

@@ -134,13 +134,4 @@ class _BatchRequestManagementWidgetState
       widget.batchId,
     );
   }
-
-  Future<void> _refreshRequests() async {
-    setState(() {
-      _batchRequestsFuture = widget.controller.getPendingBatchRequests(
-        widget.courseId,
-        widget.batchId,
-      );
-    });
-  }
 }

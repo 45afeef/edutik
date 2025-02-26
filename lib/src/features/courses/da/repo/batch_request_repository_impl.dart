@@ -88,9 +88,10 @@ class BatchRequestRepositoryImpl implements BatchRequestRepository {
     assert(json.containsKey('courseId'), 'couserId is required');
     assert(json.containsKey('batchId'), 'batchId is required');
 
-    if (databaseService is! FirebaseService)
+    if (databaseService is! FirebaseService) {
       // TODO: implement update
       throw UnimplementedError();
+    }
 
     dynamic courseId = json.remove('courseId');
     dynamic batchId = json.remove('batchId');
