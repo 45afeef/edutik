@@ -1,3 +1,4 @@
+// Import necessary packages and modules
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -6,6 +7,7 @@ import '/src/features/courses/controllers/batch_request_controller.dart';
 import '/src/features/courses/da/models/batch_request_model.dart';
 import '/src/features/courses/do/entities/batch_request.dart';
 
+// Define a StatefulWidget for batch request functionality
 class BatchRequestWidget extends StatefulWidget {
   final BatchRequestController controller;
   final String courseId;
@@ -14,6 +16,7 @@ class BatchRequestWidget extends StatefulWidget {
   final DateTime startDate;
   final Function()? onEdit;
 
+  // Constructor with required parameters and an assertion for admin edit functionality
   const BatchRequestWidget({
     super.key,
     required this.controller,
@@ -29,11 +32,13 @@ class BatchRequestWidget extends StatefulWidget {
   _BatchRequestWidgetState createState() => _BatchRequestWidgetState();
 }
 
+// State class for BatchRequestWidget
 class _BatchRequestWidgetState extends State<BatchRequestWidget> {
   bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
+    // If the user is an admin, show an edit button
     if (widget.isAdmin) {
       return ElevatedButton(
         onPressed: () => widget.onEdit!(),
@@ -41,10 +46,12 @@ class _BatchRequestWidgetState extends State<BatchRequestWidget> {
       );
     }
 
+    // If the batch start date is in the past, show an expired message
     if (widget.startDate.isBefore(DateTime.now())) {
       return Text('msg_expired'.tr);
     }
 
+    // If the user is not logged in, show a login button
     if (AuthService().currentUser == null) {
       return ElevatedButton(
         onPressed: () => Get.toNamed('/login'),
@@ -52,6 +59,7 @@ class _BatchRequestWidgetState extends State<BatchRequestWidget> {
       );
     }
 
+    // Use FutureBuilder to handle the request status asynchronously
     return FutureBuilder<BatchRequestEntity?>(
       future: widget.controller.getRequestStatus(
           widget.courseId, widget.batchId, AuthService().currentUser!.uid),
@@ -62,6 +70,7 @@ class _BatchRequestWidgetState extends State<BatchRequestWidget> {
 
         final request = snapshot.data;
 
+        // If no request exists, show a send request button
         if (request == null) {
           return ElevatedButton(
             onPressed: _isLoading
@@ -90,6 +99,7 @@ class _BatchRequestWidgetState extends State<BatchRequestWidget> {
           );
         }
 
+        // If a request exists, show appropriate button based on request status
         return ElevatedButton(
           onPressed: _isLoading
               ? null

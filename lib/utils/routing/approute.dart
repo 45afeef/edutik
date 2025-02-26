@@ -14,7 +14,7 @@ import '../../src/features/homepage/p/creation/creationpage.dart';
 import '../../src/features/homepage/p/feed/feedpage.dart';
 import '../../src/features/homepage/p/homepage.dart';
 import '../../src/features/homepage/p/profile/a/profile_binding.dart';
-import '../../src/features/homepage/p/profile/profilepage.dart';
+import '../../src/features/homepage/p/profile/p/profilepage.dart';
 import '../../src/features/institute/a/institute_binding.dart';
 import '../../src/features/institute/p/institutepage.dart';
 import '../../src/features/onboardingPage/onboarding.dart';

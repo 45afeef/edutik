@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../../utils/routing/approute.dart';
-import '../do/entity/user_profile.dart';
+import '/src/features/homepage/p/profile/do/entity/user_profile.dart';
+import '/utils/routing/approute.dart';
 
 class ProfileInfo extends StatelessWidget {
   final UserProfile user;

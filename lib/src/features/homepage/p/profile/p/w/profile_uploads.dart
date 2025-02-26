@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../w/upcomming_feature.dart';
+import '/src/features/homepage/p/w/upcomming_feature.dart';
 import 'quizzes_grid_widget.dart';
 
 class ProfileUploads extends StatelessWidget {

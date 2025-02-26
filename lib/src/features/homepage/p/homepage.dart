@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import 'creation/creationpage.dart';
 import 'home_controller.dart';
-import 'profile/profilepage.dart';
+import 'profile/p/profilepage.dart';
 import 'w/upcomming_feature.dart';
 
 class HomePage extends GetWidget<HomeController> {
