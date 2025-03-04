@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 
-import '../../../../../utils/date_time_utils.dart';
+import '/utils/date_time_utils.dart';
+import '/utils/routing/approute.dart';
 import '../../../homepage/do/content.dart';
 import '../../do/assessment.dart';
 import '../../do/assessment_item.dart';
@@ -118,6 +120,12 @@ class AssessmentController extends GetxController {
   String? getSelectionFor(AssessmentItem item) {
     final index = assessment.value.items.indexOf(item);
     return assessmentResult.value.studentResponse[index]?.studentAnswer;
+  }
+
+  void handleAssessmentSharing(Assessment assessment) {
+    Share.share(
+      '*${assessment.name.trim()}* \n\n${'msg_attempt_for_free'.tr} \nhttps://edutik.web.app${AppRoute.assessmentPage.replaceFirst(':id', assessment.id!)}',
+    );
   }
 
   /// Handles the student's response to a question

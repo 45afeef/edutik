@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '/src/features/homepage/p/profile/p/profile_controller.dart';
 import '/src/features/homepage/p/w/loading.dart';
@@ -53,10 +52,7 @@ class QuizzesGrid extends GetWidget<ProfileController> {
                             child: IconButton(
                               iconSize: 18,
                               onPressed: () {
-                                // TODO - move this code away from UI
-                                Share.share(
-                                  '*${assessment.name.trim()}* \n\n${'msg_attempt_for_free'.tr} \nhttps://edutik.web.app${AppRoute.assessmentPage.replaceFirst(':id', assessment.id!)}',
-                                );
+                                controller.handleAssessmentSharing(assessment);
                               },
                               icon: const Icon(
                                 Icons.share,

@@ -52,6 +52,9 @@ class ProfileController extends GetxController {
     return response;
   }
 
+  void handleAssessmentSharing(Assessment assessment) =>
+      assessmentController.handleAssessmentSharing(assessment);
+
   void handleProfileSharing(String? profileId) {
     Share.share(
       '''Visit this profile of *${userProfile.value.displayName}* in Edukit
