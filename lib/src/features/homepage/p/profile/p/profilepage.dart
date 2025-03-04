@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../../../utils/routing/approute.dart';
-import '../../../../../../utils/theme/theme_controller.dart';
-import '../../../../authentication/auth_service.dart';
-import '../../w/loading.dart';
+import '/src/features/authentication/auth_service.dart';
+import '/src/features/homepage/p/w/loading.dart';
+import '/utils/routing/approute.dart';
+import '/utils/theme/theme_controller.dart';
 import 'profile_controller.dart';
 import 'w/profile_info.dart';
 import 'w/profile_uploads.dart';
@@ -12,13 +12,29 @@ import 'w/profile_uploads.dart';
 /// ProfilePage is a widget that displays the profile information of a user.
 /// It fetches the profile data using the ProfileController and displays it
 /// along with options to toggle theme, sign in/out, and share the profile.
+///
+/// Used at:
+/// 1. To display the user's own profile.
+///   In this case, the [profileId] is null and the controller fetches the own profile data
+///   - in HomePage
+/// 2. To display other user's public profile.
+///   In this case, the [profileId] is passed as a route parameter and the controller fetches the public profile data.
+///   - directly accessed from the URL
+///
+/// Assumption
+/// In case of the [profileId] is null it is assumed that the user is viewing his own profile.
+/// Otherwise, the user is viewing other user's public profile.
+///
+
 class ProfilePage extends GetWidget<ProfileController> {
   const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     // Get the profile ID from the route parameters
+    // This [profileId] is only available when the user browses others public profile.
     final String? profileId = Get.parameters['uid'];
+    final bool isOwnProfile = profileId == null;
 
     return FutureBuilder(
       // Fetch the profile data using the controller
@@ -36,57 +52,7 @@ class ProfilePage extends GetWidget<ProfileController> {
         return SafeArea(
           child: Scaffold(
             // Persistent AppBar that never scrolls
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              actions: [
-                // Button to toggle theme
-                IconButton(
-                  onPressed: themController.toggleTheme,
-                  icon: Icon(
-                    themController.isDarkMode.value
-                        ? Icons.nights_stay_sharp
-                        : Icons.sunny,
-                  ),
-                ),
-                // Button to sign in/out
-                IconButton(
-                  onPressed: () {
-                    !auth.isAuthenticated
-                        ? Get.toNamed(AppRoute.signIn)
-                        : showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog.adaptive(
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Get.back();
-                                      auth.signOut();
-                                    },
-                                    child: Text("lbl_logout".tr),
-                                  ),
-                                  const SizedBox(width: 30),
-                                  ElevatedButton(
-                                      onPressed: Get.back,
-                                      child: Text("lbl_cancel".tr)),
-                                ],
-                                content: Text('msg_are_you_sure_to_logout'.tr),
-                              );
-                            },
-                          );
-                  },
-                  icon: auth.isAuthenticated
-                      ? const Icon(Icons.logout)
-                      : const Icon(Icons.login),
-                ),
-                // Button to share profile
-                IconButton(
-                  onPressed: () => controller.handleProfileSharing(profileId),
-                  icon: const Icon(Icons.share),
-                ),
-              ],
-              elevation: 0.0,
-            ),
+            appBar: persistentAppBar(themController, auth, context, profileId),
             body: NestedScrollView(
               // allows you to build a list of elements that would be scrolled away till the body reached the top
               headerSliverBuilder: (context, _) {
@@ -95,11 +61,66 @@ class ProfilePage extends GetWidget<ProfileController> {
                 ];
               },
               // Your tab view goes here
-              body: const ProfileUploads(),
+              body: ProfileUploads(isOwnProfile: isOwnProfile),
             ),
           ),
         );
       },
+    );
+  }
+
+  AppBar persistentAppBar(ThemeController themController, AuthService auth,
+      BuildContext context, String? profileId) {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      actions: [
+        // Button to toggle theme
+        IconButton(
+          onPressed: themController.toggleTheme,
+          icon: Icon(
+            themController.isDarkMode.value
+                ? Icons.nights_stay_sharp
+                : Icons.sunny,
+          ),
+        ),
+        // Button to sign in/out
+        IconButton(
+          onPressed: () {
+            !auth.isAuthenticated
+                ? Get.toNamed(AppRoute.signIn)
+                : showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog.adaptive(
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Get.back();
+                              auth.signOut();
+                            },
+                            child: Text("lbl_logout".tr),
+                          ),
+                          const SizedBox(width: 30),
+                          ElevatedButton(
+                              onPressed: Get.back,
+                              child: Text("lbl_cancel".tr)),
+                        ],
+                        content: Text('msg_are_you_sure_to_logout'.tr),
+                      );
+                    },
+                  );
+          },
+          icon: auth.isAuthenticated
+              ? const Icon(Icons.logout)
+              : const Icon(Icons.login),
+        ),
+        // Button to share profile
+        IconButton(
+          onPressed: () => controller.handleProfileSharing(profileId),
+          icon: const Icon(Icons.share),
+        ),
+      ],
+      elevation: 0.0,
     );
   }
 }

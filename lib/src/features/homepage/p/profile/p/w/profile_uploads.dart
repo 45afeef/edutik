@@ -4,27 +4,32 @@ import '/src/features/homepage/p/w/upcomming_feature.dart';
 import 'quizzes_grid_widget.dart';
 
 class ProfileUploads extends StatelessWidget {
-  const ProfileUploads({super.key});
+  final bool isOwnProfile;
+
+  const ProfileUploads({super.key, required this.isOwnProfile});
 
   @override
   Widget build(BuildContext context) {
-    return const DefaultTabController(
-      length: 2, // Number of tabs
+    return DefaultTabController(
+      length: isOwnProfile ? 3 : 2, // Number of tabs
       child: Column(
         children: <Widget>[
           TabBar(
             tabAlignment: TabAlignment.center,
             isScrollable: true,
             tabs: [
-              Tab(text: 'Classes'),
-              Tab(text: 'Quizzes'),
+              const Tab(text: 'Classes'),
+              const Tab(text: 'Quizzes'),
+              if (isOwnProfile) const Tab(text: 'Joined Batches'),
             ],
           ),
           Expanded(
             child: TabBarView(
               children: [
-                UpcomingFeature(featureName: 'Classes'),
-                QuizzesGrid(),
+                const UpcomingFeature(featureName: 'Classes'),
+                const QuizzesGrid(),
+                if (isOwnProfile)
+                  const UpcomingFeature(featureName: 'Joined Batches'),
               ],
             ),
           )
