@@ -7,16 +7,30 @@ import '/src/features/courses/controllers/batch_request_controller.dart';
 import '/src/features/courses/da/models/batch_request_model.dart';
 import '/src/features/courses/do/entities/batch_request.dart';
 
-// Define a StatefulWidget for batch request functionality
+/// A widget that handles batch requests for a specific course and batch.
+///
+/// This widget allows users to send batch requests, view the status of their requests,
+/// and resend requests if they have been rejected. Admin users can edit batch requests.
 class BatchRequestWidget extends StatefulWidget {
+  /// The controller used to manage batch requests.
   final BatchRequestController controller;
+
+  /// The ID of the course for which the batch request is being made.
   final String courseId;
+
+  /// The ID of the batch for which the batch request is being made.
   final String batchId;
+
+  /// Indicates whether the user is an admin.
   final bool isAdmin;
+
+  /// The start date of the batch.
   final DateTime startDate;
+
+  /// Callback function to handle batch editing. This is required if [isAdmin] is true.
   final Function()? onEdit;
 
-  // Constructor with required parameters and an assertion for admin edit functionality
+  /// Constructor with required parameters and an assertion for admin edit functionality.
   const BatchRequestWidget({
     super.key,
     required this.controller,
@@ -32,7 +46,7 @@ class BatchRequestWidget extends StatefulWidget {
   State<BatchRequestWidget> createState() => _BatchRequestWidgetState();
 }
 
-// State class for BatchRequestWidget
+/// State class for [BatchRequestWidget].
 class _BatchRequestWidgetState extends State<BatchRequestWidget> {
   bool _isLoading = false;
 

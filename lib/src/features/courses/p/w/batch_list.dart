@@ -7,11 +7,33 @@ import '/src/features/courses/p/batch_request_management_screen.dart';
 import '/utils/date_time_utils.dart';
 import 'batch_request_widget.dart';
 
+/// A widget that displays a list of batches.
+///
+/// The [BatchList] widget takes a list of [BatchEntity] objects and displays them
+/// in a scrollable list. If the list is empty, it shows a message indicating that
+/// there are no batches available. Each batch item displays the batch name, start
+/// and end dates, and a [BatchRequestWidget] for managing batch requests.
+///
+/// If the user is an admin, an edit button is shown for each batch item, allowing
+/// the admin to manage batch requests. The [onEdit] callback is triggered when the
+/// edit button is pressed.
+///
+/// The [BatchList] widget is stateless and does not manage any state internally.
 class BatchList extends StatelessWidget {
+  /// The list of batches to display.
   final List<BatchEntity> batches;
+
+  /// Indicates whether the user is an admin.
   final bool isAdmin;
+
+  /// Callback function to handle batch editing.
   final void Function(BatchEntity batch)? onEdit;
 
+  /// Creates a [BatchList] widget.
+  ///
+  /// The [batches] parameter is required and must not be null.
+  /// The [isAdmin] parameter defaults to false.
+  /// The [onEdit] parameter is optional.
   const BatchList({
     required this.batches,
     this.isAdmin = false,
@@ -46,6 +68,7 @@ class BatchList extends StatelessWidget {
                     ),
                   ],
                 ),
+                // Edit button is shown only if the user is an admin
                 trailing: isAdmin
                     ? IconButton(
                         icon: const Icon(Icons.manage_accounts),

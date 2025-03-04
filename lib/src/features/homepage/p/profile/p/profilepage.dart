@@ -6,17 +6,22 @@ import '../../../../../../utils/theme/theme_controller.dart';
 import '../../../../authentication/auth_service.dart';
 import '../../w/loading.dart';
 import 'profile_controller.dart';
-import '../w/profile_info.dart';
-import '../w/profile_uploads.dart';
+import 'w/profile_info.dart';
+import 'w/profile_uploads.dart';
 
+/// ProfilePage is a widget that displays the profile information of a user.
+/// It fetches the profile data using the ProfileController and displays it
+/// along with options to toggle theme, sign in/out, and share the profile.
 class ProfilePage extends GetWidget<ProfileController> {
   const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Get the profile ID from the route parameters
     final String? profileId = Get.parameters['uid'];
 
     return FutureBuilder(
+      // Fetch the profile data using the controller
       future: controller.fetchProfile(profileId),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
@@ -34,6 +39,7 @@ class ProfilePage extends GetWidget<ProfileController> {
             appBar: AppBar(
               backgroundColor: Colors.transparent,
               actions: [
+                // Button to toggle theme
                 IconButton(
                   onPressed: themController.toggleTheme,
                   icon: Icon(
@@ -42,6 +48,7 @@ class ProfilePage extends GetWidget<ProfileController> {
                         : Icons.sunny,
                   ),
                 ),
+                // Button to sign in/out
                 IconButton(
                   onPressed: () {
                     !auth.isAuthenticated
@@ -72,6 +79,7 @@ class ProfilePage extends GetWidget<ProfileController> {
                       ? const Icon(Icons.logout)
                       : const Icon(Icons.login),
                 ),
+                // Button to share profile
                 IconButton(
                   onPressed: () => controller.handleProfileSharing(profileId),
                   icon: const Icon(Icons.share),
@@ -86,7 +94,7 @@ class ProfilePage extends GetWidget<ProfileController> {
                   ProfileInfo(user: controller.userProfile.value),
                 ];
               },
-              // You tab view goes here
+              // Your tab view goes here
               body: const ProfileUploads(),
             ),
           ),
