@@ -31,46 +31,47 @@ class UpcomingFeature extends StatelessWidget {
     final randomImage = (defaultSvgs..shuffle()).first;
     final randomExcerpt = (defaultExcerpts..shuffle()).first;
 
-    return Padding(
-      padding: const EdgeInsets.all(30.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          SizedBox(
-            height: 70,
-            child: AspectRatio(
-              aspectRatio: 3,
-              child: (imageUrl != null)
-                  ? Image.network(imageUrl!)
-                  : SvgPicture.asset(randomImage),
+    return Center(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            SizedBox(
+              height: 70,
+              child: AspectRatio(
+                aspectRatio: 3,
+                child: (imageUrl != null)
+                    ? Image.network(imageUrl!)
+                    : SvgPicture.asset(randomImage),
+              ),
             ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            featureName,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+            const SizedBox(height: 10),
+            Text(
+              featureName,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            excerpt != null ? excerpt! : randomExcerpt,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 16,
+            const SizedBox(height: 5),
+            Text(
+              excerpt != null ? excerpt! : randomExcerpt,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 16,
+              ),
             ),
-          ),
-          const SizedBox(height: 10),
-          const Text(
-            'This feature is currently under construction. We are working hard to bring it to you soon!',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14),
-          ),
-        ],
+            const SizedBox(height: 10),
+            const Text(
+              'This feature is currently under construction. We are working hard to bring it to you soon!',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 14),
+            ),
+          ],
+        ),
       ),
     );
   }

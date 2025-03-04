@@ -13,11 +13,13 @@ class QuizzesGrid extends GetWidget<ProfileController> {
     return FutureBuilder(
         future: controller.fetchAllAssessments(),
         builder: (context, snapshort) {
+          // If the future got error, display an error message
           if (snapshort.hasError) {
             return Center(
               child: Text('lbl_loading_error'.tr),
             );
           }
+          // If the future is complete, display the data
           if (snapshort.hasData) {
             return GridView.count(
               crossAxisSpacing: 1,
@@ -66,6 +68,7 @@ class QuizzesGrid extends GetWidget<ProfileController> {
                   .toList(),
             );
           }
+          // Show a loading indicator while the data is being fetched
           return const Center(
             child: CustomProgressIndicator(),
           );
