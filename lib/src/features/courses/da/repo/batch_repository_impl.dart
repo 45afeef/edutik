@@ -55,9 +55,20 @@ class BatchRepositoryImpl implements BatchRepository {
   }
 
   @override
-  Future<BatchModel> readOne(String modelId, {UserType? ownerType}) {
-    // TODO: implement readOne
-    throw UnimplementedError();
+  Future<BatchModel> readOne(String path, {UserType? ownerType}) async {
+    final int separatorIndex = path.lastIndexOf('/');
+    if (separatorIndex == -1 || separatorIndex == path.length - 1) {
+      throw ArgumentError('Invalid path format: $path');
+    }
+    final collection = path.substring(0, separatorIndex);
+    final documentId = path.substring(separatorIndex + 1);
+
+    var input = await databaseService.getData(
+      collection: collection,
+      documentId: documentId,
+    );
+
+    return BatchModel.fromJson(input);
   }
 
   @override

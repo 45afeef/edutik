@@ -1,8 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
+import '../../../../utils/database/database_service.dart';
 import '../../../../utils/database/local_sqlite_service.dart';
+import '../../homepage/p/profile/do/repository/profile_repo.dart';
 import '../da/models/batch_request_model.dart';
+import '../da/repo/batch_repository_impl.dart';
 import '../da/repo/batch_request_repository_impl.dart';
+import '../da/repo/course_repository_impl.dart';
+import '../do/entities/batch.dart';
 import '../do/entities/batch_request.dart';
 import '../do/repo/batch_request_repo.dart';
 
@@ -19,12 +25,46 @@ class BatchRequestController extends GetxController {
   /// [batchId] is the ID of the batch.
   /// [courseId] is the ID of the course.
   Future<void> approveRequest(
-      String requestId, String batchId, String courseId) async {
+    String requestId,
+    String batchId,
+    String courseId,
+    String studentId,
+  ) async {
     await repository.update(requestId, {
       'status': 'accepted',
       'batchId': batchId,
       'courseId': courseId,
     });
+
+    // Along with updating the request in batches collection, update the user's profile
+    // to reflect the request
+    // TODO : Add firebase Firestore rule to make sure this is done my the respective editors only.
+    // TODO : Add firebase firestore rule restrict the access to certain students only.
+    final UserProfileRepository profileRepository =
+        Get.find<UserProfileRepository>();
+    profileRepository.update(studentId, {
+      'joinedBatches': FieldValue.arrayUnion(
+          ['$kCourseTableName/$courseId/$kBatchTableName/$batchId']),
+    });
+
+    final batchRepo = BatchRepositoryImpl(Get.find<DatabaseService>());
+    await batchRepo.update(batchId, {
+      'students': FieldValue.arrayUnion([studentId]),
+      'courseId': courseId,
+    });
+  }
+
+  // fetchBatchByReference(List<String> joinedBatches) {}
+  Future<List<BatchEntity>> fetchBatchByReference(
+      List<String> batchReferences) async {
+    List<BatchEntity> batches = [];
+    for (String reference in batchReferences) {
+      final batchRepo = BatchRepositoryImpl(Get.find<DatabaseService>());
+      BatchEntity batch = await batchRepo.readOne(reference);
+
+      batches.add(batch);
+    }
+    return batches;
   }
 
   /// Retrieves all batch requests for a specific course and batch from the remote database.

@@ -4,6 +4,7 @@ class UserProfile {
   final String photoURL;
   final String email;
   final List<String>? accessInstitutes;
+  final List<String>? joinedBatches;
 
   UserProfile({
     this.uid,
@@ -11,6 +12,7 @@ class UserProfile {
     required this.photoURL,
     required this.email,
     this.accessInstitutes,
+    this.joinedBatches,
   });
 
   factory UserProfile.empty() => UserProfile(

@@ -16,6 +16,9 @@ _$UserProfileModelImpl _$$UserProfileModelImplFromJson(
       accessInstitutes: (json['accessInstitutes'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
+      joinedBatches: (json['joinedBatches'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
     );
 
 Map<String, dynamic> _$$UserProfileModelImplToJson(
@@ -26,4 +29,5 @@ Map<String, dynamic> _$$UserProfileModelImplToJson(
       'photoURL': instance.photoURL,
       'email': instance.email,
       'accessInstitutes': instance.accessInstitutes,
+      'joinedBatches': instance.joinedBatches,
     };

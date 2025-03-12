@@ -81,6 +81,7 @@ class _BatchRequestManagementWidgetState
                               request.id!,
                               widget.batchId,
                               request.courseId,
+                              request.studentId,
                             );
                             setState(() {
                               request.status = BatchRequestStatus.accepted;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '/src/features/homepage/p/w/upcomming_feature.dart';
+import 'joined_batches.dart';
 import 'quizzes_grid_widget.dart';
 
 class ProfileUploads extends StatelessWidget {
@@ -22,14 +23,13 @@ class ProfileUploads extends StatelessWidget {
               const Tab(text: 'Quizzes'),
               if (isOwnProfile) const Tab(text: 'Joined Batches'),
             ],
-          ),
+          ), 
           Expanded(
             child: TabBarView(
               children: [
                 const UpcomingFeature(featureName: 'Classes'),
                 const QuizzesGrid(),
-                if (isOwnProfile)
-                  const UpcomingFeature(featureName: 'Joined Batches'),
+                if (isOwnProfile) const JoinedBatches(),
               ],
             ),
           )

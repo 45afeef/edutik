@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/src/features/courses/controllers/batch_request_controller.dart';
 import 'creation/p/creation_controller.dart';
 import 'feed/p/feed_controller.dart';
 import 'profile/p/profile_controller.dart';
@@ -16,6 +17,7 @@ class HomeController extends GetxController {
   late FeedController feedController;
   late ShortsCreationController creationController;
   late ProfileController profileController;
+  late BatchRequestController batchRequestController;
 
   void changePage(int index) {
     currentPageIndex.value = index;
@@ -28,5 +30,6 @@ class HomeController extends GetxController {
     feedController = Get.put(FeedController());
     creationController = Get.put(ShortsCreationController());
     profileController = Get.put(ProfileController());
+    batchRequestController = Get.put(BatchRequestController());
   }
 }

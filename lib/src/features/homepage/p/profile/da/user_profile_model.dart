@@ -13,6 +13,7 @@ class UserProfileModel extends UserProfile with _$UserProfileModel {
     required String photoURL,
     required String email,
     List<String>? accessInstitutes,
+    List<String>? joinedBatches,
   }) = _UserProfileModel;
 
   // A factory constructor that initializes an instance from a JSON map.

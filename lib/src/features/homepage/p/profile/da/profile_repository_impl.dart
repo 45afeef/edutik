@@ -4,6 +4,7 @@ import '../../../do/content.dart';
 import '../do/repository/profile_repo.dart';
 import 'user_profile_model.dart';
 
+const String kUsersTableName = _tableOrCollectionName;
 const String _tableOrCollectionName = 'users';
 
 /// Implementation of the [UserProfileRepository] interface

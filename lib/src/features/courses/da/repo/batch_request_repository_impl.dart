@@ -19,6 +19,13 @@ class BatchRequestRepositoryImpl implements BatchRequestRepository {
 
   BatchRequestRepositoryImpl(this.databaseService);
 
+  /// The method creates two documents in two different collections:
+  /// - One document in the batch's collection.
+  /// - Another document in the user's collection.
+  ///
+  /// This ensures that the batch request is documented consistently in both the batch
+  ///
+  /// [model] - The batch request model containing the data to be saved.
   @override
   Future<void> create(BatchRequestModel model) async {
     var dataSourcePath = databaseService is FirebaseService
@@ -31,12 +38,21 @@ class BatchRequestRepositoryImpl implements BatchRequestRepository {
     );
   }
 
+  /// Deletes a batch request by its [modelId].
+  ///
+  /// This method is not yet implemented.
   @override
   Future<void> delete(String modelId) {
     // TODO: implement delete
     throw UnimplementedError();
   }
 
+  /// Reads all batch requests for a specific course and batch.
+  ///
+  /// [couserIdandbatchId] - A string containing the courseId and batchId separated by a '/'.
+  /// [ownerType] - An optional parameter to specify the owner type.
+  ///
+  /// Returns a list of [BatchRequestModel] objects.
   @override
   Future<List<BatchRequestModel>> readAll(String couserIdandbatchId,
       {UserType? ownerType}) async {
@@ -59,12 +75,21 @@ class BatchRequestRepositoryImpl implements BatchRequestRepository {
     return output;
   }
 
+  /// Reads a single batch request by its [modelId].
+  ///
+  /// This method is not yet implemented.
   @override
   Future<BatchRequestModel> readOne(String modelId, {UserType? ownerType}) {
     // TODO: implement readOne
     throw UnimplementedError();
   }
 
+  /// Reads all pending batch requests for a specific course and batch.
+  ///
+  /// [courseId] - The ID of the course.
+  /// [batchId] - The ID of the batch.
+  ///
+  /// Returns a list of [BatchRequestModel] objects with a status of 'pending'.
   @override
   Future<List<BatchRequestModel>> readPendingRequests(
       String courseId, String batchId) async {
@@ -82,6 +107,13 @@ class BatchRequestRepositoryImpl implements BatchRequestRepository {
     return output;
   }
 
+  /// Updates a batch request by its [modelId] with the provided [json] data.
+  ///
+  /// [modelId] - The ID of the batch request to be updated.
+  /// [json] - A map containing the data to update.
+  ///
+  /// This method adds assertions to validate the parameters and updates the data
+  /// in the appropriate collection.
   @override
   Future<void> update(String modelId, json) async {
     // Adding assertions to validate the parameters
