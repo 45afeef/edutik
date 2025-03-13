@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '/src/features/homepage/p/profile/p/profile_controller.dart';
 import '/src/features/homepage/p/w/loading.dart';
 import '/utils/routing/approute.dart';
+import '../../../w/empty_item.dart';
 
 class QuizzesGrid extends GetWidget<ProfileController> {
   const QuizzesGrid({super.key});
@@ -21,6 +22,13 @@ class QuizzesGrid extends GetWidget<ProfileController> {
           }
           // If the future is complete, display the data
           if (snapshort.hasData) {
+            if (snapshort.data!.isEmpty) {
+              return const EmptyItem(
+                itemName: 'quizzes',
+                message:
+                    'Oh no! Looks like you have never created any quiz in edukit.',
+              );
+            }
             return GridView.count(
               crossAxisSpacing: 1,
               mainAxisSpacing: 1,

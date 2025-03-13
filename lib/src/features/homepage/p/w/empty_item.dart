@@ -16,34 +16,36 @@ class EmptyItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Lottie.asset(
-            imageUrl,
-            height: 200.0, // Adjust the height as needed
-            fit: BoxFit.cover,
-          ),
-          const SizedBox(height: 20),
-          Text(
-            'No $itemName available',
-            style: const TextStyle(
-              color: Colors.grey,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Lottie.asset(
+              imageUrl,
+              height: 200.0, // Adjust the height as needed
+              fit: BoxFit.cover,
             ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 10),
-          Text(
-            message,
-            style: const TextStyle(
-              color: Colors.grey,
-              fontSize: 16,
+            const SizedBox(height: 20),
+            Text(
+              'No $itemName available',
+              style: const TextStyle(
+                color: Colors.grey,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
-          ),
-        ],
+            const SizedBox(height: 10),
+            Text(
+              message,
+              style: const TextStyle(
+                color: Colors.grey,
+                fontSize: 16,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ),
     );
   }
