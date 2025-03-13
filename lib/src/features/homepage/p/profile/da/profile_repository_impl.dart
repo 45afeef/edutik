@@ -22,8 +22,6 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
       try {
         // Check if the profile already exists
         await readOne(profile.uid!);
-        // If it exists, update the profile
-        await update(profile.uid!, profile.toJson());
       } on DatabaseException {
         // If it does not exist, create a new profile
         await (databaseService as FirebaseService).setData(
@@ -36,7 +34,6 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
       // For other database services, check if the profile exists
       try {
         await readOne(profile.uid!);
-        await update(profile.uid!, profile.toJson());
       } catch (e) {
         await databaseService.addData(
           collection: _tableOrCollectionName,
