@@ -84,7 +84,7 @@ class _BatchRequestWidgetState extends State<BatchRequestWidget> {
 
         final request = snapshot.data;
 
-        // If no request exists, show a send request button
+        // If no request exists on the server, show a send request button
         if (request == null) {
           return ElevatedButton(
             onPressed: _isLoading
@@ -113,7 +113,7 @@ class _BatchRequestWidgetState extends State<BatchRequestWidget> {
           );
         }
 
-        // If a request exists, show appropriate button based on request status
+        // If a request exists on the server, show appropriate button based on request status
         return ElevatedButton(
           onPressed: _isLoading
               ? null
