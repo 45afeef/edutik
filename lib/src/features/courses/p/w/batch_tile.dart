@@ -22,6 +22,7 @@ import 'batch_request_widget.dart';
 class BatchTile extends StatelessWidget {
   final BatchEntity batch;
   final bool isAdmin;
+  final bool showRequestButton;
 
   final void Function(BatchEntity batch)? onEdit;
   const BatchTile({
@@ -29,6 +30,7 @@ class BatchTile extends StatelessWidget {
     required this.batch,
     required this.isAdmin,
     required this.onEdit,
+    required this.showRequestButton,
   });
 
   @override
@@ -41,15 +43,16 @@ class BatchTile extends StatelessWidget {
           Text(
             '${batch.startDate.toReadableTime(pattern: 'MMM d yyyy')}-${batch.endDate.toReadableTime(pattern: 'MMM d yyyy')}',
           ),
-          BatchRequestWidget(
-            controller: Get.find<BatchRequestController>(),
-            courseId: batch.courseId,
-            batchId: batch.id!,
-            isAdmin: isAdmin,
-            onEdit: onEdit != null ? () => onEdit!(batch) : null,
-            startDate:
-                DateTime.fromMillisecondsSinceEpoch(batch.startDate * 1000),
-          ),
+          if (showRequestButton)
+            BatchRequestWidget(
+              controller: Get.find<BatchRequestController>(),
+              courseId: batch.courseId,
+              batchId: batch.id!,
+              isAdmin: isAdmin,
+              onEdit: onEdit != null ? () => onEdit!(batch) : null,
+              startDate:
+                  DateTime.fromMillisecondsSinceEpoch(batch.startDate * 1000),
+            ),
         ],
       ),
       // Edit button is shown only if the user is an admin

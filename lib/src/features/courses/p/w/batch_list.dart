@@ -28,6 +28,9 @@ class BatchList extends StatelessWidget {
   /// Indicates whether the user is an admin.
   final bool isAdmin;
 
+  /// Indicates whether to show the request button.
+  final bool showRequestButton;
+
   /// Callback function to handle batch editing.
   final void Function(BatchEntity batch)? onEdit;
 
@@ -41,6 +44,7 @@ class BatchList extends StatelessWidget {
     required this.batches,
     this.isAdmin = false,
     this.onEdit,
+    this.showRequestButton = false,
     super.key,
   }) : assert(
           isAdmin ? onEdit != null : onEdit == null,
@@ -54,8 +58,12 @@ class BatchList extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: batches
-            .map((batch) =>
-                BatchTile(batch: batch, isAdmin: isAdmin, onEdit: onEdit))
+            .map((batch) => BatchTile(
+                  batch: batch,
+                  isAdmin: isAdmin,
+                  onEdit: onEdit,
+                  showRequestButton: showRequestButton,
+                ))
             .toList(),
       ),
     );

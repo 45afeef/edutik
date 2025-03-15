@@ -289,6 +289,7 @@ class CoursesTabBarView extends GetWidget<InstituteController> {
                 return BatchList(
                   batches: batches,
                   isAdmin: _isAdmin(),
+                  showRequestButton: true,
                   onEdit: _isAdmin()
                       ? (batch) => _showBatchEditDialog(context, batch)
                       : null,
