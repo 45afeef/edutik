@@ -7,6 +7,7 @@ import '../../src/features/assessment/p/result/p/result_page.dart';
 import '../../src/features/authentication/auth_middleware.dart';
 import '../../src/features/authentication/signinpage.dart';
 import '../../src/features/courses/a/course_binding.dart';
+import '../../src/features/courses/p/batch_page.dart';
 import '../../src/features/courses/p/course_creation_page.dart';
 import '../../src/features/homepage/a/home_binding.dart';
 import '../../src/features/homepage/p/creation/a/creation_binding.dart';
@@ -41,6 +42,8 @@ class AppRoute {
 
   // INSTITUTE specific routes
   static const String institutePage = '/institute/:instituteId';
+
+  static const String batchPage = '/batch';
 
   static final List<GetPage> routes = [
     GetPage(
@@ -78,8 +81,13 @@ class AppRoute {
           name: resultPage,
           page: () => const AssessmentResultPage(),
         ),
+        GetPage(
+          name: batchPage,
+          page: () => const BatchPage(),
+        )
       ],
     ),
+    // Public pages accessible without authentication are listed under this line
     GetPage(name: onboarding, page: () => const OnboardingPage()),
     GetPage(name: signUp, page: () => const SigninPage()),
     GetPage(name: signIn, page: () => const SigninPage()),

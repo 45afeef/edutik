@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/src/features/courses/p/w/batch_list.dart';
+import '../../../../../../../utils/routing/approute.dart';
 import '../../../../../courses/controllers/batch_request_controller.dart';
 import '../../../../../courses/do/entities/batch.dart';
 import '../../../w/loading.dart';
@@ -31,6 +32,9 @@ class JoinedBatches extends GetWidget<ProfileController> {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
           return BatchList(
+            onTap: (batch) {
+              Get.toNamed(AppRoute.batchPage, arguments: {'batch': batch});
+            },
             batches: snapshot.data!,
             isAdmin: false,
           );
