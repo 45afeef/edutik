@@ -23,6 +23,7 @@ class BatchTile extends StatelessWidget {
   final BatchEntity batch;
   final bool isAdmin;
   final bool showRequestButton;
+  final Function()? onTap;
 
   final void Function(BatchEntity batch)? onEdit;
   const BatchTile({
@@ -31,6 +32,7 @@ class BatchTile extends StatelessWidget {
     required this.isAdmin,
     required this.onEdit,
     required this.showRequestButton,
+    this.onTap,
   });
 
   @override
@@ -73,6 +75,7 @@ class BatchTile extends StatelessWidget {
               },
             )
           : null,
+      onTap: onTap,
     );
   }
 }

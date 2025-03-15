@@ -34,6 +34,9 @@ class BatchList extends StatelessWidget {
   /// Callback function to handle batch editing.
   final void Function(BatchEntity batch)? onEdit;
 
+  /// Callback function to handle batch item tap.
+  final void Function(BatchEntity batch)? onTap;
+
   /// Creates a [BatchList] widget.
   ///
   /// The [batches] parameter is required and must not be null.
@@ -45,6 +48,7 @@ class BatchList extends StatelessWidget {
     this.isAdmin = false,
     this.onEdit,
     this.showRequestButton = false,
+    this.onTap,
     super.key,
   }) : assert(
           isAdmin ? onEdit != null : onEdit == null,
@@ -63,6 +67,7 @@ class BatchList extends StatelessWidget {
                   isAdmin: isAdmin,
                   onEdit: onEdit,
                   showRequestButton: showRequestButton,
+                  onTap: onTap != null ? () => onTap!(batch) : null,
                 ))
             .toList(),
       ),
