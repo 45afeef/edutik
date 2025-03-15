@@ -8,7 +8,7 @@ class BatchEntity {
   final int startDate;
   final int endDate;
   // References or foreign keys
-  final List<UserProfile> students;
+  final List<String> students;
   final List<UserProfile> teachers;
   // Optional references
   final List<UserProfile>? mentors;

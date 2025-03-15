@@ -13,9 +13,8 @@ _$BatchModelImpl _$$BatchModelImplFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       startDate: (json['startDate'] as num).toInt(),
       endDate: (json['endDate'] as num).toInt(),
-      students: (json['students'] as List<dynamic>)
-          .map((e) => UserProfileModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      students:
+          (json['students'] as List<dynamic>).map((e) => e as String).toList(),
       teachers: (json['teachers'] as List<dynamic>)
           .map((e) => UserProfileModel.fromJson(e as Map<String, dynamic>))
           .toList(),

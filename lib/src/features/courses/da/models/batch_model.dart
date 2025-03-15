@@ -15,7 +15,7 @@ class BatchModel extends BatchEntity with _$BatchModel {
     required String name,
     required int startDate,
     required int endDate,
-    required List<UserProfileModel> students,
+    required List<String> students,
     required List<UserProfileModel> teachers,
     List<UserProfileModel>? mentors,
     List<dynamic>? events,

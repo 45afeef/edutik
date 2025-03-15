@@ -25,7 +25,7 @@ mixin _$BatchModel {
   String get name => throw _privateConstructorUsedError;
   int get startDate => throw _privateConstructorUsedError;
   int get endDate => throw _privateConstructorUsedError;
-  List<UserProfileModel> get students => throw _privateConstructorUsedError;
+  List<String> get students => throw _privateConstructorUsedError;
   List<UserProfileModel> get teachers => throw _privateConstructorUsedError;
   List<UserProfileModel>? get mentors => throw _privateConstructorUsedError;
   List<dynamic>? get events => throw _privateConstructorUsedError;
@@ -56,7 +56,7 @@ abstract class $BatchModelCopyWith<$Res> {
       String name,
       int startDate,
       int endDate,
-      List<UserProfileModel> students,
+      List<String> students,
       List<UserProfileModel> teachers,
       List<UserProfileModel>? mentors,
       List<dynamic>? events,
@@ -119,7 +119,7 @@ class _$BatchModelCopyWithImpl<$Res, $Val extends BatchModel>
       students: null == students
           ? _value.students
           : students // ignore: cast_nullable_to_non_nullable
-              as List<UserProfileModel>,
+              as List<String>,
       teachers: null == teachers
           ? _value.teachers
           : teachers // ignore: cast_nullable_to_non_nullable
@@ -166,7 +166,7 @@ abstract class _$$BatchModelImplCopyWith<$Res>
       String name,
       int startDate,
       int endDate,
-      List<UserProfileModel> students,
+      List<String> students,
       List<UserProfileModel> teachers,
       List<UserProfileModel>? mentors,
       List<dynamic>? events,
@@ -227,7 +227,7 @@ class __$$BatchModelImplCopyWithImpl<$Res>
       students: null == students
           ? _value._students
           : students // ignore: cast_nullable_to_non_nullable
-              as List<UserProfileModel>,
+              as List<String>,
       teachers: null == teachers
           ? _value._teachers
           : teachers // ignore: cast_nullable_to_non_nullable
@@ -269,7 +269,7 @@ class _$BatchModelImpl implements _BatchModel {
       required this.name,
       required this.startDate,
       required this.endDate,
-      required final List<UserProfileModel> students,
+      required final List<String> students,
       required final List<UserProfileModel> teachers,
       final List<UserProfileModel>? mentors,
       final List<dynamic>? events,
@@ -298,9 +298,9 @@ class _$BatchModelImpl implements _BatchModel {
   final int startDate;
   @override
   final int endDate;
-  final List<UserProfileModel> _students;
+  final List<String> _students;
   @override
-  List<UserProfileModel> get students {
+  List<String> get students {
     if (_students is EqualUnmodifiableListView) return _students;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_students);
@@ -438,7 +438,7 @@ abstract class _BatchModel implements BatchModel {
       required final String name,
       required final int startDate,
       required final int endDate,
-      required final List<UserProfileModel> students,
+      required final List<String> students,
       required final List<UserProfileModel> teachers,
       final List<UserProfileModel>? mentors,
       final List<dynamic>? events,
@@ -461,7 +461,7 @@ abstract class _BatchModel implements BatchModel {
   @override
   int get endDate;
   @override
-  List<UserProfileModel> get students;
+  List<String> get students;
   @override
   List<UserProfileModel> get teachers;
   @override
