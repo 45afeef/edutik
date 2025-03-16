@@ -5,14 +5,20 @@ import 'package:get/get.dart';
 import '../do/closed_ended/mcq.dart';
 import 'controllers/assessment_creation_controller.dart';
 
-class AssessmentCreationPage extends StatelessWidget {
+class AssessmentCreationPage extends StatefulWidget {
+  const AssessmentCreationPage({super.key});
+
+  @override
+  State<AssessmentCreationPage> createState() => _AssessmentCreationPageState();
+}
+
+class _AssessmentCreationPageState extends State<AssessmentCreationPage> {
   final AssessmentDraftController _draftController =
       Get.put(AssessmentDraftController());
 
   final TextEditingController _topicController = TextEditingController();
   final TextEditingController _aiResponseController = TextEditingController();
-
-  AssessmentCreationPage({super.key});
+  bool _isAISectionVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -171,58 +177,74 @@ class AssessmentCreationPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 150),
-                // New section for AI-assisted creation
+                // New section for AI-assisted creation (hidden by default)
                 const Divider(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Enter Topic for AI-assisted Creation',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      TextField(
-                        controller: _topicController,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12.0),
+                Visibility(
+                  visible: _isAISectionVisible,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Enter Topic for AI-assisted Creation',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                      ElevatedButton(
-                        onPressed: _generateAndCopyPrompt,
-                        child: const Text('Generate and Copy Prompt'),
-                      ),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'Paste AI Response Here',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      TextField(
-                        controller: _aiResponseController,
-                        maxLines: 10,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12.0),
+                        const SizedBox(height: 8),
+                        TextField(
+                          controller: _topicController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                      ElevatedButton(
-                        onPressed: _convertResponseToAssessment,
-                        child: const Text('Convert to Assessment'),
-                      ),
-                    ],
+                        const SizedBox(height: 8),
+                        ElevatedButton(
+                          onPressed: _generateAndCopyPrompt,
+                          child: const Text('Generate and Copy Prompt'),
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'Paste AI Response Here',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        TextField(
+                          controller: _aiResponseController,
+                          maxLines: 10,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        ElevatedButton(
+                          onPressed: _convertResponseToAssessment,
+                          child: const Text('Convert to Assessment'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                // Invisible button for developer to toggle AI feature visibility
+                GestureDetector(
+                  onDoubleTap: () {
+                    setState(() {
+                      _isAISectionVisible = !_isAISectionVisible;
+                    });
+                  },
+                  child: Container(
+                    width: 10,
+                    height: 10,
+                    color: Colors.transparent,
                   ),
                 ),
                 // Existing UI elements...
