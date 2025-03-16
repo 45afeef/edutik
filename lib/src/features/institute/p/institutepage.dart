@@ -45,6 +45,7 @@ class Institutepage extends GetWidget<InstituteController> {
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return [
+                    // Image and share button
                     SliverAppBar(
                       expandedHeight: 200.0,
                       floating: false,
@@ -61,6 +62,7 @@ class Institutepage extends GetWidget<InstituteController> {
                         ),
                       ],
                     ),
+                    // Institute name, address and phone numbers
                     SliverList(
                       delegate: SliverChildListDelegate([
                         const SizedBox(height: 20),
@@ -81,6 +83,7 @@ class Institutepage extends GetWidget<InstituteController> {
                     )
                   ];
                 },
+                // Tab bar view
                 body: DefaultTabController(
                   length: 3,
                   child: Column(

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../controllers/course_controller.dart';
 import '../do/entities/batch.dart';
 
-class BatchPage extends StatelessWidget {
+class BatchPage extends GetWidget<CourseController> {
   const BatchPage({super.key});
 
   @override
@@ -14,16 +15,14 @@ class BatchPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(batch.name),
       ),
-      body: Expanded(
-        child: ListView.builder(
-          itemCount: batch.assessments?.length ?? 0,
-          itemBuilder: (context, index) {
-            final assessment = batch.assessments![index];
-            return ListTile(
-              title: Text(assessment),
-            );
-          },
-        ),
+      body: ListView.builder(
+        itemCount: batch.assessments?.length ?? 0,
+        itemBuilder: (context, index) {
+          final assessment = batch.assessments![index];
+          return ListTile(
+            title: Text(assessment),
+          );
+        },
       ),
     );
   }

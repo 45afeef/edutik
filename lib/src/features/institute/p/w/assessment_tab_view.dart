@@ -103,6 +103,7 @@ class AssessmentTabBarView extends GetWidget<InstituteController> {
           );
         },
       ),
+      // Add new assessment button for admin
       floatingActionButton: _isAdmin()
           ? FloatingActionButton(
               onPressed: () => Get.toNamed(

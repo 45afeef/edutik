@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../homepage/p/w/empty_item.dart';
 import '../../controllers/batch_request_controller.dart';
 import '../../do/entities/batch_request.dart';
 
@@ -45,13 +46,13 @@ class _BatchRequestManagementWidgetState
       future: _batchRequestsFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         }
 
         final requests = snapshot.data ?? [];
 
         if (requests.isEmpty) {
-          return Text('msg_no_batch_requests'.tr);
+          return EmptyItem(itemName: 'requests'.tr);
         }
 
         return Stack(

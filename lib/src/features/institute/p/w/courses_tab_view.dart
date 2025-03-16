@@ -295,7 +295,7 @@ class CoursesTabBarView extends GetWidget<InstituteController> {
                       : null,
                 );
               }
-              return const CircularProgressIndicator();
+              return const Center(child: CircularProgressIndicator());
             },
           ),
           actions: [
