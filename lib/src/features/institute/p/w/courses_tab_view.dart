@@ -290,8 +290,15 @@ class CoursesTabBarView extends GetWidget<InstituteController> {
                   batches: batches,
                   isAdmin: _isAdmin(),
                   showRequestButton: true,
-                  onEdit: _isAdmin()
-                      ? (batch) => _showBatchEditDialog(context, batch)
+                  onEdit: (batch) => _showBatchEditDialog(context, batch),
+                  onTap: _isAdmin()
+                      ? (batch) {
+                          Get.toNamed(AppRoute.batchPage, arguments: {
+                            'institute': institute,
+                            'batch': batch,
+                            'isEditor': _isAdmin(),
+                          });
+                        }
                       : null,
                 );
               }

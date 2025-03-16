@@ -51,7 +51,7 @@ class BatchTile extends StatelessWidget {
               courseId: batch.courseId,
               batchId: batch.id!,
               isAdmin: isAdmin,
-              onEdit: onEdit != null ? () => onEdit!(batch) : null,
+              onEdit: isAdmin && onEdit != null ? () => onEdit!(batch) : null,
               startDate:
                   DateTime.fromMillisecondsSinceEpoch(batch.startDate * 1000),
             ),

@@ -65,7 +65,7 @@ class BatchList extends StatelessWidget {
             .map((batch) => BatchTile(
                   batch: batch,
                   isAdmin: isAdmin,
-                  onEdit: onEdit,
+                  onEdit: isAdmin ? onEdit : null,
                   showRequestButton: showRequestButton,
                   onTap: onTap != null ? () => onTap!(batch) : null,
                 ))

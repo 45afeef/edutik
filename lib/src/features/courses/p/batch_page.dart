@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/utils/routing/approute.dart';
+import '../../institute/do/entity/institute.dart';
 import '../controllers/course_controller.dart';
 import '../do/entities/batch.dart';
 
@@ -10,6 +12,14 @@ class BatchPage extends GetWidget<CourseController> {
   @override
   Widget build(BuildContext context) {
     BatchEntity batch = Get.arguments['batch'] as BatchEntity;
+
+    bool isEditor = Get.arguments['isEditor'] as bool? ?? false;
+    Institute? institute = Get.arguments['institute'] as Institute?;
+
+    if (isEditor) {
+      assert(institute != null,
+          'Institute must not be null when isEditor is true');
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -24,6 +34,18 @@ class BatchPage extends GetWidget<CourseController> {
           );
         },
       ),
+      floatingActionButton: isEditor
+          ? FloatingActionButton(
+              onPressed: () => Get.toNamed(
+                AppRoute.assessmentCreationPage,
+                arguments: {
+                  'ownerId': institute!.id,
+                  'ownerName': institute.name
+                },
+              ),
+              child: const Icon(Icons.add),
+            )
+          : null,
     );
   }
 }
