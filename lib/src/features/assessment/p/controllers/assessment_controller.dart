@@ -79,7 +79,7 @@ class AssessmentController extends GetxController {
     // Filter the cache to find assessments matching the ownerId and ownerType
     List<Assessment> cachedAssessments =
         assessmentCache.values.where((assessment) {
-      return assessment.ownerRef == ownerId && assessment.type == ownerType;
+      return assessment.ownerRef == '${ownerType.name}s/$ownerId';
     }).toList();
 
     if (cachedAssessments.isNotEmpty) {
