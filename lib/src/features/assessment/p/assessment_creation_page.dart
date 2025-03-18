@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../../courses/p/batch_page.dart';
+import '../../homepage/p/creation/creationpage.dart';
+import '../../institute/p/w/assessment_tab_view.dart';
 import '../do/closed_ended/mcq.dart';
 import 'controllers/assessment_creation_controller.dart';
 
@@ -17,6 +20,12 @@ import 'controllers/assessment_creation_controller.dart';
 ///
 /// The assessment can be created either for an individual user or for an institute,
 /// determined by the presence of [ownerId] and [ownerName] in the route arguments.
+///
+/// Used from the following widget:
+/// - [CreationPage] (individual mode)
+/// - [AssessmentTabBarView] (institute mode)
+/// - [BatchPage] (institute mode)
+
 class AssessmentCreationPage extends StatefulWidget {
   const AssessmentCreationPage({super.key});
 
@@ -288,7 +297,7 @@ class _AssessmentCreationPageState extends State<AssessmentCreationPage> {
 
     // Parse the response and convert it to questions format
     // Example: Parse JSON or other structured data from response and add it to _draftController.questions
-    _draftController.addQuestions(response);
+    _draftController.parseAIResponseToQuestions(response);
   }
 
   /// Opens a bottom sheet to edit an existing question.

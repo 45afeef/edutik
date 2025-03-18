@@ -37,25 +37,6 @@ class AssessmentDraftController extends GetxController {
     _loadQuestions();
   }
 
-  void addQuestions(response) {
-    // Convert the JSON string to a Dart Map
-    // Map<String, dynamic> assessmentJson = jsonDecode(response);
-
-    // List<dynamic> parsedAssessmentItems = assessmentJson['items'];
-    List<dynamic> parsedAssessmentItems = _parseAIResponse(response);
-
-    for (var parsedItems in parsedAssessmentItems) {
-      MCQ mcq = MCQ(
-        question: parsedItems['question'],
-        answer: parsedItems['answer'],
-        options: (parsedItems['options'] as List<dynamic>)
-            .map((e) => e as String)
-            .toList(),
-      );
-      addQuestion(mcq);
-    }
-  }
-
   void deleteAssessmentDataFromDraftTable() {
     _localDb.deleteAllData(collection: 'mcq');
   }
@@ -71,6 +52,21 @@ class AssessmentDraftController extends GetxController {
   void onInit() {
     super.onInit();
     _loadQuestions();
+  }
+
+  void parseAIResponseToQuestions(response) {
+    List<dynamic> parsedAssessmentItems = _parseAIResponse(response);
+
+    for (var parsedItems in parsedAssessmentItems) {
+      MCQ mcq = MCQ(
+        question: parsedItems['question'],
+        answer: parsedItems['answer'],
+        options: (parsedItems['options'] as List<dynamic>)
+            .map((e) => e as String)
+            .toList(),
+      );
+      addQuestion(mcq);
+    }
   }
 
   // Currently we assume that the owner is an institute when the ownerId and onwerName is supplied,

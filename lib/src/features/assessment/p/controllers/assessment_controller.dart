@@ -34,8 +34,8 @@ class AssessmentController extends GetxController {
   /// Timer for tracking time spent on each question
   Timer? _timer;
 
-  /// Cache for storing assessments
-  Map<String, Assessment> assessmentCache = <String, Assessment>{};
+  /// Cache for storing assessments based on assessment ID
+  Map<String, Assessment> assessmentCache = {};
 
   /// Updates the current question index and starts the timer
   set currentQuestion(int index) => currentQuestionIndex.value = index;
@@ -76,21 +76,24 @@ class AssessmentController extends GetxController {
     String ownerId,
     UserType ownerType,
   ) async {
-    // Check if all assessments are already in the cache
-    // TODO - BAD BEHAVIOUR -  This condition will result in lowers number of http calls,
-    // which causes bad behaviour from users pov. even though this is cost effective,
-    // this don't give much options to users
-    // UPDATE the code in future
-    if (assessmentCache.isNotEmpty) {
-      return assessmentCache.values.toList();
+    // Filter the cache to find assessments matching the ownerId and ownerType
+    List<Assessment> cachedAssessments =
+        assessmentCache.values.where((assessment) {
+      return assessment.ownerRef == ownerId && assessment.type == ownerType;
+    }).toList();
+
+    if (cachedAssessments.isNotEmpty) {
+      return cachedAssessments;
     }
 
     // If not in the cache, make the network request
     List<Assessment> response =
         await _repo.readAll(ownerId, ownerType: ownerType);
 
-    // Convert to a map where the key is the id field of each assessment from list
-    assessmentCache = {for (var obj in response) obj.id!: obj};
+    // Update the cache with the new response
+    for (var assessment in response) {
+      assessmentCache[assessment.id!] = assessment;
+    }
 
     return response;
   }
