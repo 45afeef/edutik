@@ -5,6 +5,18 @@ import 'package:get/get.dart';
 import '../do/closed_ended/mcq.dart';
 import 'controllers/assessment_creation_controller.dart';
 
+/// A page that allows users to create assessments with multiple choice questions.
+///
+/// This page provides functionality to:
+/// - Add an assessment name
+/// - Create multiple choice questions with 4 options each
+/// - Edit existing questions
+/// - Delete questions
+/// - Save the assessment
+/// - Optionally use AI assistance to generate questions (developer feature)
+///
+/// The assessment can be created either for an individual user or for an institute,
+/// determined by the presence of [ownerId] and [ownerName] in the route arguments.
 class AssessmentCreationPage extends StatefulWidget {
   const AssessmentCreationPage({super.key});
 
@@ -13,11 +25,17 @@ class AssessmentCreationPage extends StatefulWidget {
 }
 
 class _AssessmentCreationPageState extends State<AssessmentCreationPage> {
+/// Controller for managing the assessment draft state
   final AssessmentDraftController _draftController =
       Get.put(AssessmentDraftController());
 
+/// Controller for the AI topic input field
   final TextEditingController _topicController = TextEditingController();
+
+  /// Controller for the AI response input field
   final TextEditingController _aiResponseController = TextEditingController();
+
+  /// Controls visibility of the AI-assisted question generation section
   bool _isAISectionVisible = false;
 
   @override
@@ -261,6 +279,9 @@ class _AssessmentCreationPageState extends State<AssessmentCreationPage> {
     );
   }
 
+  /// Converts the AI response text into assessment questions.
+  ///
+  /// Expected format is a JSON string containing questions, options, and answers.
   void _convertResponseToAssessment() {
     final response = _aiResponseController.text;
 
@@ -269,6 +290,12 @@ class _AssessmentCreationPageState extends State<AssessmentCreationPage> {
     _draftController.addQuestions(response);
   }
 
+  /// Opens a bottom sheet to edit an existing question.
+  ///
+  /// Takes a [question] map containing the question details:
+  /// - question: The question text
+  /// - option1-4: The multiple choice options
+  /// - answer: The correct answer text
   void _editQuestion(Map<String, dynamic> question) {
     showModalBottomSheet(
       context: Get.context!,
@@ -420,6 +447,10 @@ class _AssessmentCreationPageState extends State<AssessmentCreationPage> {
     );
   }
 
+  /// Generates an AI prompt based on the entered topic and copies it to clipboard.
+  ///
+  /// The prompt includes instructions for generating multiple choice questions
+  /// in a specific JSON format.
   void _generateAndCopyPrompt() {
     final topic = _topicController.text;
     final prompt = 'Create an assessment on the following topic: $topic. '
@@ -430,6 +461,10 @@ class _AssessmentCreationPageState extends State<AssessmentCreationPage> {
         'The prompt has been copied to the clipboard. Please paste it into your preferred AI model.');
   }
 
+  /// Shows a confirmation dialog for deleting a question.
+  ///
+  /// Currently throws UnimplementedError as delete functionality
+  /// is not yet implemented.
   void _showDeleteForm(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -453,6 +488,12 @@ class _AssessmentCreationPageState extends State<AssessmentCreationPage> {
     );
   }
 
+  /// Shows a bottom sheet form for creating a new multiple choice question.
+  ///
+  /// The form includes:
+  /// - Question text input
+  /// - 4 option inputs with radio buttons for selecting the correct answer
+  /// - Validation for empty fields and duplicate options
   void _showQuestionForm(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -604,6 +645,10 @@ class _AssessmentCreationPageState extends State<AssessmentCreationPage> {
     );
   }
 
+  /// Shows a bottom sheet for selecting the type of question to create.
+  ///
+  /// Currently only supports multiple choice questions, with placeholder
+  /// for future question types.
   void _showQuestionTypeSelection(BuildContext context) {
     showModalBottomSheet(
       context: context,
