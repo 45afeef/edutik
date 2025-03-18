@@ -60,6 +60,13 @@ class AssessmentDraftController extends GetxController {
     _localDb.deleteAllData(collection: 'mcq');
   }
 
+  /// Deletes a question from the assessment draft
+  void deleteQuestion(Map<String, dynamic> question) {
+    questions.remove(question);
+    _localDb.deleteData(
+        collection: 'mcq', documentId: question['id'].toString());
+  }
+
   @override
   void onInit() {
     super.onInit();

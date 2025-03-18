@@ -71,7 +71,7 @@ class AppRoute {
         ),
         GetPage(
           name: assessmentCreationPage,
-          page: () => AssessmentCreationPage(),
+          page: () => const AssessmentCreationPage(),
         ),
         GetPage(
           name: courseCreationPage,

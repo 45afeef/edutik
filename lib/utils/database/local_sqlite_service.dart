@@ -69,9 +69,9 @@ class SqLiteService implements DatabaseService {
   Future<void> deleteData({
     required String collection,
     required String documentId,
-  }) {
-    // TODO: implement deleteData
-    throw UnimplementedError();
+  }) async {
+    final db = await database;
+    db.delete(collection, where: 'id = ?', whereArgs: [documentId]);
   }
 
   @override

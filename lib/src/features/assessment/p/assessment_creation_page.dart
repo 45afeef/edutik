@@ -25,11 +25,11 @@ class AssessmentCreationPage extends StatefulWidget {
 }
 
 class _AssessmentCreationPageState extends State<AssessmentCreationPage> {
-/// Controller for managing the assessment draft state
+  /// Controller for managing the assessment draft state
   final AssessmentDraftController _draftController =
       Get.put(AssessmentDraftController());
 
-/// Controller for the AI topic input field
+  /// Controller for the AI topic input field
   final TextEditingController _topicController = TextEditingController();
 
   /// Controller for the AI response input field
@@ -171,7 +171,8 @@ class _AssessmentCreationPageState extends State<AssessmentCreationPage> {
                                 ),
                               ],
                             ),
-                            onLongPress: () => _showDeleteForm(context),
+                            onLongPress: () =>
+                                _showDeleteForm(context, question),
                             onTap: () => _editQuestion(question),
                           );
                         },
@@ -465,7 +466,7 @@ class _AssessmentCreationPageState extends State<AssessmentCreationPage> {
   ///
   /// Currently throws UnimplementedError as delete functionality
   /// is not yet implemented.
-  void _showDeleteForm(BuildContext context) {
+  void _showDeleteForm(BuildContext context, Map<String, dynamic> question) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -477,7 +478,8 @@ class _AssessmentCreationPageState extends State<AssessmentCreationPage> {
               Text('are_you_sure_to_delete_this_question'.tr),
               TextButton(
                 onPressed: () {
-                  throw UnimplementedError();
+                  _draftController.deleteQuestion(question);
+                  Navigator.pop(context);
                 },
                 child: Text('confirm_delete'.tr),
               ),
