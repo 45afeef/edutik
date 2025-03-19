@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../widgets/empty_item.dart';
-import '../../../widgets/loading.dart';
-import '../../../widgets/multi_selection_page.dart';
+import '/src/widgets/empty_item.dart';
+import '/src/widgets/loading.dart';
+import '/src/widgets/multi_selection_page.dart';
+import '/utils/routing/approute.dart';
 import '../../assessment/do/assessment.dart';
 import '../../assessment/p/controllers/assessment_controller.dart';
 import '../../institute/do/entity/institute.dart';
@@ -50,8 +51,18 @@ class BatchPage extends StatelessWidget {
               itemCount: assessments.length,
               itemBuilder: (context, index) {
                 final assessment = assessments[index];
-                return ListTile(
-                  title: Text(assessment.name),
+
+                return Card(
+                  margin: const EdgeInsets.all(8),
+                  child: ListTile(
+                    title: Text(assessment.name),
+                    onTap: () {
+                      Get.toNamed(
+                        AppRoute.assessmentPage
+                            .replaceFirst(':id', '${assessment.id}'),
+                      );
+                    },
+                  ),
                 );
               },
             );
