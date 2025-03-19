@@ -25,8 +25,9 @@ class FirebaseService implements DatabaseService {
   Future<List<Map<String, dynamic>>> getAllData({
     required String collection,
     Map<String, dynamic>? query,
+    int limit = 5,
   }) async {
-    Query queryRef = _firestore.collection(collection);
+    Query queryRef = _firestore.collection(collection).limit(limit);
 
     if (query != null) {
       query.forEach((key, value) {
@@ -95,8 +96,9 @@ class FirebaseService implements DatabaseService {
   Future<List<Map<String, dynamic>>> queryData({
     required String collection,
     required Map<String, dynamic> query,
+    int limit = 5,
   }) async {
-    Query queryRef = _firestore.collection(collection);
+    Query queryRef = _firestore.collection(collection).limit(limit);
 
     query.forEach((key, value) {
       queryRef = queryRef.where(key, isEqualTo: value);

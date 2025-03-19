@@ -21,6 +21,7 @@ abstract class DatabaseService {
   Future<List<Map<String, dynamic>>> getAllData({
     required String collection,
     Map<String, dynamic>? query,
+    int limit = 5,
   });
 
   Future<Map<String, dynamic>> getData({
@@ -38,6 +39,7 @@ abstract class DatabaseService {
   Future<List<Map<String, dynamic>>> queryData({
     required String collection,
     required Map<String, dynamic> query,
+    int limit = 5,
   });
 
   // Future<void> batchWrite({

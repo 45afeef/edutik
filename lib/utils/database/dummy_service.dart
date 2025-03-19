@@ -25,6 +25,7 @@ class DummyService extends DatabaseService {
   Future<List<Map<String, dynamic>>> getAllData({
     required String collection,
     Map<String, dynamic>? query,
+    int limit = 5,
   }) async {
     switch (collection) {
       case 'shorts':
@@ -129,8 +130,11 @@ class DummyService extends DatabaseService {
   }
 
   @override
-  Future<List<Map<String, dynamic>>> queryData(
-      {required String collection, required Map<String, dynamic> query}) {
+  Future<List<Map<String, dynamic>>> queryData({
+    required String collection,
+    required Map<String, dynamic> query,
+    int limit = 5,
+  }) {
     // TODO: implement queryData
     throw UnimplementedError();
   }

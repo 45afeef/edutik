@@ -74,8 +74,9 @@ class AssessmentController extends GetxController {
   /// Fetches all available assessments from the repository
   Future<List<Assessment>> fetchAllAssessments(
     String ownerId,
-    UserType ownerType,
-  ) async {
+    UserType ownerType, {
+    int limit = 5,
+  }) async {
     // Filter the cache to find assessments matching the ownerId and ownerType
     List<Assessment> cachedAssessments =
         assessmentCache.values.where((assessment) {
@@ -87,8 +88,11 @@ class AssessmentController extends GetxController {
     }
 
     // If not in the cache, make the network request
-    List<Assessment> response =
-        await _repo.readAll(ownerId, ownerType: ownerType);
+    List<Assessment> response = await _repo.readAll(
+      ownerId,
+      ownerType: ownerType,
+      limit: limit,
+    );
 
     // Update the cache with the new response
     for (var assessment in response) {

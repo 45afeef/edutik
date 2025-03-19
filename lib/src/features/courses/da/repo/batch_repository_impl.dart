@@ -39,8 +39,11 @@ class BatchRepositoryImpl implements BatchRepository {
 
   // This function will read all the batches from the firestore database, whcich is inside every course document
   @override
-  Future<List<BatchModel>> readAll(String courseId,
-      {UserType? ownerType}) async {
+  Future<List<BatchModel>> readAll(
+    String courseId, {
+    UserType? ownerType,
+    int limit = 5,
+  }) async {
     var dataSourcePath = databaseService is FirebaseService
         ? '$kCourseTableName/$courseId/$_tableOrCollectionName'
         : _tableOrCollectionName;

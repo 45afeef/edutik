@@ -26,6 +26,7 @@ class SupabaseService implements DatabaseService {
   Future<List<Map<String, dynamic>>> getAllData({
     required String collection,
     Map<String, dynamic>? query,
+    int limit = 5,
   }) async {
     final response = await _client.from(collection).select();
 
@@ -44,8 +45,11 @@ class SupabaseService implements DatabaseService {
   }
 
   @override
-  Future<List<Map<String, dynamic>>> queryData(
-      {required String collection, required Map<String, dynamic> query}) {
+  Future<List<Map<String, dynamic>>> queryData({
+    required String collection,
+    required Map<String, dynamic> query,
+    int limit = 5,
+  }) {
     // TODO: implement queryData
     throw UnimplementedError();
   }

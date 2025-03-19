@@ -23,7 +23,11 @@ class InstituteReopsitoryImpl extends InstituteRepository {
   }
 
   @override
-  Future<List<InstituteModel>> readAll(String ownerId, {UserType? ownerType}) {
+  Future<List<InstituteModel>> readAll(
+    String ownerId, {
+    UserType? ownerType,
+    int limit = 5,
+  }) {
     // TODO: implement readAll
     throw UnimplementedError();
   }

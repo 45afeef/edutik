@@ -54,8 +54,11 @@ class BatchRequestRepositoryImpl implements BatchRequestRepository {
   ///
   /// Returns a list of [BatchRequestModel] objects.
   @override
-  Future<List<BatchRequestModel>> readAll(String couserIdandbatchId,
-      {UserType? ownerType}) async {
+  Future<List<BatchRequestModel>> readAll(
+    String couserIdandbatchId, {
+    UserType? ownerType,
+    int limit = 5,
+  }) async {
     assert(couserIdandbatchId.contains('/'),
         'couserIdandbatchId must contain a / separator between courseId and batchId');
 

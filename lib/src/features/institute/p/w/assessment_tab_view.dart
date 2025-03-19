@@ -40,7 +40,6 @@ class AssessmentTabBarView extends GetWidget<InstituteController> {
               ? allAssessments
                   .where(
                       (assessment) => !publicAssessments.contains(assessment))
-                  .take(4)
                   .toList()
               : [];
 

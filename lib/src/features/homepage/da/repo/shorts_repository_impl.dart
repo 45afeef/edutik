@@ -28,6 +28,7 @@ class ShortsRepositoryImpl implements ShortsRepository {
   Future<List<ShortsModel>> readAll(
     String ownerId, {
     UserType? ownerType,
+    int limit = 5,
   }) async {
     List<Map<String, dynamic>> data =
         await databaseService.getAllData(collection: _tableOrCollectionName);

@@ -3,7 +3,7 @@ import '../../src/features/homepage/do/content.dart';
 abstract class Repository<T> {
   Future<void> create(T model);
   Future<void> delete(String modelId);
-  Future<List<T>> readAll(String ownerId, {UserType? ownerType});
+  Future<List<T>> readAll(String ownerId, {UserType? ownerType, int limit = 5});
   Future<T> readOne(String modelId, {UserType? ownerType});
   Future<void> update(String modelId, Map<String, dynamic> json);
 }

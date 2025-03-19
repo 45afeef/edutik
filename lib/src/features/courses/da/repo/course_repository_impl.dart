@@ -35,6 +35,7 @@ class CourseRepositoryImpl implements CourseRepository {
   Future<List<CourseModel>> readAll(
     String ownerId, {
     UserType? ownerType,
+    int limit = 5,
   }) async {
     var query = {
       'ownerRef': ownerId,

@@ -78,6 +78,7 @@ class SqLiteService implements DatabaseService {
   Future<List<Map<String, dynamic>>> getAllData({
     required String collection,
     Map<String, dynamic>? query,
+    int limit = 5,
   }) async {
     final db = await database;
     return await db.query(collection);
@@ -96,6 +97,7 @@ class SqLiteService implements DatabaseService {
   Future<List<Map<String, dynamic>>> queryData({
     required String collection,
     required Map<String, dynamic> query,
+    int limit = 5,
   }) async {
     final db = await database;
     String whereClause = query.keys.map((key) => '$key = ?').join(' AND ');

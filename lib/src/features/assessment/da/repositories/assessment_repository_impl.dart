@@ -32,8 +32,11 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
   }
 
   @override
-  Future<List<AssessmentModel>> readAll(String ownerId,
-      {UserType? ownerType}) async {
+  Future<List<AssessmentModel>> readAll(
+    String ownerId, {
+    UserType? ownerType,
+    int limit = 5,
+  }) async {
     var input = await databaseService.queryData(
       collection: _tableOrCollectionName,
       query: {'ownerRef': '${ownerType?.name}s/$ownerId'},

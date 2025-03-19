@@ -53,8 +53,11 @@ class UserProfileRepositoryImpl implements UserProfileRepository {
 
   /// Reads all user profiles from the database.
   @override
-  Future<List<UserProfileModel>> readAll(String ownerId,
-      {UserType? ownerType}) {
+  Future<List<UserProfileModel>> readAll(
+    String ownerId, {
+    UserType? ownerType,
+    int limit = 5,
+  }) {
     // TODO: implement readAll
     throw UnimplementedError();
   }
