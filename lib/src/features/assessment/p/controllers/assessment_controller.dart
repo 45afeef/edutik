@@ -119,6 +119,22 @@ class AssessmentController extends GetxController {
     return response;
   }
 
+  /// Fetches public assessments by their full reference
+  Future<List<Assessment>> fetchPublicAssessmentsByRef(
+      List<String>? assessmentIds) async {
+    if (assessmentIds == null || assessmentIds.isEmpty) {
+      return [];
+    }
+
+    List<Assessment> publicAssessments = [];
+    for (String id in assessmentIds) {
+      Assessment assessment = await fetchAssessment(id);
+      publicAssessments.add(assessment);
+    }
+
+    return publicAssessments;
+  }
+
   /// Gets the student's selection for a given assessment item
   String? getSelectionFor(AssessmentItem item) {
     final index = assessment.value.items.indexOf(item);

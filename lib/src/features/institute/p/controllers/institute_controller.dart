@@ -59,6 +59,11 @@ class InstituteController extends GetxController {
     );
   }
 
+  Future<List<Assessment>> fetchPublicAssessments() async {
+    return Get.find<AssessmentController>()
+        .fetchPublicAssessmentsByRef(institute.value.publicAssessmentRefs);
+  }
+
   void handleProfileSharing() {
     Share.share(
       '''Visit this profile of *${institute.value.name}* in Edukit

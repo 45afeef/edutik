@@ -18,7 +18,9 @@ class AssessmentTabBarView extends GetWidget<InstituteController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder<List<Assessment>>(
-        future: controller.fetchInstitutesAssessments(),
+        future: _isAdmin()
+            ? controller.fetchInstitutesAssessments()
+            : controller.fetchPublicAssessments(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Center(
@@ -30,16 +32,17 @@ class AssessmentTabBarView extends GetWidget<InstituteController> {
           }
 
           List<Assessment> allAssessments = snapshot.data!;
-          List<Assessment> publicAssessments = institute.publicAssessmentRefs !=
-                  null
+          List<Assessment> publicAssessments = allAssessments
+              .where((assessment) =>
+                  institute.publicAssessmentRefs!.contains(assessment.id))
+              .toList();
+          List<Assessment> privateAssessments = _isAdmin()
               ? allAssessments
-                  .where((assessment) =>
-                      institute.publicAssessmentRefs!.contains(assessment.id))
+                  .where(
+                      (assessment) => !publicAssessments.contains(assessment))
+                  .take(4)
                   .toList()
               : [];
-          List<Assessment> privateAssessments = allAssessments
-              .where((assessment) => !publicAssessments.contains(assessment))
-              .toList();
 
           return SingleChildScrollView(
             child: Column(
@@ -71,33 +74,35 @@ class AssessmentTabBarView extends GetWidget<InstituteController> {
                           );
                         },
                       ),
-                Text('private_assessments'.tr),
-                privateAssessments.isEmpty
-                    ? EmptyItem(itemName: 'private_assessments'.tr)
-                    : ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: privateAssessments.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final assessment = privateAssessments[index];
+                if (_isAdmin()) ...[
+                  Text('private_assessments'.tr),
+                  privateAssessments.isEmpty
+                      ? EmptyItem(itemName: 'private_assessments'.tr)
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: privateAssessments.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final assessment = privateAssessments[index];
 
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Card(
-                              child: ListTile(
-                                leading: Text('${index + 1}'),
-                                title: Text(assessment.name),
-                                onTap: () {
-                                  Get.toNamed(
-                                    AppRoute.assessmentPage.replaceFirst(
-                                        ':id', '${assessment.id}'),
-                                  );
-                                },
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Card(
+                                child: ListTile(
+                                  leading: Text('${index + 1}'),
+                                  title: Text(assessment.name),
+                                  onTap: () {
+                                    Get.toNamed(
+                                      AppRoute.assessmentPage.replaceFirst(
+                                          ':id', '${assessment.id}'),
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                      ),
+                            );
+                          },
+                        ),
+                ],
               ],
             ),
           );
