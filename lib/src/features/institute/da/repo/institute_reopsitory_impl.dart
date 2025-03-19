@@ -42,7 +42,10 @@ class InstituteReopsitoryImpl extends InstituteRepository {
 
   @override
   Future<void> update(String modelId, json) {
-    // TODO: implement update
-    throw UnimplementedError();
+    return databaseService.updateData(
+      collection: _tableOrCollectionName,
+      documentId: modelId,
+      data: json,
+    );
   }
 }

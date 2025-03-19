@@ -62,13 +62,22 @@ class AssessmentTabBarView extends GetWidget<InstituteController> {
                             child: Card(
                               child: ListTile(
                                 leading: Text('${index + 1}'),
-                                title: const Text('Public Assessment'),
+                                title: Text(assessment.name),
                                 onTap: () {
                                   Get.toNamed(
                                     AppRoute.assessmentPage.replaceFirst(
                                         ':id', '${assessment.id}'),
                                   );
                                 },
+                                trailing: _isAdmin()
+                                    ? IconButton(
+                                        icon: const Icon(Icons.remove_circle),
+                                        onPressed: () {
+                                          controller.removeAssessmentFromPublic(
+                                              assessment.id!);
+                                        },
+                                      )
+                                    : null,
                               ),
                             ),
                           );
@@ -97,6 +106,13 @@ class AssessmentTabBarView extends GetWidget<InstituteController> {
                                           ':id', '${assessment.id}'),
                                     );
                                   },
+                                  trailing: IconButton(
+                                    icon: const Icon(Icons.public),
+                                    onPressed: () {
+                                      controller.addAssessmentToPublic(
+                                          assessment.id!);
+                                    },
+                                  ),
                                 ),
                               ),
                             );

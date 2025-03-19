@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
@@ -22,6 +23,12 @@ class InstituteController extends GetxController {
   Map<String, Institute> instituteCache = <String, Institute>{};
 
   final CourseController _courseController = Get.find<CourseController>();
+
+  Future<void> addAssessmentToPublic(String assessmentId) async {
+    await _repo.update(institute.value.id!, {
+      'publicAssessmentRefs': FieldValue.arrayUnion([assessmentId])
+    });
+  }
 
   Future<List<BatchEntity>> fetchCourseBatches(String courseId) {
     return _courseController.fetchBatches(courseId);
@@ -79,6 +86,12 @@ You can attempt free public exams here.
     Clipboard.setData(ClipboardData(
         text: 'Check out this institute: ${institute.value.name}'));
     Get.snackbar('Share', 'Institute link copied to clipboard');
+  }
+
+  Future<void> removeAssessmentFromPublic(String assessmentId) async {
+    await _repo.update(institute.value.id!, {
+      'publicAssessmentRefs': FieldValue.arrayRemove([assessmentId])
+    });
   }
 
   Future<void> saveCourseBatch(BatchModel model) {
