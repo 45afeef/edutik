@@ -8,8 +8,8 @@ import '../../../courses/do/entities/batch.dart';
 import '../../../courses/do/entities/course.dart';
 import '../../../courses/p/w/batch_list.dart';
 import '../../../courses/p/w/course_list.dart';
-import '../../../homepage/p/w/empty_item.dart';
-import '../../../homepage/p/w/loading.dart';
+import '../../../../widgets/empty_item.dart';
+import '../../../../widgets/loading.dart';
 import '../../do/entity/institute.dart';
 import '../controllers/institute_controller.dart';
 

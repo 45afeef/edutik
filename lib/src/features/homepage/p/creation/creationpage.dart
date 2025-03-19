@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../utils/routing/approute.dart';
-import '../w/adaptive_grid.dart';
+import '../../../../widgets/adaptive_grid.dart';
 import 'p/creation_controller.dart';
 import 'p/w/rounder_image_with_button.dart';
 import 'p/w/shorts_creation_widget.dart';

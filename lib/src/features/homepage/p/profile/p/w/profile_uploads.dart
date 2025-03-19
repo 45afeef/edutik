@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '/src/features/homepage/p/w/upcomming_feature.dart';
+import '../../../../../../widgets/upcomming_feature.dart';
 import 'joined_batches.dart';
 import 'quizzes_grid_widget.dart';
 

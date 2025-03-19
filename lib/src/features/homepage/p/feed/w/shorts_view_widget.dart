@@ -5,7 +5,7 @@ import 'package:video_player/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../do/shorts_entity.dart';
-import '../../w/loading.dart';
+import '../../../../../widgets/loading.dart';
 
 class ShortView extends StatefulWidget {
   final ShortsEntity data;

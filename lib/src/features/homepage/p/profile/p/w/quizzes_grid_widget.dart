@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/src/features/homepage/p/profile/p/profile_controller.dart';
-import '/src/features/homepage/p/w/loading.dart';
+import '../../../../../../widgets/loading.dart';
 import '/utils/routing/approute.dart';
-import '../../../w/empty_item.dart';
+import '../../../../../../widgets/empty_item.dart';
 
 class QuizzesGrid extends GetWidget<ProfileController> {
   const QuizzesGrid({super.key});

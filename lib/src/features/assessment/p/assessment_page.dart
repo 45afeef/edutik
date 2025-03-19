@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/routing/approute.dart';
-import '../../homepage/p/w/loading.dart';
+import '../../../widgets/loading.dart';
 import '../do/assessment.dart';
 import '../do/assessment_item.dart';
 import '../do/closed_ended/flashcard.dart';

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../homepage/p/w/empty_item.dart';
-import '../../homepage/p/w/loading.dart';
-import '../../homepage/p/w/upcomming_feature.dart';
+import '../../../widgets/empty_item.dart';
+import '../../../widgets/loading.dart';
+import '../../../widgets/upcomming_feature.dart';
 import '../do/entity/institute.dart';
 import 'controllers/institute_controller.dart';
 import 'w/assessment_tab_view.dart';

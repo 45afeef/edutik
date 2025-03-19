@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../homepage/p/w/multi_selection_page.dart';
+import '../../../widgets/multi_selection_page.dart';
 import '../../institute/do/entity/institute.dart';
 import '../controllers/course_controller.dart';
 import '../do/entities/batch.dart';

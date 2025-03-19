@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import '../../../../../utils/routing/approute.dart';
 import '../../../assessment/do/assessment.dart';
 import '../../../authentication/auth_service.dart';
-import '../../../homepage/p/w/empty_item.dart';
-import '../../../homepage/p/w/loading.dart';
+import '../../../../widgets/empty_item.dart';
+import '../../../../widgets/loading.dart';
 import '../../do/entity/institute.dart';
 import '../controllers/institute_controller.dart';
 

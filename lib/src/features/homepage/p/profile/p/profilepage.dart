@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/src/features/authentication/auth_service.dart';
-import '/src/features/homepage/p/w/loading.dart';
+import '../../../../../widgets/loading.dart';
 import '/utils/routing/approute.dart';
 import '/utils/theme/theme_controller.dart';
 import 'profile_controller.dart';

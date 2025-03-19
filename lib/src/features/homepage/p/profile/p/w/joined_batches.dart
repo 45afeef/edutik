@@ -5,7 +5,7 @@ import '/src/features/courses/p/w/batch_list.dart';
 import '../../../../../../../utils/routing/approute.dart';
 import '../../../../../courses/controllers/batch_request_controller.dart';
 import '../../../../../courses/do/entities/batch.dart';
-import '../../../w/loading.dart';
+import '../../../../../../widgets/loading.dart';
 import '../profile_controller.dart';
 
 class JoinedBatches extends GetWidget<ProfileController> {
