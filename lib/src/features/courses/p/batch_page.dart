@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../widgets/multi_selection_page.dart';
+import '../../assessment/do/assessment.dart';
 import '../../institute/do/entity/institute.dart';
+import '../../institute/p/controllers/institute_controller.dart';
 import '../controllers/course_controller.dart';
 import '../do/entities/batch.dart';
 
-class BatchPage extends GetWidget<CourseController> {
+class BatchPage extends StatelessWidget {
   const BatchPage({super.key});
 
   @override
@@ -37,20 +39,26 @@ class BatchPage extends GetWidget<CourseController> {
       floatingActionButton: isEditor
           ? FloatingActionButton(
               onPressed: () async {
-                final List<String>? selectedAssessments =
-                    await Get.to<List<String>>(
-                  () => MultiSelectionPage<String>(
-                    items: const [
-                      'controller.availableAssessments',
-                      'fgs',
-                      'dfg'
-                    ],
+                final CourseController courseController =
+                    Get.find<CourseController>();
+
+                final InstituteController instituteController =
+                    Get.find<InstituteController>();
+
+                var assessments =
+                    await instituteController.fetchInstitutesAssessments();
+
+                final List<Assessment>? selectedAssessments =
+                    await Get.to<List<Assessment>>(
+                  () => MultiSelectionPage<Assessment>(
+                    items: assessments,
                     title: 'Select Assessments',
                     searchHint: 'Search assessments...',
-                    searchPredicate: (assessment, query) =>
-                        assessment.toLowerCase().contains(query.toLowerCase()),
+                    searchPredicate: (assessment, query) => assessment.name
+                        .toLowerCase()
+                        .contains(query.toLowerCase()),
                     itemBuilder: (assessment, isSelected) => ListTile(
-                      title: Text(assessment),
+                      title: Text(assessment.name),
                       trailing: isSelected
                           ? const Icon(Icons.check_circle, color: Colors.green)
                           : null,
@@ -62,8 +70,12 @@ class BatchPage extends GetWidget<CourseController> {
                     selectedAssessments.isNotEmpty) {
                   // Handle the selected assessments
                   // You might want to add these to the batch
-                  // controller.addAssessmentsToBatch(
-                  //     batch.id!, selectedAssessments);
+                  courseController.addAssessmentsToBatch(
+                      batch.id!,
+                      batch.courseId,
+                      selectedAssessments
+                          .map((assessment) => assessment.id!)
+                          .toList());
                 }
               },
               child: const Icon(Icons.add),

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/database/database_service.dart';
@@ -19,6 +20,17 @@ class CourseController extends GetxController {
 
   /// Cache for storing courses
   Map<String, Course> coursesCache = <String, Course>{};
+
+  void addAssessmentsToBatch(
+    String batchId,
+    String courseId,
+    List<String> selectedAssessments,
+  ) {
+    updateBatch(batchId, {
+      'assessments': FieldValue.arrayUnion(selectedAssessments),
+      'courseId': courseId,
+    });
+  }
 
   /// Fetches all available courses from the repository
   Future<List<Course>> fetchAllCourses(
@@ -44,8 +56,6 @@ class CourseController extends GetxController {
   }
 
   Future<List<BatchEntity>> fetchBatches(String courseId) async {
-    // TODO Build query depending up
-
     return _batchRepo.readAll(courseId);
   }
 

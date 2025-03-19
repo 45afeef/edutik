@@ -79,18 +79,20 @@ class BatchRepositoryImpl implements BatchRepository {
     if (databaseService is! FirebaseService) {
       // TODO: implement update
       throw UnimplementedError();
+    } else {
+      assert(json.containsKey('courseId'), 'The json must include a courseId');
+
+      var courseId = json.remove('courseId');
+
+      var dataSourcePath = databaseService is FirebaseService
+          ? '$kCourseTableName/$courseId/$_tableOrCollectionName'
+          : _tableOrCollectionName;
+
+      return await databaseService.updateData(
+        collection: dataSourcePath,
+        documentId: modelId,
+        data: json,
+      );
     }
-
-    var courseId = json.remove('courseId');
-
-    var dataSourcePath = databaseService is FirebaseService
-        ? '$kCourseTableName/$courseId/$_tableOrCollectionName'
-        : _tableOrCollectionName;
-
-    return await databaseService.updateData(
-      collection: dataSourcePath,
-      documentId: modelId,
-      data: json,
-    );
   }
 }

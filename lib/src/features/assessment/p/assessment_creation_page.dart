@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../../courses/p/batch_page.dart';
 import '../../homepage/p/creation/creationpage.dart';
 import '../../institute/p/w/assessment_tab_view.dart';
 import '../do/closed_ended/mcq.dart';
@@ -24,7 +23,6 @@ import 'controllers/assessment_creation_controller.dart';
 /// Used from the following widget:
 /// - [CreationPage] (individual mode)
 /// - [AssessmentTabBarView] (institute mode)
-/// - [BatchPage] (institute mode)
 
 class AssessmentCreationPage extends StatefulWidget {
   const AssessmentCreationPage({super.key});
