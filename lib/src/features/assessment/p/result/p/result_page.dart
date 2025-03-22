@@ -48,43 +48,15 @@ class AssessmentResultPage extends StatelessWidget {
                     return SizedBox(
                       height: 160,
                       child: FlipCard(
-                        front: Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Text('${index + 1}) ${item.question}'),
-                                const Spacer(),
-                                Text(
-                                  response?.studentAnswer ?? "-",
-                                  textAlign: TextAlign.end,
-                                  style: TextStyle(
-                                      // TODO: Resove this bug, null check operator used on a null value
-                                      // BUG: response.studentAnswer == null
-                                      // FIX: response?.studentAnswer == null
-                                      // That is what i want to say
-
-                                      color: response!.studentAnswer == null
-                                          ? null
-                                          : response.studentAnswer ==
-                                                  response.currectAnswer
-                                              ? Colors.green
-                                              : Colors.red),
-                                ),
-                                Text(
-                                  response.timeTakenInMillisecond
-                                      .toReadableTimeDelta(),
-                                  textAlign: TextAlign.end,
-                                ),
-                              ],
-                            ),
-                          ),
+                        front: ResultItem(
+                          index: index,
+                          item: item,
+                          response: response,
                         ),
                         back: Card(
                           child: Center(
                             child: Text(
-                              answer ?? 'correct_answer_unawailable'.tr,
+                              answer ?? 'correct_answer_unavailable'.tr,
                             ),
                           ),
                         ),
@@ -95,6 +67,56 @@ class AssessmentResultPage extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class ResultItem extends StatelessWidget {
+  final int index;
+
+  final AssessmentItem item;
+
+  final AssessmentItemResponse? response;
+
+  const ResultItem({
+    super.key,
+    required this.index,
+    required this.item,
+    required this.response,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Question number and question
+            Text('${index + 1}) ${item.question}'),
+            const Spacer(),
+            // Selected Answer by the student.
+            if (response?.studentAnswer != null)
+              Text(
+                response?.studentAnswer ?? "-",
+                textAlign: TextAlign.end,
+                style: TextStyle(
+                  color: response!.studentAnswer == null
+                      ? null
+                      : response!.studentAnswer == response!.currectAnswer
+                          ? Colors.green
+                          : Colors.red,
+                ),
+              ),
+            // Time taken to answer the question
+            Text(
+              (response?.timeTakenInMillisecond ?? 0).toReadableTimeDelta(),
+              textAlign: TextAlign.end,
+            )
+          ],
         ),
       ),
     );

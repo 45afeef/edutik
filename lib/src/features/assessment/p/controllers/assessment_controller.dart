@@ -177,6 +177,14 @@ class AssessmentController extends GetxController {
     super.onClose();
   }
 
+  // Reset all variables
+  void reset() {
+    assessmentResult = AssessmentResult().obs;
+    currentQuestionIndex.value = -1;
+  }
+
+  void saveResult() {}
+
   /// Starts the exam and initializes the timer
   void startExam() {
     if (assessment.value == Assessment.empty()) return;
@@ -190,12 +198,10 @@ class AssessmentController extends GetxController {
 
   /// Stops the exam and resets variables
   void stopExam() {
+    currentQuestionIndex.value = -1;
+
     // Cancel the timer to prevent memory leaks
     _timer?.cancel();
-
-    // Reset all variables
-    assessmentResult = AssessmentResult().obs;
-    currentQuestionIndex.value = -1;
   }
 
   /// Returns the total time spent on a specific question in a readable format

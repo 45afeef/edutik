@@ -56,8 +56,7 @@ class AssessmentPage extends GetWidget<AssessmentController> {
       return UnSupportedAssessmentItemTypeWidget();
     }
 
-    final String assessmentId =
-        Get.parameters['id']!; // Updated to use Get.parameters
+    final String assessmentId = Get.parameters['id']!;
 
     return Scaffold(
       body: SafeArea(
@@ -76,60 +75,65 @@ class AssessmentPage extends GetWidget<AssessmentController> {
                 return const CustomProgressIndicator();
               }
 
-              return Obx(() => !controller.isExamStarted
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text("msg_confirm_exam".tr),
+              return Obx(
+                () => !controller.isExamStarted
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text("msg_confirm_exam".tr),
+                            ),
                           ),
-                        ),
-                        ElevatedButton(
-                          onPressed: controller.startExam,
-                          child: Text("lbl_start_exam".tr),
-                        ),
-                      ],
-                    )
-                  : Column(
-                      children: controller.assessment.value.items.isEmpty
-                          ? [Center(child: Text('lbl_no_questions_found'.tr))]
-                          : [
-                              LinearProgressIndicator(
-                                value: (controller.currentQuestionIndex.value +
-                                        1) /
-                                    controller.assessment.value.items.length,
-                              ),
-                              Expanded(
-                                child: PageView(
-                                  onPageChanged: (value) {
-                                    // Update the current question.
-                                    // Why this check - to make sure the last page is shown well, as the last page is not a question page, but a submit page.
-                                    if (value.isLowerThan(controller
-                                        .assessment.value.items.length)) {
-                                      controller.currentQuestion = value;
-                                    }
-                                    HapticFeedback.mediumImpact();
-                                  },
-                                  scrollDirection: Axis.vertical,
-                                  children: [
-                                    ...controller.assessment.value.items.map(
-                                      (assessmentItem) => Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Center(
-                                            child: buildAssessmentWidget(
-                                                assessmentItem)),
-                                      ),
-                                    ),
-                                    CompletedWidget(onComplete: () {
-                                      Get.toNamed(AppRoute.resultPage);
-                                    })
-                                  ],
+                          ElevatedButton(
+                            onPressed: controller.startExam,
+                            child: Text("lbl_start_exam".tr),
+                          ),
+                        ],
+                      )
+                    : Column(
+                        children: controller.assessment.value.items.isEmpty
+                            ? [Center(child: Text('lbl_no_questions_found'.tr))]
+                            : [
+                                LinearProgressIndicator(
+                                  value: (controller
+                                              .currentQuestionIndex.value +
+                                          1) /
+                                      controller.assessment.value.items.length,
                                 ),
-                              ),
-                            ],
-                    ));
+                                Expanded(
+                                  child: PageView(
+                                    onPageChanged: (value) {
+                                      // Update the current question.
+                                      // Why this check - to make sure the last page is shown well, as the last page is not a question page, but a submit page.
+                                      if (value.isLowerThan(controller
+                                          .assessment.value.items.length)) {
+                                        controller.currentQuestion = value;
+                                      }
+                                      HapticFeedback.mediumImpact();
+                                    },
+                                    scrollDirection: Axis.vertical,
+                                    children: [
+                                      ...controller.assessment.value.items.map(
+                                        (assessmentItem) => Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Center(
+                                              child: buildAssessmentWidget(
+                                            assessmentItem,
+                                          )),
+                                        ),
+                                      ),
+                                      CompletedWidget(onComplete: () {
+                                        Get.toNamed(AppRoute.resultPage);
+                                        controller.stopExam();
+                                      })
+                                    ],
+                                  ),
+                                ),
+                              ],
+                      ),
+              );
             },
           ),
         ),
