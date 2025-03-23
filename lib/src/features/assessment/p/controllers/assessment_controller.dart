@@ -6,7 +6,9 @@ import 'package:share_plus/share_plus.dart';
 
 import '/utils/date_time_utils.dart';
 import '/utils/routing/approute.dart';
+import '../../../authentication/auth_service.dart';
 import '../../../homepage/do/content.dart';
+import '../../da/mapper/assessment_result_firestore_mapper.dart';
 import '../../do/assessment.dart';
 import '../../do/assessment_item.dart';
 import '../../do/closed_ended/mcq.dart';
@@ -21,9 +23,11 @@ class AssessmentController extends GetxController {
 
   /// Repository for accessing assessment data
   final AssessmentRepository _repo = Get.find<AssessmentRepository>();
+  final AssessmentResultRepository _assessmentResultRepo =
+      Get.find<AssessmentResultRepository>();
 
   /// Holds the result of the assessment, including user inputs and time taken per question
-  Rx<AssessmentResult> assessmentResult = AssessmentResult().obs;
+  late Rx<AssessmentResult> assessmentResult;
 
   /// Holds the current assessment being taken
   Rx<Assessment> assessment = Assessment.empty().obs;
@@ -183,11 +187,25 @@ class AssessmentController extends GetxController {
     currentQuestionIndex.value = -1;
   }
 
-  void saveResult() {}
+  void saveResult() {
+    final assessmentResultModel =
+        AssessmentResultMapper.fromEntity(assessmentResult.value);
+    _assessmentResultRepo.create(assessmentResultModel);
+  }
 
   /// Starts the exam and initializes the timer
   void startExam() {
     if (assessment.value == Assessment.empty()) return;
+
+    // Initialize the assessment result with the current assessment
+    var studentId = AuthService().currentUser?.uid;
+    if (studentId == null) return;
+    
+    assessmentResult = AssessmentResult(
+      initialResponse: {},
+      assessmentId: assessment.value.id,
+      studentId: studentId,
+    ).obs;
 
     currentQuestionIndex.value = 0;
 
@@ -196,7 +214,7 @@ class AssessmentController extends GetxController {
     _timer = Timer.periodic(1.seconds, (_) => _updateElapsedTime());
   }
 
-  /// Stops the exam and resets variables
+  /// Stops the exam and cancel the timer
   void stopExam() {
     currentQuestionIndex.value = -1;
 

@@ -25,7 +25,7 @@ class AssessmentPage extends GetWidget<AssessmentController> {
   @override
   Widget build(BuildContext context) {
     // handle the UI of each assessment item based on type
-    AssessmentWidget buildAssessmentWidget(AssessmentItem assessmentItem) {
+    AssessmentWidget renderAssessmentWidget(AssessmentItem assessmentItem) {
       if (assessmentItem is MCQ) {
         return MCQWidget(
           item: assessmentItem,
@@ -119,14 +119,17 @@ class AssessmentPage extends GetWidget<AssessmentController> {
                                         (assessmentItem) => Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Center(
-                                              child: buildAssessmentWidget(
-                                            assessmentItem,
-                                          )),
+                                            child: renderAssessmentWidget(
+                                              assessmentItem,
+                                            ),
+                                          ),
                                         ),
                                       ),
+                                      // Submit page
                                       CompletedWidget(onComplete: () {
                                         Get.toNamed(AppRoute.resultPage);
                                         controller.stopExam();
+                                        controller.saveResult();
                                       })
                                     ],
                                   ),

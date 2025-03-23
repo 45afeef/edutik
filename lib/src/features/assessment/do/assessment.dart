@@ -31,10 +31,15 @@ class Assessment extends Content {
 
 class AssessmentResult {
   Map<int, AssessmentItemResponse> studentResponse;
+  String? assessmentId;
+  String? studentId;
 
   // Constructor
-  AssessmentResult({Map<int, AssessmentItemResponse>? initialResponse})
-      : studentResponse = initialResponse ?? {};
+  AssessmentResult({
+    Map<int, AssessmentItemResponse>? initialResponse,
+    this.assessmentId,
+    this.studentId,
+  }) : studentResponse = initialResponse ?? {};
 
   AssessmentItemResponse? getItemResponse(int index) => studentResponse[index];
 

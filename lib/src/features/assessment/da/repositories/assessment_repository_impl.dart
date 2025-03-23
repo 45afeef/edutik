@@ -3,6 +3,7 @@ import '../../../homepage/do/content.dart';
 import '../../do/repositories/assessment_repository.dart';
 import '../models/assessment_model.dart';
 
+const String kAssessmentsTableName = _tableOrCollectionName;
 const String _tableOrCollectionName = 'assessments';
 
 class AssessmentRepositoryImpl implements AssessmentRepository {

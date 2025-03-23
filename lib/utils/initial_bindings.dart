@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
 
 import '../src/features/assessment/da/repositories/assessment_repository_impl.dart';
+import '../src/features/assessment/da/repositories/assessment_result_repository_impl.dart';
 import '../src/features/assessment/do/repositories/assessment_repository.dart';
 import '../src/features/courses/da/repo/batch_request_repository_impl.dart';
 import '../src/features/courses/da/repo/course_repository_impl.dart';
@@ -40,6 +41,9 @@ class InitialBindings extends Bindings {
     );
     Get.put<AssessmentRepository>(
       AssessmentRepositoryImpl(Get.find<DatabaseService>()),
+    );
+    Get.put<AssessmentResultRepository>(
+      AssessmentResultRepositoryImpl(Get.find<DatabaseService>()),
     );
     Get.put<InstituteRepository>(
       InstituteReopsitoryImpl(Get.find<DatabaseService>()),
