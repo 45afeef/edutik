@@ -233,6 +233,8 @@ mixin _$AssessmentResultModel {
       throw _privateConstructorUsedError;
   String get assessmentId => throw _privateConstructorUsedError;
   String get studentId => throw _privateConstructorUsedError;
+  String? get utmSource => throw _privateConstructorUsedError;
+  String? get campaign => throw _privateConstructorUsedError;
 
   /// Serializes this AssessmentResultModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -253,7 +255,9 @@ abstract class $AssessmentResultModelCopyWith<$Res> {
   $Res call(
       {Map<int, AssessmentItemResponseModel> studentResponse,
       String assessmentId,
-      String studentId});
+      String studentId,
+      String? utmSource,
+      String? campaign});
 }
 
 /// @nodoc
@@ -275,6 +279,8 @@ class _$AssessmentResultModelCopyWithImpl<$Res,
     Object? studentResponse = null,
     Object? assessmentId = null,
     Object? studentId = null,
+    Object? utmSource = freezed,
+    Object? campaign = freezed,
   }) {
     return _then(_value.copyWith(
       studentResponse: null == studentResponse
@@ -289,6 +295,14 @@ class _$AssessmentResultModelCopyWithImpl<$Res,
           ? _value.studentId
           : studentId // ignore: cast_nullable_to_non_nullable
               as String,
+      utmSource: freezed == utmSource
+          ? _value.utmSource
+          : utmSource // ignore: cast_nullable_to_non_nullable
+              as String?,
+      campaign: freezed == campaign
+          ? _value.campaign
+          : campaign // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -305,7 +319,9 @@ abstract class _$$AssessmentResultModelImplCopyWith<$Res>
   $Res call(
       {Map<int, AssessmentItemResponseModel> studentResponse,
       String assessmentId,
-      String studentId});
+      String studentId,
+      String? utmSource,
+      String? campaign});
 }
 
 /// @nodoc
@@ -325,6 +341,8 @@ class __$$AssessmentResultModelImplCopyWithImpl<$Res>
     Object? studentResponse = null,
     Object? assessmentId = null,
     Object? studentId = null,
+    Object? utmSource = freezed,
+    Object? campaign = freezed,
   }) {
     return _then(_$AssessmentResultModelImpl(
       studentResponse: null == studentResponse
@@ -339,6 +357,14 @@ class __$$AssessmentResultModelImplCopyWithImpl<$Res>
           ? _value.studentId
           : studentId // ignore: cast_nullable_to_non_nullable
               as String,
+      utmSource: freezed == utmSource
+          ? _value.utmSource
+          : utmSource // ignore: cast_nullable_to_non_nullable
+              as String?,
+      campaign: freezed == campaign
+          ? _value.campaign
+          : campaign // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -349,7 +375,9 @@ class _$AssessmentResultModelImpl implements _AssessmentResultModel {
   _$AssessmentResultModelImpl(
       {required final Map<int, AssessmentItemResponseModel> studentResponse,
       required this.assessmentId,
-      required this.studentId})
+      required this.studentId,
+      this.utmSource,
+      this.campaign})
       : _studentResponse = studentResponse;
 
   factory _$AssessmentResultModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -367,10 +395,14 @@ class _$AssessmentResultModelImpl implements _AssessmentResultModel {
   final String assessmentId;
   @override
   final String studentId;
+  @override
+  final String? utmSource;
+  @override
+  final String? campaign;
 
   @override
   String toString() {
-    return 'AssessmentResultModel(studentResponse: $studentResponse, assessmentId: $assessmentId, studentId: $studentId)';
+    return 'AssessmentResultModel(studentResponse: $studentResponse, assessmentId: $assessmentId, studentId: $studentId, utmSource: $utmSource, campaign: $campaign)';
   }
 
   @override
@@ -383,7 +415,11 @@ class _$AssessmentResultModelImpl implements _AssessmentResultModel {
             (identical(other.assessmentId, assessmentId) ||
                 other.assessmentId == assessmentId) &&
             (identical(other.studentId, studentId) ||
-                other.studentId == studentId));
+                other.studentId == studentId) &&
+            (identical(other.utmSource, utmSource) ||
+                other.utmSource == utmSource) &&
+            (identical(other.campaign, campaign) ||
+                other.campaign == campaign));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -392,7 +428,9 @@ class _$AssessmentResultModelImpl implements _AssessmentResultModel {
       runtimeType,
       const DeepCollectionEquality().hash(_studentResponse),
       assessmentId,
-      studentId);
+      studentId,
+      utmSource,
+      campaign);
 
   /// Create a copy of AssessmentResultModel
   /// with the given fields replaced by the non-null parameter values.
@@ -415,7 +453,9 @@ abstract class _AssessmentResultModel implements AssessmentResultModel {
   factory _AssessmentResultModel(
       {required final Map<int, AssessmentItemResponseModel> studentResponse,
       required final String assessmentId,
-      required final String studentId}) = _$AssessmentResultModelImpl;
+      required final String studentId,
+      final String? utmSource,
+      final String? campaign}) = _$AssessmentResultModelImpl;
 
   factory _AssessmentResultModel.fromJson(Map<String, dynamic> json) =
       _$AssessmentResultModelImpl.fromJson;
@@ -426,6 +466,10 @@ abstract class _AssessmentResultModel implements AssessmentResultModel {
   String get assessmentId;
   @override
   String get studentId;
+  @override
+  String? get utmSource;
+  @override
+  String? get campaign;
 
   /// Create a copy of AssessmentResultModel
   /// with the given fields replaced by the non-null parameter values.

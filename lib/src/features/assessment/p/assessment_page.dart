@@ -24,7 +24,7 @@ class AssessmentPage extends GetWidget<AssessmentController> {
 
   @override
   Widget build(BuildContext context) {
-    // handle the UI of each assessment item based on type
+    // Render the appropriate widget for each assessment item based on its type
     AssessmentWidget renderAssessmentWidget(AssessmentItem assessmentItem) {
       if (assessmentItem is MCQ) {
         return MCQWidget(
@@ -52,11 +52,25 @@ class AssessmentPage extends GetWidget<AssessmentController> {
         );
       }
 
-      // Unsupported AssessmentItem type
+      // Fallback for unsupported assessment item types
       return UnSupportedAssessmentItemTypeWidget();
     }
 
     final String assessmentId = Get.parameters['id']!;
+    // Extract UTM parameters for tracking purposes
+    /// Currently the following utm_soucres and campaign are supported:
+    /// ***************************************************************************************************************************
+    /// |  utmSource          |   campaign                                                          |   Purpose                   |
+    /// |---------------------|---------------------------------------------------------------------|-----------------------------|
+    /// |  batch              |   $kCourseTableName/${batch.courseId}/$kBatchTableName/${batch.id}  |   Used in app routing       |
+    /// |  user-profile       |   $kUsersTableName/${controller.userProfile.value.uid}              |   Used in app routing       |
+    /// |  institute-profile  |   $kInstituteTableName/$instituteId or null                         |   Used in app routing       |
+    /// |  social             |   $kUsersTableName/${AuthService().currentUser?.uid}                |   Used sharing through url  |
+    /// ***************************************************************************************************************************
+    /// 
+
+    final String? utmSource = Get.parameters['utm_source'];
+    final String? campaign = Get.parameters['campaign'];
 
     return Scaffold(
       body: SafeArea(
@@ -65,6 +79,7 @@ class AssessmentPage extends GetWidget<AssessmentController> {
             future: controller.fetchAssessment(assessmentId),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
+                // Display error message if assessment fails to load
                 return Card(
                   child: Text(
                     '${'msg_error_loading_assessment'.tr}.${snapshot.error}',
@@ -72,6 +87,7 @@ class AssessmentPage extends GetWidget<AssessmentController> {
                 );
               }
               if (!snapshot.hasData) {
+                // Show loading indicator while fetching assessment
                 return const CustomProgressIndicator();
               }
 
@@ -80,6 +96,7 @@ class AssessmentPage extends GetWidget<AssessmentController> {
                     ? Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          // Display confirmation message before starting the exam
                           Card(
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -87,15 +104,22 @@ class AssessmentPage extends GetWidget<AssessmentController> {
                             ),
                           ),
                           ElevatedButton(
-                            onPressed: controller.startExam,
+                            onPressed: () => controller.startExam(
+                              utmSource: utmSource,
+                              campaign: campaign,
+                            ),
                             child: Text("lbl_start_exam".tr),
                           ),
                         ],
                       )
                     : Column(
                         children: controller.assessment.value.items.isEmpty
-                            ? [Center(child: Text('lbl_no_questions_found'.tr))]
+                            ? [
+                                // Show message if no questions are found
+                                Center(child: Text('lbl_no_questions_found'.tr))
+                              ]
                             : [
+                                // Display progress indicator for the exam
                                 LinearProgressIndicator(
                                   value: (controller
                                               .currentQuestionIndex.value +
@@ -105,7 +129,7 @@ class AssessmentPage extends GetWidget<AssessmentController> {
                                 Expanded(
                                   child: PageView(
                                     onPageChanged: (value) {
-                                      // Update the current question.
+                                      // Update the current question index.
                                       // Why this check - to make sure the last page is shown well, as the last page is not a question page, but a submit page.
                                       if (value.isLowerThan(controller
                                           .assessment.value.items.length)) {
@@ -115,6 +139,7 @@ class AssessmentPage extends GetWidget<AssessmentController> {
                                     },
                                     scrollDirection: Axis.vertical,
                                     children: [
+                                      // Render each assessment item
                                       ...controller.assessment.value.items.map(
                                         (assessmentItem) => Padding(
                                           padding: const EdgeInsets.all(8.0),
@@ -125,7 +150,7 @@ class AssessmentPage extends GetWidget<AssessmentController> {
                                           ),
                                         ),
                                       ),
-                                      // Submit page
+                                      // Display the submit page at the end
                                       CompletedWidget(onComplete: () {
                                         Get.toNamed(AppRoute.resultPage);
                                         controller.stopExam();

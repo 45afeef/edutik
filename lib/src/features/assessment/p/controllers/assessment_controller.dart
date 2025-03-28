@@ -8,6 +8,7 @@ import '/utils/date_time_utils.dart';
 import '/utils/routing/approute.dart';
 import '../../../authentication/auth_service.dart';
 import '../../../homepage/do/content.dart';
+import '../../../homepage/p/profile/da/profile_repository_impl.dart';
 import '../../da/mapper/assessment_result_firestore_mapper.dart';
 import '../../do/assessment.dart';
 import '../../do/assessment_item.dart';
@@ -206,20 +207,31 @@ class AssessmentController extends GetxController {
     final assessmentResultModel =
         AssessmentResultMapper.fromEntity(assessmentResult.value);
     _assessmentResultRepo.create(assessmentResultModel);
+
+    // Increment the submissions count for the assessment
+    _repo.incrementFieldCount(
+      assessmentId: assessment.value.id!,
+      fieldName: 'submissionsCount',
+    );
   }
 
   /// Starts the exam and initializes the timer
-  void startExam() {
+  void startExam({
+    String? utmSource,
+    String? campaign,
+  }) {
     if (assessment.value == Assessment.empty()) return;
 
     // Initialize the assessment result with the current assessment
     var studentId = AuthService().currentUser?.uid;
     if (studentId == null) return;
-    
+
     assessmentResult = AssessmentResult(
       initialResponse: {},
       assessmentId: assessment.value.id,
       studentId: studentId,
+      utmSource: utmSource,
+      campaign: campaign,
     ).obs;
 
     currentQuestionIndex.value = 0;
@@ -227,6 +239,12 @@ class AssessmentController extends GetxController {
     // Start or reset the timer when the exam starts
     _timer?.cancel();
     _timer = Timer.periodic(1.seconds, (_) => _updateElapsedTime());
+
+    // Increment the attempts count for the assessment
+    _repo.incrementFieldCount(
+      assessmentId: assessment.value.id!,
+      fieldName: 'attemptsCount',
+    );
   }
 
   /// Stops the exam and cancel the timer

@@ -30,15 +30,21 @@ class Assessment extends Content {
 }
 
 class AssessmentResult {
+  /// [studentResponse] is a map of index and [AssessmentItemResponse]
+  /// The index is the index of the [AssessmentItem] in the [Assessment] object
   Map<int, AssessmentItemResponse> studentResponse;
   String? assessmentId;
   String? studentId;
+  String? utmSource;
+  String? campaign;
 
   // Constructor
   AssessmentResult({
     Map<int, AssessmentItemResponse>? initialResponse,
     this.assessmentId,
     this.studentId,
+    this.utmSource,
+    this.campaign,
   }) : studentResponse = initialResponse ?? {};
 
   AssessmentItemResponse? getItemResponse(int index) => studentResponse[index];

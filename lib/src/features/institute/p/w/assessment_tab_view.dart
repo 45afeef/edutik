@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../utils/routing/approute.dart';
-import '../../../assessment/do/assessment.dart';
-import '../../../authentication/auth_service.dart';
 import '../../../../widgets/empty_item.dart';
 import '../../../../widgets/loading.dart';
+import '../../../assessment/do/assessment.dart';
+import '../../../authentication/auth_service.dart';
+import '../../da/repo/institute_reopsitory_impl.dart';
 import '../../do/entity/institute.dart';
 import '../controllers/institute_controller.dart';
 
@@ -22,19 +23,21 @@ class AssessmentTabBarView extends GetWidget<InstituteController> {
             ? controller.fetchInstitutesAssessments()
             : controller.fetchPublicAssessments(),
         builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CustomProgressIndicator());
+          }
+
           if (snapshot.hasError) {
             return Center(
               child: Text('some_error_occoured_during_data_fetch'.tr),
             );
           }
-          if (!snapshot.hasData) {
-            return const Center(child: CustomProgressIndicator());
-          }
 
-          List<Assessment> allAssessments = snapshot.data!;
-          List<Assessment> publicAssessments = allAssessments
+          final allAssessments = snapshot.data ?? [];
+          final publicAssessments = allAssessments
               .where((assessment) =>
-                  institute.publicAssessmentRefs!.contains(assessment.id))
+                  institute.publicAssessmentRefs?.contains(assessment.id) ??
+                  false)
               .toList();
           List<Assessment> privateAssessments = _isAdmin()
               ? allAssessments
@@ -45,92 +48,48 @@ class AssessmentTabBarView extends GetWidget<InstituteController> {
 
           return SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('public_assessments'.tr),
-                publicAssessments.isEmpty
-                    ? EmptyItem(itemName: 'public_assessments'.tr)
-                    : ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: publicAssessments.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final assessment = publicAssessments[index];
-
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Card(
-                              child: ListTile(
-                                leading: Text('${index + 1}'),
-                                title: Text(assessment.name),
-                                onTap: () {
-                                  Get.toNamed(
-                                    AppRoute.assessmentPage.replaceFirst(
-                                        ':id', '${assessment.id}'),
-                                  );
-                                },
-                                trailing: _isAdmin()
-                                    ? IconButton(
-                                        icon: const Icon(Icons.remove_circle),
-                                        onPressed: () {
-                                          controller.removeAssessmentFromPublic(
-                                              assessment.id!);
-                                        },
-                                      )
-                                    : null,
-                              ),
-                            ),
-                          );
-                        },
-                      ),
+                _buildSectionTitle('public_assessments'.tr),
+                _AssessmentList(
+                  assessments: publicAssessments,
+                  emptyMessage: 'public_assessments'.tr,
+                  trailingBuilder: _isAdmin()
+                      ? (assessment) => IconButton(
+                            icon: const Icon(Icons.remove_circle),
+                            onPressed: () {
+                              controller
+                                  .removeAssessmentFromPublic(assessment.id!);
+                            },
+                          )
+                      : null,
+                ),
                 if (_isAdmin()) ...[
-                  Text('private_assessments'.tr),
-                  privateAssessments.isEmpty
-                      ? EmptyItem(itemName: 'private_assessments'.tr)
-                      : ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: privateAssessments.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            final assessment = privateAssessments[index];
-
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Card(
-                                child: ListTile(
-                                  leading: Text('${index + 1}'),
-                                  title: Text(assessment.name),
-                                  onTap: () {
-                                    Get.toNamed(
-                                      AppRoute.assessmentPage.replaceFirst(
-                                          ':id', '${assessment.id}'),
-                                    );
-                                  },
-                                  trailing: IconButton(
-                                    icon: const Icon(Icons.public),
-                                    onPressed: () {
-                                      controller.addAssessmentToPublic(
-                                          assessment.id!);
-                                    },
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
+                  _buildSectionTitle('private_assessments'.tr),
+                  _AssessmentList(
+                    assessments: privateAssessments,
+                    emptyMessage: 'private_assessments'.tr,
+                    instituteId: institute.id,
+                    trailingBuilder: (assessment) => IconButton(
+                      icon: const Icon(Icons.public),
+                      onPressed: () {
+                        controller.addAssessmentToPublic(assessment.id!);
+                      },
+                    ),
+                  ),
                 ],
               ],
             ),
           );
         },
       ),
-      // Add new assessment button for admin
       floatingActionButton: _isAdmin()
           ? FloatingActionButton(
               onPressed: () => Get.toNamed(
                 AppRoute.assessmentCreationPage,
                 arguments: {
                   'ownerId': institute.id,
-                  'ownerName': institute.name
+                  'ownerName': institute.name,
                 },
               ),
               child: Tooltip(
@@ -142,9 +101,71 @@ class AssessmentTabBarView extends GetWidget<InstituteController> {
     );
   }
 
+  Widget _buildSectionTitle(String title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      child: Text(
+        title,
+        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
   bool _isAdmin() {
     final AuthService auth = AuthService();
-
     return institute.editors.contains(auth.currentUser?.uid);
+  }
+}
+
+class _AssessmentList extends StatelessWidget {
+  final List<Assessment> assessments;
+  final String emptyMessage;
+  final Widget Function(Assessment)? trailingBuilder;
+  final String? instituteId;
+
+  const _AssessmentList({
+    required this.assessments,
+    required this.emptyMessage,
+    this.trailingBuilder,
+    this.instituteId,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (assessments.isEmpty) {
+      return EmptyItem(itemName: emptyMessage);
+    }
+
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: assessments.length,
+      itemBuilder: (BuildContext context, int index) {
+        final assessment = assessments[index];
+
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Card(
+            child: ListTile(
+              leading: Text('${index + 1}'),
+              title: Text(assessment.name),
+              onTap: () {
+                Get.toNamed(
+                  AppRoute.assessmentPage
+                      .replaceFirst(':id', '${assessment.id}'),
+                  parameters: {
+                    'utm_source': 'institute-profile',
+                    if (instituteId != null)
+                      'campaign': '$kInstituteTableName/$instituteId',
+                  },
+                );
+              },
+              trailing:
+                  trailingBuilder != null ? trailingBuilder!(assessment) : null,
+            ),
+          ),
+        );
+      },
+    );
   }
 }

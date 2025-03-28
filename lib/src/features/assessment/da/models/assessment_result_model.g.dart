@@ -31,6 +31,8 @@ _$AssessmentResultModelImpl _$$AssessmentResultModelImplFromJson(
       ),
       assessmentId: json['assessmentId'] as String,
       studentId: json['studentId'] as String,
+      utmSource: json['utmSource'] as String?,
+      campaign: json['campaign'] as String?,
     );
 
 Map<String, dynamic> _$$AssessmentResultModelImplToJson(
@@ -40,4 +42,6 @@ Map<String, dynamic> _$$AssessmentResultModelImplToJson(
           .map((k, e) => MapEntry(k.toString(), e.toJson())),
       'assessmentId': instance.assessmentId,
       'studentId': instance.studentId,
+      'utmSource': instance.utmSource,
+      'campaign': instance.campaign,
     };

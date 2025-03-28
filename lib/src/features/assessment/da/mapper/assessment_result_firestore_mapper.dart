@@ -20,15 +20,13 @@ class AssessmentResultMapper {
       assessmentId: entity.assessmentId!,
       studentId: entity.studentId!,
       studentResponse: studentResponse,
+      utmSource: entity.utmSource,
+      campaign: entity.campaign,
     );
   }
 
   // Converts AssessmentResultModel (Firestore data) into an AssessmentResult (domain entity)
   static AssessmentResult toEntity(AssessmentResultModel model) {
-    model.studentResponse.forEach((key, value) {
-      print('key: $key, value: $value');
-    });
-
     final convertedMap = <int, AssessmentItemResponse>{};
     model.studentResponse.forEach((key, result) {
       convertedMap[key] = AssessmentItemResponse(
@@ -42,6 +40,8 @@ class AssessmentResultMapper {
       assessmentId: model.assessmentId,
       studentId: model.studentId,
       initialResponse: convertedMap,
+      utmSource: model.utmSource,
+      campaign: model.campaign,
     );
   }
 }

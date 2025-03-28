@@ -21,6 +21,8 @@ class AssessmentResultModel with _$AssessmentResultModel {
     required Map<int, AssessmentItemResponseModel> studentResponse,
     required String assessmentId,
     required String studentId,
+    String? utmSource,
+    String? campaign,
   }) = _AssessmentResultModel;
 
   factory AssessmentResultModel.fromJson(Map<String, dynamic> json) =>

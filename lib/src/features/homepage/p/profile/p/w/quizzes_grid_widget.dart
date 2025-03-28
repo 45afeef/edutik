@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '/src/features/homepage/p/profile/p/profile_controller.dart';
-import '../../../../../../widgets/loading.dart';
 import '/utils/routing/approute.dart';
 import '../../../../../../widgets/empty_item.dart';
+import '../../../../../../widgets/loading.dart';
+import '../../da/profile_repository_impl.dart';
 
 class QuizzesGrid extends GetWidget<ProfileController> {
   const QuizzesGrid({super.key});
@@ -48,6 +49,11 @@ class QuizzesGrid extends GetWidget<ProfileController> {
                               onPressed: () => Get.toNamed(
                                 AppRoute.assessmentPage
                                     .replaceFirst(':id', assessment.id!),
+                                parameters: {
+                                  'utm_source': 'user-profile',
+                                  'campaign':
+                                      '$kUsersTableName/${controller.userProfile.value.uid}',
+                                },
                               ),
                               child: Text(
                                 assessment.name,

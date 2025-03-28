@@ -10,6 +10,8 @@ import '../../assessment/p/controllers/assessment_controller.dart';
 import '../../institute/do/entity/institute.dart';
 import '../../institute/p/controllers/institute_controller.dart';
 import '../controllers/course_controller.dart';
+import '../da/repo/batch_repository_impl.dart';
+import '../da/repo/course_repository_impl.dart';
 import '../do/entities/batch.dart';
 
 class BatchPage extends StatelessWidget {
@@ -60,6 +62,11 @@ class BatchPage extends StatelessWidget {
                       Get.toNamed(
                         AppRoute.assessmentPage
                             .replaceFirst(':id', '${assessment.id}'),
+                        parameters: {
+                          'utm_source': 'batch',
+                          'campaign':
+                              '$kCourseTableName/${batch.courseId}/$kBatchTableName/${batch.id}',
+                        },
                       );
                     },
                   ),
