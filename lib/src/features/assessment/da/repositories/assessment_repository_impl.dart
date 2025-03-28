@@ -38,39 +38,30 @@ class AssessmentRepositoryImpl implements AssessmentRepository {
   @override
   Future<void> incrementFieldCount({
     required String assessmentId,
-    required String fieldName,
-    int incrementBy = 1,
+    required Map<String, int> data,
   }) async {
     assert(assessmentId.isNotEmpty, 'Assessment ID must not be empty');
-    assert(['attemptsCount', 'submissionsCount'].contains(fieldName),
-        'Field name must be either "attemptsCount" or "submissionsCount"');
 
     try {
       await databaseService.updateData(
         collection: '$_tableOrCollectionName/$assessmentId/analytics',
         documentId: 'basic',
-        data: {
-          fieldName: FieldValue.increment(incrementBy),
-        },
+        data: data
+            .map((key, value) => MapEntry(key, FieldValue.increment(value))),
       );
     } on FirebaseException catch (e) {
-      // Handle any errors that may occur during the increment operation
-      // If the document doesn't exist, create it with the initial value
       print('Error incrementing field count: $e');
       if (e.code == 'not-found') {
-        // Document doesn't exist, create it with the initial value
         await (databaseService as FirebaseService).setData(
           collection: '$_tableOrCollectionName/$assessmentId/analytics',
           documentId: 'basic',
-          data: {
-            fieldName: FieldValue.increment(incrementBy),
-          },
+          data: data
+              .map((key, value) => MapEntry(key, FieldValue.increment(value))),
         );
       } else {
-        rethrow; // Rethrow the error if it's not a "not-found" error
+        rethrow;
       }
     } finally {
-      // Optionally, you can add any cleanup or finalization code here
       print('Field count incremented successfully');
     }
   }

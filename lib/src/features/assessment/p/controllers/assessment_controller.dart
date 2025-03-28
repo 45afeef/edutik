@@ -211,7 +211,11 @@ class AssessmentController extends GetxController {
     // Increment the submissions count for the assessment
     _repo.incrementFieldCount(
       assessmentId: assessment.value.id!,
-      fieldName: 'submissionsCount',
+      data: {
+        'submissionsCount': 1,
+        'submissionsCount-${assessmentResult.value.utmSource}':
+            1, // Increment the count for the specific source
+      },
     );
   }
 
@@ -243,7 +247,11 @@ class AssessmentController extends GetxController {
     // Increment the attempts count for the assessment
     _repo.incrementFieldCount(
       assessmentId: assessment.value.id!,
-      fieldName: 'attemptsCount',
+      data: {
+        'attemptsCount': 1,
+        'attemptsCount-$utmSource-$campaign':
+            1, // Increment the count for the specific source
+      },
     );
   }
 

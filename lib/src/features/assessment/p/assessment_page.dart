@@ -67,8 +67,6 @@ class AssessmentPage extends GetWidget<AssessmentController> {
     /// |  institute-profile  |   $kInstituteTableName/$instituteId or null                         |   Used in app routing       |
     /// |  social             |   $kUsersTableName/${AuthService().currentUser?.uid}                |   Used sharing through url  |
     /// ***************************************************************************************************************************
-    /// 
-
     final String? utmSource = Get.parameters['utm_source'];
     final String? campaign = Get.parameters['campaign'];
 
