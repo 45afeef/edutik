@@ -213,7 +213,7 @@ class AssessmentController extends GetxController {
       assessmentId: assessment.value.id!,
       data: {
         'submissionsCount': 1,
-        'submissionsCount-${assessmentResult.value.utmSource}':
+        'submissionsCount-${assessmentResult.value.utmSource}-${Uri.encodeComponent(assessmentResult.value.campaign ?? '')}':
             1, // Increment the count for the specific source
       },
     );
@@ -249,7 +249,7 @@ class AssessmentController extends GetxController {
       assessmentId: assessment.value.id!,
       data: {
         'attemptsCount': 1,
-        'attemptsCount-$utmSource-$campaign':
+        'attemptsCount-$utmSource-${Uri.encodeComponent(campaign ?? '')}':
             1, // Increment the count for the specific source
       },
     );
