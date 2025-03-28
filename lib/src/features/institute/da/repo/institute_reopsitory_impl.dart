@@ -3,6 +3,7 @@ import '../../../homepage/do/content.dart';
 import '../../do/repo/institute_repo.dart';
 import '../model/institute_model.dart';
 
+const String kInstituteTableName = _tableOrCollectionName;
 const String _tableOrCollectionName = 'institutes';
 
 class InstituteReopsitoryImpl extends InstituteRepository {

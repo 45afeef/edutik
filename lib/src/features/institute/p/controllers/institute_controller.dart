@@ -72,16 +72,15 @@ class InstituteController extends GetxController {
   }
 
   void handleProfileSharing() {
+    final String instituteUrl = Uri(
+      scheme: 'https',
+      host: 'edutik.web.app',
+      path: AppRoute.institutePage
+          .replaceFirst(':instituteId', institute.value.id!),
+    ).toString();
+
     Share.share(
-      '''Visit this profile of *${institute.value.name}* in Edukit
-
-
-here is the link
-https://edutik.web.app${AppRoute.institutePage.replaceFirst(':instituteId', '${institute.value.id}')}
-
-You can attempt free public exams here.
-''',
-    );
+        'Visit this profile of *${institute.value.name}* in Edukit\n\n\nhere is the link\n$instituteUrl\n\nYou can attempt free public exams here.\n');
 
     Clipboard.setData(ClipboardData(
         text: 'Check out this institute: ${institute.value.name}'));

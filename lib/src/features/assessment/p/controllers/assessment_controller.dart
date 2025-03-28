@@ -150,8 +150,23 @@ class AssessmentController extends GetxController {
   }
 
   void handleAssessmentSharing(Assessment assessment) {
+    // Share the assessment link with a message
+    // https://edutik.web.app/assessment/123?utm_source=facebook&campaign=spring_sale
+    // https://edutik.web.app/assessment/123?utm_source=social&campaign=users/1234567890
+
+    Uri assessmentUri = Uri(
+      scheme: 'https',
+      host: 'edutik.web.app',
+      path: AppRoute.assessmentPage.replaceFirst(':id', assessment.id!),
+      queryParameters: {
+        'utm_source': 'social',
+        'campaign': '$kUsersTableName/${AuthService().currentUser?.uid}',
+      },
+    );
+
     Share.share(
-      '*${assessment.name.trim()}* \n\n${'msg_attempt_for_free'.tr} \nhttps://edutik.web.app${AppRoute.assessmentPage.replaceFirst(':id', assessment.id!)}',
+      '*${assessment.name.trim()}*\n\n${'msg_attempt_for_free'.tr}\n${assessmentUri.toString()}',
+      subject: 'msg_assessment_share_subject'.tr,
     );
   }
 

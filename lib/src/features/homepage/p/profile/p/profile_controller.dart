@@ -56,13 +56,13 @@ class ProfileController extends GetxController {
       assessmentController.handleAssessmentSharing(assessment);
 
   void handleProfileSharing(String? profileId) {
-    Share.share(
-      '''Visit this profile of *${userProfile.value.displayName}* in Edukit
-
-here is the link
-https://edutik.web.app${AppRoute.publicProfilePage.replaceFirst(':uid', profileId ?? auth.currentUser!.uid)}
-''',
+    final uri = Uri.https(
+      'edutik.web.app',
+      AppRoute.publicProfilePage
+          .replaceFirst(':uid', profileId ?? auth.currentUser!.uid),
     );
+    Share.share(
+        "Visit this profile of *${userProfile.value.displayName}* in Edukit,\n\n here is the link:\n $uri");
   }
 
   @override
