@@ -69,10 +69,21 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
   Future<List<AssessmentResult>> _fetchResults() async {
     AssessmentController controller = Get.find<AssessmentController>();
 
-    return controller.fetchAssessmentResult(
+    var results = await controller.fetchAssessmentResult(
       widget.assessmentId,
       utmSource: widget.utmSource,
       campaign: widget.campaign,
     );
+
+    results.sort(
+      (a, b) {
+        if (a.scoredMark == null && b.scoredMark == null) return 0;
+        if (a.scoredMark == null) return 1;
+        if (b.scoredMark == null) return -1;
+        return (b.scoredMark ?? 0).compareTo(a.scoredMark ?? 0);
+      },
+    );
+
+    return results;
   }
 }
