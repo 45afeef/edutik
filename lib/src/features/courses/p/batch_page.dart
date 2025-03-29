@@ -7,6 +7,7 @@ import '/src/widgets/multi_selection_page.dart';
 import '/utils/routing/approute.dart';
 import '../../assessment/do/assessment.dart';
 import '../../assessment/p/controllers/assessment_controller.dart';
+import '../../assessment/p/result/p/leader_boad_page.dart';
 import '../../institute/do/entity/institute.dart';
 import '../../institute/p/controllers/institute_controller.dart';
 import '../controllers/course_controller.dart';
@@ -24,8 +25,12 @@ class BatchPage extends StatelessWidget {
     bool isEditor = Get.arguments['isEditor'] as bool? ?? false;
     Institute? institute = Get.arguments['institute'] as Institute?;
 
-    assert(isEditor && institute != null,
-        'Institute must not be null when isEditor is true');
+    if (isEditor) {
+      assert(
+        institute != null,
+        'Institute must not be null when isEditor is true',
+      );
+    }
 
     final AssessmentController assessmentController =
         Get.find<AssessmentController>();
@@ -59,7 +64,7 @@ class BatchPage extends StatelessWidget {
                   child: ListTile(
                     title: Text(assessment.name),
                     subtitle: Text(
-                      '${assessment.type} - ${assessment.items.length} items',
+                      '${assessment.items.length} items',
                     ),
                     trailing: isEditor
                         ? IconButton(
@@ -81,6 +86,20 @@ class BatchPage extends StatelessWidget {
                               });
                             },
                           )
+                        : null,
+                    onLongPress: isEditor
+                        ? () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => LeaderboardPage(
+                                  assessmentId: assessment.id!,
+                                  utmSource: 'batch',
+                                  campaign:
+                                      '$kCourseTableName/${batch.courseId}/$kBatchTableName/${batch.id}',
+                                ),
+                              ),
+                            );
+                          }
                         : null,
                     onTap: () {
                       Get.toNamed(

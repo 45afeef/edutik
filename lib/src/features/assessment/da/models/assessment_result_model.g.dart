@@ -33,6 +33,8 @@ _$AssessmentResultModelImpl _$$AssessmentResultModelImplFromJson(
       studentId: json['studentId'] as String,
       utmSource: json['utmSource'] as String?,
       campaign: json['campaign'] as String?,
+      scoredMark: (json['scoredMark'] as num?)?.toDouble(),
+      studentName: json['studentName'] as String?,
     );
 
 Map<String, dynamic> _$$AssessmentResultModelImplToJson(
@@ -44,4 +46,6 @@ Map<String, dynamic> _$$AssessmentResultModelImplToJson(
       'studentId': instance.studentId,
       'utmSource': instance.utmSource,
       'campaign': instance.campaign,
+      'scoredMark': instance.scoredMark,
+      'studentName': instance.studentName,
     };

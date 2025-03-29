@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'assessment_result_model.freezed.dart';
@@ -23,6 +24,8 @@ class AssessmentResultModel with _$AssessmentResultModel {
     required String studentId,
     String? utmSource,
     String? campaign,
+    double? scoredMark,
+    String? studentName,
   }) = _AssessmentResultModel;
 
   factory AssessmentResultModel.fromJson(Map<String, dynamic> json) =>

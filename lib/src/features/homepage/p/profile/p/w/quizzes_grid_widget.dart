@@ -5,6 +5,7 @@ import '/src/features/homepage/p/profile/p/profile_controller.dart';
 import '/utils/routing/approute.dart';
 import '../../../../../../widgets/empty_item.dart';
 import '../../../../../../widgets/loading.dart';
+import '../../../../../assessment/p/result/p/leader_boad_page.dart';
 import '../../da/profile_repository_impl.dart';
 
 class QuizzesGrid extends GetWidget<ProfileController> {
@@ -55,6 +56,15 @@ class QuizzesGrid extends GetWidget<ProfileController> {
                                       '$kUsersTableName/${controller.userProfile.value.uid}',
                                 },
                               ),
+                              onLongPress: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => LeaderboardPage(
+                                      assessmentId: assessment.id!,
+                                    ),
+                                  ),
+                                );
+                              },
                               child: Text(
                                 assessment.name,
                                 style: Theme.of(context).textTheme.bodySmall,

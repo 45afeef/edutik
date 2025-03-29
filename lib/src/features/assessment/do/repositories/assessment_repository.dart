@@ -9,5 +9,12 @@ abstract class AssessmentRepository extends Repository<AssessmentModel> {
   });
 }
 
-abstract class AssessmentResultRepository
-    extends Repository<AssessmentResultModel> {}
+abstract class AssessmentResultRepository {
+  Future<void> create(AssessmentResultModel model);
+
+  Future<List<AssessmentResultModel>> readAll(
+    String assessmentId, {
+    Map<String, dynamic>? query,
+    int limit = 5,
+  });
+}

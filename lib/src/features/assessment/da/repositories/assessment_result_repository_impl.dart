@@ -1,5 +1,4 @@
 import '../../../../../utils/database/database_service.dart';
-import '../../../homepage/do/content.dart';
 import '../../do/repositories/assessment_repository.dart';
 import '../models/assessment_result_model.dart';
 import 'assessment_repository_impl.dart';
@@ -27,27 +26,22 @@ class AssessmentResultRepositoryImpl extends AssessmentResultRepository {
   }
 
   @override
-  Future<void> delete(String modelId) {
-    // TODO: implement delete
-    throw UnimplementedError();
-  }
+  Future<List<AssessmentResultModel>> readAll(
+    String assessmentId, {
+    Map<String, dynamic>? query,
+    int limit = 10,
+  }) async {
+    var collectionPath =
+        '$kAssessmentsTableName/$assessmentId/$_tableOrCollectionName';
 
-  @override
-  Future<List<AssessmentResultModel>> readAll(String ownerId,
-      {UserType? ownerType, int limit = 5}) {
-    // TODO: implement readAll
-    throw UnimplementedError();
-  }
+    var input = await databaseService.getAllData(
+      collection: collectionPath,
+      query: query,
+      limit: limit,
+    );
 
-  @override
-  Future<AssessmentResultModel> readOne(String modelId, {UserType? ownerType}) {
-    // TODO: implement readOne
-    throw UnimplementedError();
-  }
+    var output = input.map((e) => AssessmentResultModel.fromJson(e)).toList();
 
-  @override
-  Future<void> update(String modelId, Map<String, dynamic> json) {
-    // TODO: implement update
-    throw UnimplementedError();
+    return output;
   }
 }

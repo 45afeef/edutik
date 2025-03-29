@@ -5,6 +5,7 @@ import '../../../../../utils/routing/approute.dart';
 import '../../../../widgets/empty_item.dart';
 import '../../../../widgets/loading.dart';
 import '../../../assessment/do/assessment.dart';
+import '../../../assessment/p/result/p/leader_boad_page.dart';
 import '../../../authentication/auth_service.dart';
 import '../../da/repo/institute_reopsitory_impl.dart';
 import '../../do/entity/institute.dart';
@@ -149,6 +150,16 @@ class _AssessmentList extends StatelessWidget {
             child: ListTile(
               leading: Text('${index + 1}'),
               title: Text(assessment.name),
+              onLongPress: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => LeaderboardPage(
+                      assessmentId: assessment.id!,
+                      utmSource: 'institute-profile',
+                    ),
+                  ),
+                );
+              },
               onTap: () {
                 Get.toNamed(
                   AppRoute.assessmentPage

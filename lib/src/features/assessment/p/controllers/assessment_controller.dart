@@ -135,6 +135,27 @@ class AssessmentController extends GetxController {
     return response;
   }
 
+  /// Fetch assessment Results by id, with optional params like 'utm_source' and 'campaign'
+  Future<List<AssessmentResult>> fetchAssessmentResult(
+    String assessmentId, {
+    String? utmSource,
+    String? campaign,
+  }) async {
+    var resultModelList = await _assessmentResultRepo.readAll(
+      assessmentId,
+      query: {
+        if (utmSource != null) 'utmSource': utmSource,
+        if (campaign != null) 'campaign': campaign,
+      },
+      limit: 20,
+    );
+
+    var resultEntityList =
+        resultModelList.map((m) => AssessmentResultMapper.toEntity(m)).toList();
+
+    return resultEntityList;
+  }
+
   /// Fetches public assessments by their full reference
   Future<List<Assessment>> fetchPublicAssessmentsByRef(
       List<String>? assessmentIds) async {
@@ -211,8 +232,13 @@ class AssessmentController extends GetxController {
   }
 
   void saveResult() {
+    // add mark optained by the student to the assessment result
+    assessmentResult.value.scoredMark = calculateTotalMarks();
+
+    // Convert the assessment result to a model
     final assessmentResultModel =
         AssessmentResultMapper.fromEntity(assessmentResult.value);
+
     _assessmentResultRepo.create(assessmentResultModel);
 
     // Increment the submissions count for the assessment
@@ -233,16 +259,19 @@ class AssessmentController extends GetxController {
   }) {
     if (assessment.value == Assessment.empty()) return;
 
-    // Initialize the assessment result with the current assessment
-    var studentId = AuthService().currentUser?.uid;
+    var currentUser = AuthService().currentUser;
+    var studentId = currentUser?.uid;
     if (studentId == null) return;
+    var studentName = currentUser?.displayName;
 
+    // Initialize the assessment result with the current assessment
     assessmentResult = AssessmentResult(
       initialResponse: {},
       assessmentId: assessment.value.id,
       studentId: studentId,
       utmSource: utmSource,
       campaign: campaign,
+      studentName: studentName,
     ).obs;
 
     currentQuestionIndex.value = 0;

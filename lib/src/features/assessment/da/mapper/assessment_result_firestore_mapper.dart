@@ -22,6 +22,8 @@ class AssessmentResultMapper {
       studentResponse: studentResponse,
       utmSource: entity.utmSource,
       campaign: entity.campaign,
+      scoredMark: entity.scoredMark,
+      studentName: entity.studentName,
     );
   }
 
@@ -42,6 +44,8 @@ class AssessmentResultMapper {
       initialResponse: convertedMap,
       utmSource: model.utmSource,
       campaign: model.campaign,
+      scoredMark: model.scoredMark,
+      studentName: model.studentName, 
     );
   }
 }

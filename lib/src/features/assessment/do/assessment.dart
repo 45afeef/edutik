@@ -37,6 +37,8 @@ class AssessmentResult {
   String? studentId;
   String? utmSource;
   String? campaign;
+  double? scoredMark;
+  String? studentName;
 
   // Constructor
   AssessmentResult({
@@ -45,6 +47,8 @@ class AssessmentResult {
     this.studentId,
     this.utmSource,
     this.campaign,
+    this.scoredMark,
+    this.studentName,
   }) : studentResponse = initialResponse ?? {};
 
   AssessmentItemResponse? getItemResponse(int index) => studentResponse[index];
