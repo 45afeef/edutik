@@ -59,6 +59,17 @@ class CourseController extends GetxController {
     return _batchRepo.readAll(courseId);
   }
 
+  removeAssessmentFromBatch({
+    required String batchId,
+    required String courseId,
+    required String assessmentId,
+  }) {
+    updateBatch(batchId, {
+      'assessments': FieldValue.arrayRemove([assessmentId]),
+      'courseId': courseId,
+    });
+  }
+
   Future<void> saveBatch(BatchModel model) async {
     _batchRepo.create(model);
   }

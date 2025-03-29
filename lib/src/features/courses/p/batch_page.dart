@@ -24,10 +24,8 @@ class BatchPage extends StatelessWidget {
     bool isEditor = Get.arguments['isEditor'] as bool? ?? false;
     Institute? institute = Get.arguments['institute'] as Institute?;
 
-    if (isEditor) {
-      assert(institute != null,
-          'Institute must not be null when isEditor is true');
-    }
+    assert(isEditor && institute != null,
+        'Institute must not be null when isEditor is true');
 
     final AssessmentController assessmentController =
         Get.find<AssessmentController>();
@@ -37,6 +35,8 @@ class BatchPage extends StatelessWidget {
         title: Text(batch.name),
       ),
       body: FutureBuilder<List<Assessment>>(
+        // TODO: Implement pageination or lazy loading if needed
+        // For now, we are fetching all assessments in the batch
         future: Future.wait((batch.assessments ?? [])
             .map((id) => assessmentController.fetchAssessment(id))),
         builder: (context, snapshot) {
@@ -58,6 +58,30 @@ class BatchPage extends StatelessWidget {
                   margin: const EdgeInsets.all(8),
                   child: ListTile(
                     title: Text(assessment.name),
+                    subtitle: Text(
+                      '${assessment.type} - ${assessment.items.length} items',
+                    ),
+                    trailing: isEditor
+                        ? IconButton(
+                            icon: const Icon(Icons.delete),
+                            onPressed: () {
+                              final CourseController courseController =
+                                  Get.find<CourseController>();
+                              courseController
+                                  .removeAssessmentFromBatch(
+                                      batchId: batch.id!,
+                                      courseId: batch.courseId,
+                                      assessmentId: assessment.id!)
+                                  .then((_) {
+                                Get.snackbar(
+                                  'Success',
+                                  'Assessment removed from batch',
+                                  snackPosition: SnackPosition.BOTTOM,
+                                );
+                              });
+                            },
+                          )
+                        : null,
                     onTap: () {
                       Get.toNamed(
                         AppRoute.assessmentPage
