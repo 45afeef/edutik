@@ -66,10 +66,17 @@ class AssessmentController extends GetxController {
   double calculateTotalMarks() {
     int totalMarks = 0;
     for (var response in assessmentResult.value.studentResponse.values) {
-      if (response.studentAnswer == response.currectAnswer) {
-        totalMarks += 3; // Assuming each question has 1 mark
-      } else {
-        totalMarks -= 1;
+      // Check if the response is not null and has a student answer
+      // This is becasue there is a
+      //  Positive marks for correct answer and
+      //  Negative marks for wrong answer.
+      //  No marks for skipped questions.
+      if (response.studentAnswer != null) {
+        if (response.studentAnswer == response.currectAnswer) {
+          totalMarks += 3; // Assuming each question has 1 mark
+        } else {
+          totalMarks -= 1;
+        }
       }
     }
 
